@@ -1,12 +1,12 @@
 import React from "react";
-import {NavBar} from '.elements';
+import {NavBar} from './elements';
 import headerStyles from "./app-header.module.css";
 
-export default class AppHeader extends React.Compoennt {
+export default class AppHeader extends React.Component {
     render () {
         return (
             <header className = {headerStyles.header}>
-                <Navbar/>
+                <NavBar/>
             </header>
         )
     }

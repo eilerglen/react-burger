@@ -1,0 +1,10 @@
+.ingredients {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 0;
+  }
+  .title {
+    align-self: flex-start;
+  }
