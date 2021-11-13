@@ -1,6 +1,8 @@
 import React from "react";
 import ingridientsStyles from "./burger-ingridients.module.css";
 import { Tabs, Menu } from './elements';
+import PropTypes from 'prop-types';
+
 
 const BurgerIngridients = (props) => {
   const [current, setCurrent] = React.useState('Все ингридиенты')
@@ -16,3 +18,7 @@ const BurgerIngridients = (props) => {
   );
 }
 export default BurgerIngridients;
+
+BurgerIngridients.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+}

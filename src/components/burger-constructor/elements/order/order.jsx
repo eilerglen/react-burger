@@ -1,6 +1,7 @@
 import React from 'react';
 import orderStyles from './order.module.css'
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from 'prop-types';
 
 const Order = ({total}) => {
 
@@ -14,3 +15,7 @@ const Order = ({total}) => {
     )
 }
 export default Order;
+
+Order.propTypes = {
+    total: PropTypes.number.isRequired
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import {ConstructorItem} from "../constructor-item";
 import constructorListStyles from './constructor-list.module.css'
-
+import PropTypes from 'prop-types';
 const ConstructorList = ({data}) => {
     return (
         <ul className = {constructorListStyles.main_container}>
@@ -18,3 +18,9 @@ const ConstructorList = ({data}) => {
 }
 
 export default ConstructorList;
+
+ConstructorList.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+    }).isRequired).isRequired
+}

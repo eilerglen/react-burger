@@ -1,5 +1,6 @@
 import React from "react";
 import navItemStyles from './nav-item.module.css';
+import PropTypes from 'prop-types';
 
 export default class NavItem extends React.Component {
 
@@ -13,4 +14,9 @@ export default class NavItem extends React.Component {
       </a>
     );
   }
+}
+
+NavItem.propTypes = {
+  text: PropTypes.string.isRequired,
+  children: PropTypes.element
 }
