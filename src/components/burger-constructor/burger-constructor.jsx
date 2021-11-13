@@ -1,19 +1,16 @@
 import React from 'react';
 import constructorStyles from './burger-constructor.module.css';
-import Scrollbar from '../custom-scrollbar/custom-scrollbar';
-import {ConstructorList, Order} from './parts';
+import {ConstructorList, Order} from './elements';
 
-
-
-export default class BurgerIngridients extends React.Component {
+export default class BurgerConstructor extends React.Component {
 
     render() {
         const total = this.props.data.reduce((acc, p) => acc + p.price, 0);
         return (
             <section className={constructorStyles.constructor}>
-                <Scrollbar context="constructor">
+                <div className = {constructorStyles.scroller}>
                     <ConstructorList data={this.props.data}/>
-                </Scrollbar>
+                </div>    
                 <Order total={total}/>
             </section>
         );
