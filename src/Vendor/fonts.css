@@ -18,12 +18,4 @@
     font-display: swap;
   }
   
-  @font-face {
-    font-family: 'Iceland';
-    src:
-    url('./fonts/Iceland/Iceland-Regular.woff2') format('woff2'),
-    url('./fonts/Iceland/Iceland-Regular.woff') format('woff'),
-    url('./fonts/Iceland/Iceland-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-display: swap;
-  }
+ 
