@@ -1,4 +1,3 @@
-import React from 'react';
 import {ConstructorItem} from "../constructor-item";
 import constructorListStyles from './constructor-list.module.css'
 import PropTypes from 'prop-types';

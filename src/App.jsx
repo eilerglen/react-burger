@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css';
 import AppHeader from './components/app-header/app-header';
 import BurgerIngridients from './components/burger-ingridients/burger-ingridients';
