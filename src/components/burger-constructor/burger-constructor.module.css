@@ -1,7 +1,6 @@
 .constructor {
     width: 600px;
-    composes: ml-5 from global;
-    composes: pt-25 from global;
+    composes: ml-5 pt-25 from global;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
