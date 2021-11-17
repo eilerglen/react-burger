@@ -1,25 +1,24 @@
-import constructorItemStyles from "./constructor-item.module.css";
+import ingredientStyles from "./ingridient.module.css";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
 
-const ConstructorItem = ({item, type}) => {
+const Ingredient = ({item, type }) => {
     return ( 
-        <li className={constructorItemStyles.item_container} key={item._id}>
-            {item.fat < 100 && <DragIcon type="primary" />}
+        <div className={ingredientStyles.item_container}>
+            <DragIcon type="primary" />
             <ConstructorElement
                 type={type}
-                isLocked={item.fat < 100 ? false : true}
                 text={item.name}
                 price={item.price}
                 thumbnail={item.image}
             />
-        </li>
+        </div>
     );
 }
  
-export default ConstructorItem;
+export default Ingredient;
 
-ConstructorItem.propTypes = {
+Ingredient.propTypes = {
     item: PropTypes.shape({
         _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,

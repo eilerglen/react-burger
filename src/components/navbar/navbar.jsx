@@ -5,7 +5,7 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {NavItem} from "../nav-item";
+import NavItem from "../nav-item/nav-item";
 import navbarStyles from "./navbar.module.css";
 
 export default class NavBar extends React.Component {
@@ -26,7 +26,7 @@ export default class NavBar extends React.Component {
             <li className={navbarStyles.logo}>
               <Logo />
            </li>
-            <li>
+            <li >
               <NavItem text="Личный кабинет">
                 <ProfileIcon />
               </NavItem>

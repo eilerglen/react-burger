@@ -4,8 +4,9 @@
     width: 100%;
     justify-content: flex-end;
     list-style: none;
+    cursor: move;
 }
-/* далее идут костыли (имхо) для импортируемых модулей */
+
 .item_container svg {
     margin-right: 8px;
 }
@@ -14,4 +15,11 @@
 }
 .item_container span:first-of-type + span {
     flex-grow: 1;
+}
+
+.list_item {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }

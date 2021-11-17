@@ -1,21 +1,21 @@
 .ingredients {
-    width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-grow: 0;
-  }
-  .title {
-    composes: text_type_main-large mt-10 mb-5 from global;
-    align-self: flex-start;
-  }
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  composes: mr-5 from global;
+  flex-grow: 0;
+}
+.title {
+  composes: text_type_main-large mt-10 mb-5 from global;
+  align-self: flex-start;
+}
 
 .scroller {
   max-height: 900px;
   overflow-y: auto;
   scrollbar-color: #8585AD #2F2F37;
   scrollbar-width: thin;
-  composes: mb-4 mt-4 from global;
 }
 
 .scroller::-webkit-scrollbar {
@@ -26,4 +26,4 @@
 }
 .scroller::-webkit-scrollbar-thumb {
   background: #8585AD;
-}  
+}
