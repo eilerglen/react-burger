@@ -1,6 +1,7 @@
 import detailsModalStyles from './ingredient-details.module.css';
 import CompositionList from '../composition-list/composition-list';
 import PropTypes from 'prop-types';
+import { IngredientPropTypes } from '../../utils/utils';
 
 function IngredientDetails({ ingredientToShow }) {
     return (
@@ -19,10 +20,6 @@ function IngredientDetails({ ingredientToShow }) {
 export default IngredientDetails;
 
 IngredientDetails.propTypes = {
-    ingredientToShow: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        image: PropTypes.string.isRequired,
-        image_mobile: PropTypes.string.isRequired,
-        image_large: PropTypes.string.isRequired,
-    }).isRequired,
+    ingredientToShow: IngredientPropTypes
 }
+

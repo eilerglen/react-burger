@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const CompositionList = ({ calories, proteins, fat, carbohydrates }) => {
 
     return (
-        <ul className={compositionListStyles.nutrition}>
+        <ul className={compositionListStyles.composition}>
             <CompositionItem title='Калории,ккал' value={calories} />
             <CompositionItem title='Белки, г' value={proteins} />
             <CompositionItem title='Жиры, г' value={fat} />

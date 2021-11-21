@@ -1,7 +1,6 @@
-import ingredientStyles from "./ingridient.module.css";
+import ingredientStyles from "./ingredient.module.css";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
-
 const Ingredient = ({item, type }) => {
     return ( 
         <div className={ingredientStyles.item_container}>
@@ -27,3 +26,4 @@ Ingredient.propTypes = {
     }),
     type: PropTypes.string,
 }
+

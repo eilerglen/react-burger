@@ -1,13 +1,12 @@
-
-import Ingridient from "../ingridient/ingridient";
-import ingridientsListStyles from './ingridient-list.module.css';
+import Ingridient from "../ingredient/ingredient";
+import ingredientsListStyles from './ingredient-list.module.css';
 import PropTypes from 'prop-types';
 
-const IngridientsList = ({ data, type }) => {
+const IngredientsList = ({ data, type }) => {
     return (
-        <ul className={ingridientsListStyles.main_container}>
+        <ul className={ingredientsListStyles.main_container}>
             {data.map((item) => (
-                <li className={ingridientsListStyles.list_item} key={item._id}>
+                <li className={ingredientsListStyles.list_item} key={item._id}>
                     <Ingridient
                         item={item}
                         type={type}
@@ -19,9 +18,9 @@ const IngridientsList = ({ data, type }) => {
     );
 }
 
-export default IngridientsList;
+export default IngredientsList;
 
-IngridientsList.propTypes = {
+IngredientsList.propTypes = {
     data: PropTypes.arrayOf(PropTypes.shape({
         _id: PropTypes.string.isRequired,
     }).isRequired).isRequired
