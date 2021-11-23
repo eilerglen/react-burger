@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { IngredientPropTypes } from "../../utils/utils";
 
 
-const BurgerIngridients = ({data}) => {
+const BurgerIngridients = ({ingredients}) => {
   const [current, setCurrent] = React.useState('bun')
 
   return (
@@ -14,7 +14,7 @@ const BurgerIngridients = ({data}) => {
       <h1 className={ingredientsStyles.title}>Соберите бургер</h1>
       <Tabs current={current} onClick={setCurrent} />
       <div className={ingredientsStyles.scroller}>
-        <Menu data={data} current={current} />
+        <Menu ingredients={ingredients} current={current} />
       </div>
     </section>
   );
@@ -22,6 +22,6 @@ const BurgerIngridients = ({data}) => {
 export default BurgerIngridients;
 
 BurgerIngridients.propTypes = {
-  data: PropTypes.arrayOf(IngredientPropTypes).isRequired
+  ingredients: PropTypes.arrayOf(IngredientPropTypes).isRequired
 }
 

@@ -2,10 +2,10 @@ import Ingridient from "../ingredient/ingredient";
 import ingredientsListStyles from './ingredient-list.module.css';
 import PropTypes from 'prop-types';
 
-const IngredientsList = ({ data, type }) => {
+const IngredientsList = ({ ingredients, type }) => {
     return (
         <ul className={ingredientsListStyles.main_container}>
-            {data.map((item) => (
+            {ingredients.map((item) => (
                 <li className={ingredientsListStyles.list_item} key={item._id}>
                     <Ingridient
                         item={item}
@@ -21,7 +21,7 @@ const IngredientsList = ({ data, type }) => {
 export default IngredientsList;
 
 IngredientsList.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
+    ingredients: PropTypes.arrayOf(PropTypes.shape({
         _id: PropTypes.string.isRequired,
     }).isRequired).isRequired
 }

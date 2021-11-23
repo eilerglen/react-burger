@@ -10,10 +10,10 @@ const ModalOverlay = ({ isOpen, onClick }) => {
         onClick(e);
       }
     };
-    window.addEventListener("click", handleOverlayClick);
+    document.addEventListener("click", handleOverlayClick);
 
     return () => {
-      window.removeEventListener("click", handleOverlayClick);
+      document.removeEventListener("click", handleOverlayClick);
     };
   }, [onClick]);
   
