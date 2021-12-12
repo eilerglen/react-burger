@@ -2,16 +2,17 @@ import { ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-compo
 import bunStyles from './bun.module.css'
 import PropTypes from 'prop-types';
 
-const Bun = ({data, position}) => {
+const Bun = ({ingredients, position}) => {
+    const positionText = position === 'top' ? '(верх)' : '(низ)';
     return ( 
         <div className={bunStyles.bun}>
-            {data &&
+            {ingredients &&
             <ConstructorElement
                 type={position}
                 isLocked={true}
-                text={data.name}
-                price={data.price}
-                thumbnail={data.image}
+                text={`${ingredients.name} ${positionText}`}
+                price={ingredients.price}
+                thumbnail={ingredients.image}
             />
             }
         </div>
@@ -21,7 +22,7 @@ const Bun = ({data, position}) => {
 export default Bun;
 
 Bun.propTypes = {
-    data: PropTypes.shape({
+    ingredients: PropTypes.shape({
         name: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         image: PropTypes.string.isRequired,

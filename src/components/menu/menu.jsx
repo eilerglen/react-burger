@@ -3,7 +3,7 @@ import menuStyles from './menu.module.css';
 import Card from '../card/card';
 import PropTypes from 'prop-types';
 
-const Menu = ({data, current}) => {
+const Menu = ({ingredients, current}) => {
     const bunRef = React.useRef(null)
     const sauceRef = React.useRef(null)
     const mainRef = React.useRef(null)
@@ -21,21 +21,21 @@ const Menu = ({data, current}) => {
         <>
             <h2 className={menuStyles.title} ref={bunRef}>Булки</h2>
             <div className={menuStyles.items}>
-                {data.filter(ingredient => ingredient.type === 'bun').map(bun => (
+                {ingredients.filter(ingredient => ingredient.type === 'bun').map(bun => (
                     <Card item={bun} key={bun._id} count={0} />
                 ))
                 }
             </div>
             <h2 className={menuStyles.title} ref={sauceRef}>Соусы</h2>
             <div className={menuStyles.items}>
-                {data.filter(ingredient => ingredient.type === 'sauce').map(sauce => (
+                {ingredients.filter(ingredient => ingredient.type === 'sauce').map(sauce => (
                     <Card item={sauce} key={sauce._id} count={1} />
                 ))
                 }
             </div>
             <h2 className={menuStyles.title} ref={mainRef}>Начинки</h2>
             <div className={menuStyles.items}>
-                {data.filter(ingredient => ingredient.type === 'main').map(main => (
+                {ingredients.filter(ingredient => ingredient.type === 'main').map(main => (
                     <Card item={main} key={main._id} count={2} />
                 ))
                 }
@@ -47,7 +47,7 @@ const Menu = ({data, current}) => {
 export default Menu;
 
 Menu.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
+    ingredients: PropTypes.arrayOf(PropTypes.shape({
         _id: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
 

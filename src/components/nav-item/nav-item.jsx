@@ -18,5 +18,5 @@ export default class NavItem extends React.Component {
 
 NavItem.propTypes = {
   text: PropTypes.string.isRequired,
-  children: PropTypes.element
+  children: PropTypes.element.isRequired,
 }

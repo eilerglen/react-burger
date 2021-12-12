@@ -1,19 +1,42 @@
+import React from 'react';
 import cardStyles from './card.module.css';
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { IngredientPropTypes } from '../../utils/utils';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import Modal from '../modal/modal'
 
-const Card = ({ item }) => {
-
+const Card = ({ item, count }) => {
+    const [isIngModalOpen, setIsIngModalOpen] = React.useState(false)
+    const [ingredientToShow, setIngredientToShow] = React.useState({})
+    const openIngModal = (data) => {
+        setIsIngModalOpen(true)
+        setIngredientToShow(data)
+    }
+    const handleClose = (e) => {
+        e.stopPropagation();
+        setIsIngModalOpen(false);
+    };
     return (
-        <article className={cardStyles.item} key={item._id}>
-            <Counter count={1} />
+        <article className={cardStyles.item} key={item._id} onClick={() => openIngModal(item)}>
+            {count > 0 && <Counter count={count} />}
             <picture className={cardStyles.picture}>
-                <source media="(max-width: 799px)" srcSet={item.image_mobile} />
-                <source media="(min-width: 800px)" srcSet={item.image_large} />
+                <source media="(max-width: 767px)" srcSet={item.image_mobile} />
+                <source media="(min-width: 768px)" srcSet={item.image_large} />
                 <img className={cardStyles.image} src={item.image} alt={item.name} />
             </picture>
             <span className={cardStyles.price}>{item.price}&nbsp;<CurrencyIcon type="primary" /></span>
             <p className={cardStyles.text}>{item.name}</p>
+            {isIngModalOpen && (
+                <Modal title='Детали ингредиента' isOpen={isIngModalOpen} onClose={handleClose}>
+                    <IngredientDetails ingredientToShow={ingredientToShow} />
+                </Modal>)
+            }
         </article>
     )
 }
+
 export default Card;
+
+Card.propTypes = {
+    item: IngredientPropTypes
+}
