@@ -1,19 +1,36 @@
 import { ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import bunStyles from './bun.module.css'
 import PropTypes from 'prop-types';
+import { useEffect } from "react";
 
-const Bun = ({ingredients, position}) => {
-    const positionText = position === 'top' ? '(верх)' : '(низ)';
+const Bun = ({ position }) => {
+    const { bun } = useSelector(store => store.cart.sortedCart);
+    const [isEmpty, setEmpty] = useState(true);
+    useEffect(() =>{
+        if(bun._id) {
+            setEmpty(false)
+        } else {
+            setEmpty(true)
+        }
+    }, [bun])    
+    
+
     return ( 
-        <div className={bunStyles.bun}>
-            {ingredients &&
-            <ConstructorElement
-                type={position}
-                isLocked={true}
-                text={`${ingredients.name} ${positionText}`}
-                price={ingredients.price}
-                thumbnail={ingredients.image}
-            />
+         <div className={isEmpty ? bunStyles.bun_empty : bunStyles.bun}>
+            {!isEmpty ?
+                <ConstructorElement
+                    type={position}
+                    isLocked={true}
+                    text={bun.name}
+                    price={bun.price}
+                    thumbnail={bun.image}
+                />
+                :
+                <ConstructorElement
+                    type={position}
+                    text={"Перетащите сюда вашу булку"}
+                />
+
             }
         </div>
      );

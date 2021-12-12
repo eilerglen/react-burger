@@ -3,22 +3,45 @@ import cardStyles from './card.module.css';
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientPropTypes } from '../../utils/utils';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import Modal from '../modal/modal'
+import Modal from '../modal/modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetIngredientToShow, setIngredientToShow } from 'services/ingredientsSlice';
+import { useDrag } from "react-dnd";
+import { closeDetailsModal, openDetailsModal } from 'services/modalSlice';
 
-const Card = ({ item, count }) => {
+const Card = ({ item }) => {
+    const dispatch = useDispatch();
+    const {isDetailsModalOpen} = useSelector(store =>store.modal)
+    const {counts}  = useSelector(store => store.cart)
+
     const [isIngModalOpen, setIsIngModalOpen] = React.useState(false)
     const [ingredientToShow, setIngredientToShow] = React.useState({})
-    const openIngModal = (data) => {
-        setIsIngModalOpen(true)
-        setIngredientToShow(data)
-    }
+
+    const openIngModal = React.useCallback(
+        (item) => {
+            dispatch(setIngredientToShow(item))
+            dispatch(openDetailsModal())
+        },
+        [dispatch]
+    );
+
     const handleClose = (e) => {
         e.stopPropagation();
-        setIsIngModalOpen(false);
+        dispatch(resetIngredientToShow())
+        dispatch(closeDetailsModal())
     };
+
+    const [, dragRef] = useDrag({
+        type: "ingredients",
+        item: {item},
+        collect: monitor => ({
+            isDrag: monitor.isDragging()
+        })
+    })
+
     return (
-        <article className={cardStyles.item} key={item._id} onClick={() => openIngModal(item)}>
-            {count > 0 && <Counter count={count} />}
+        <article className={cardStyles.item} key={item._id} onClick={() => openIngModal(item)} ref={dragRef}>
+            {counts[item._id]> 0 && <Counter count={count[item._id]} />}
             <picture className={cardStyles.picture}>
                 <source media="(max-width: 767px)" srcSet={item.image_mobile} />
                 <source media="(min-width: 768px)" srcSet={item.image_large} />
@@ -26,9 +49,9 @@ const Card = ({ item, count }) => {
             </picture>
             <span className={cardStyles.price}>{item.price}&nbsp;<CurrencyIcon type="primary" /></span>
             <p className={cardStyles.text}>{item.name}</p>
-            {isIngModalOpen && (
-                <Modal title='Детали ингредиента' isOpen={isIngModalOpen} onClose={handleClose}>
-                    <IngredientDetails ingredientToShow={ingredientToShow} />
+            {isDetailsModalOpen && (
+                <Modal name='Details' title='Детали ингредиента' isOpen={isIngModalOpen} onClose={handleClose}>
+                    <IngredientDetails item={item} />
                 </Modal>)
             }
         </article>
