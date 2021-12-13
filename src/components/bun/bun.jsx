@@ -2,11 +2,13 @@ import { ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-compo
 import bunStyles from './bun.module.css'
 import PropTypes from 'prop-types';
 import { useEffect } from "react";
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 const Bun = ({ position }) => {
     const { bun } = useSelector(store => store.cart.sortedCart);
     const [isEmpty, setEmpty] = useState(true);
-    useEffect(() =>{
+    useEffect(() => {
         if(bun._id) {
             setEmpty(false)
         } else {
@@ -28,7 +30,7 @@ const Bun = ({ position }) => {
                 :
                 <ConstructorElement
                     type={position}
-                    text={"Перетащите сюда вашу булку"}
+                    text={"Место для аппетитной булки"}
                 />
 
             }

@@ -9,7 +9,7 @@ const initialState = {
     total: 0,
 }
 
-export const carSlice = createSlice({
+export const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {

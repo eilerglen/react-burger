@@ -1,8 +1,10 @@
 import detailsModalStyles from './ingredient-details.module.css';
 import CompositionList from '../composition-list/composition-list';
 import { IngredientPropTypes } from '../../utils/utils';
+import { useSelector } from 'react-redux';
 
-function IngredientDetails({ ingredientToShow }) {
+function IngredientDetails() {
+    const ingredientToShow = useSelector(store => store.ingredients.ingredientToShow)
     return (
         <div className={detailsModalStyles.detail}>
             <picture className={detailsModalStyles.picture}>
@@ -11,7 +13,7 @@ function IngredientDetails({ ingredientToShow }) {
                 <img src={ingredientToShow.image} alt={ingredientToShow.name} className={detailsModalStyles.image} />
             </picture>
             <h3 className={detailsModalStyles.title}>{ingredientToShow.name}</h3>
-            <CompositionList {...ingredientToShow} />
+            <CompositionList />
         </div>
     )
 

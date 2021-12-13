@@ -5,8 +5,6 @@ import BurgerIngridients from '../burger-ingredients/burger-ingredients';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 
-const INGREDIENTS_URL = "https://norma.nomoreparties.space/api/ingredients";
-
 function App() {
   return (
     <>

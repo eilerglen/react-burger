@@ -3,8 +3,8 @@ import CompositionItem  from '../composition-item/composition-item'
 import PropTypes from 'prop-types';
 
 
-const CompositionList = ({ calories, proteins, fat, carbohydrates }) => {
-
+const CompositionList = () => {
+    const { calories, proteins, fat, carbohydrates } = useSelector(store => store.ingredients.ingredientToShow)
     return (
         <ul className={compositionListStyles.composition}>
             <CompositionItem title='Калории,ккал' value={calories} />
@@ -15,10 +15,3 @@ const CompositionList = ({ calories, proteins, fat, carbohydrates }) => {
     )
 }
 export default CompositionList;
-
-CompositionList.propTypes = {
-    proteins: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    calories: PropTypes.number.isRequired,
-}

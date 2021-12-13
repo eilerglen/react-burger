@@ -9,7 +9,7 @@ const store = configureStore({
         ingredients: ingredientsReducer,
         order: orderReducer,
         cart: cartReducer,
-        modal: modaLReducer,
+        modal: modalReducer,
 
     },
     devTools: true,

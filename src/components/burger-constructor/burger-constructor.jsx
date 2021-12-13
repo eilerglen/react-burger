@@ -27,9 +27,9 @@ export default function BurgerConstructor() {
 
     return (
         <section className={constructorStyles.constructor} ref={dropRef} style={{ border }}>
-            <Bun position="top"ingredients={bun} />
+            <Bun position="top" ingredients={bun} />
             <div className={constructorStyles.scroller}>
-                <IngredientsList ingredients={ingredients.filter(item => item.type !== 'bun')} />
+                <IngredientsList />
             </div>
             <Bun position="bottom" ingredients={bun} />
             <Order />

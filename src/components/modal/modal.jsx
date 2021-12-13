@@ -4,11 +4,14 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
+import { useSelector } from 'react-redux';
 
 
 const modalRoot = document.getElementById('modal-root');
 
-export default function Modal ({title, isOpen, onClose, children})  {
+export default function Modal ({title, onClose, children, name})  {
+    const isOpen = useSelector(store => store.modal[`is${name}ModalOpen`])
+
     React.useEffect(() => {
         const handleEsc = (e) => {
             if(e.keyCode === 27) {
@@ -29,7 +32,6 @@ export default function Modal ({title, isOpen, onClose, children})  {
                   <span className = {modalStyles.close} onClick = {onClose}>
                     <CloseIcon/>
                   </span>  
-
                 {children}
                </div>
             <ModalOverlay isOpen ={isOpen} onClick={onClose}/>

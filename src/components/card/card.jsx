@@ -5,11 +5,11 @@ import { IngredientPropTypes } from '../../utils/utils';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetIngredientToShow, setIngredientToShow } from 'services/ingredientsSlice';
+import { resetIngredientToShow } from 'services/ingredientsSlice';
 import { useDrag } from "react-dnd";
 import { closeDetailsModal, openDetailsModal } from 'services/modalSlice';
 
-const Card = ({ item }) => {
+export const Card = ({ item }) => {
     const dispatch = useDispatch();
     const {isDetailsModalOpen} = useSelector(store =>store.modal)
     const {counts}  = useSelector(store => store.cart)
@@ -41,7 +41,7 @@ const Card = ({ item }) => {
 
     return (
         <article className={cardStyles.item} key={item._id} onClick={() => openIngModal(item)} ref={dragRef}>
-            {counts[item._id]> 0 && <Counter count={count[item._id]} />}
+            {counts[item._id]> 0 && <Counter count={counts[item._id]} />}
             <picture className={cardStyles.picture}>
                 <source media="(max-width: 767px)" srcSet={item.image_mobile} />
                 <source media="(min-width: 768px)" srcSet={item.image_large} />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import menuStyles from './menu.module.css';
 import Card from '../card/card';
 import { useSelector } from 'react-redux';
