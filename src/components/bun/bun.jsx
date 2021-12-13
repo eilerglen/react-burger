@@ -39,12 +39,3 @@ const Bun = ({ position }) => {
 }
  
 export default Bun;
-
-Bun.propTypes = {
-    ingredients: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-    }),
-    position: PropTypes.string.isRequired,
-}

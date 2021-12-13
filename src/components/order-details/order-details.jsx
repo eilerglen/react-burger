@@ -7,7 +7,7 @@ export default function OrderDetails() {
     return (
         <>
             <span className={orderDetailsStyles.order_number}>
-               {order.succes && order.order.number}
+               {order.success && order.order.number}
             </span>
             <span className={orderDetailsStyles.subtitle}>{isLoading ? 'загружаем...' : 'идентификатор заказа'}</span>
             <span className={orderDetailsStyles.icon}>

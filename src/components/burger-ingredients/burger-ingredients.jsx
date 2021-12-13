@@ -9,7 +9,7 @@ import { getIngredients } from '../../services/ingredientsSlice';
 import { IngredientPropTypes } from "../../utils/utils";
 
 
-const BurgerIngridients = () => {
+const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState('bun')
   const dispatch = useDispatch();
   
@@ -28,9 +28,7 @@ const BurgerIngridients = () => {
     </section>
   );
 }
-export default BurgerIngridients;
+export default BurgerIngredients;
 
-BurgerIngridients.propTypes = {
-  ingredients: PropTypes.arrayOf(IngredientPropTypes).isRequired
-}
+
 

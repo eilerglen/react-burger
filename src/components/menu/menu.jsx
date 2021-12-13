@@ -47,11 +47,3 @@ const Menu = ({current, setCurrent}) => {
 } 
 export default Menu;
 
-Menu.propTypes = {
-    ingredients: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-
-    }).isRequired).isRequired,
-    current: PropTypes.string
-}

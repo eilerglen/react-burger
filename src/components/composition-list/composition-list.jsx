@@ -1,7 +1,6 @@
 import compositionListStyles from './composition-list.module.css';
 import CompositionItem  from '../composition-item/composition-item'
-import PropTypes from 'prop-types';
-
+import { useSelector } from 'react-redux';
 
 const CompositionList = () => {
     const { calories, proteins, fat, carbohydrates } = useSelector(store => store.ingredients.ingredientToShow)

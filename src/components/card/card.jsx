@@ -5,9 +5,9 @@ import { IngredientPropTypes } from '../../utils/utils';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetIngredientToShow } from 'services/ingredientsSlice';
+import { resetIngredientToShow } from '../../services/ingredientsSlice';
 import { useDrag } from "react-dnd";
-import { closeDetailsModal, openDetailsModal } from 'services/modalSlice';
+import { closeDetailsModal, openDetailsModal } from '../../services/modalSlice';
 
 export const Card = ({ item }) => {
     const dispatch = useDispatch();

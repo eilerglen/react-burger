@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { API } from "components/app/app";
+import { BASEURL } from "../utils/utils";
 
 export const setOrder = createAsyncThunk(
     'order/setOrder',
     async (ids) => {
         try {
-            const response = await fetch (`${API}/orders`, {
+            const response = await fetch (`${BASEURL}/orders`, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {

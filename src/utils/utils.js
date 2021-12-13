@@ -9,4 +9,4 @@ export const IngredientPropTypes = PropTypes.shape({
   image_large: PropTypes.string.isRequired,
 });
 
-export const INGREDIENTS_URL = "https://norma.nomoreparties.space/api/ingredients";
+export const BASEURL = "https://norma.nomoreparties.space/api";

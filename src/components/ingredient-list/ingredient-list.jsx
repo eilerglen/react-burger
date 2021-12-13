@@ -22,9 +22,3 @@ const IngredientsList = () => {
 }
 
 export default IngredientsList;
-
-IngredientsList.propTypes = {
-    ingredients: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-    }).isRequired).isRequired
-}

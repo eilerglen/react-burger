@@ -3,7 +3,7 @@ import ingredientStyles from "./ingredient.module.css";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { deleteIngredient, countTotal, moveIngredient } from 'services/cartSlice';
+import { deleteIngredient, countTotal, moveIngredient } from '../../services/cartSlice';
 import { useDrag, useDrop } from 'react-dnd';
 
 const Ingredient = ({id, item, index, type }) => {
@@ -82,13 +82,4 @@ const Ingredient = ({id, item, index, type }) => {
  
 export default Ingredient;
 
-Ingredient.propTypes = {
-    item: PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-    }),
-    type: PropTypes.string,
-}
 
