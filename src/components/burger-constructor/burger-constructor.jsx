@@ -1,4 +1,3 @@
-import React from 'react';
 import constructorStyles from './burger-constructor.module.css';
 import IngredientsList from '../ingredient-list/ingredient-list';
 import Order from '../order/order';
@@ -6,7 +5,6 @@ import Bun from '../bun/bun';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from "react-dnd";
 import { addIngredient, countTotal} from '../../services/cartSlice';
-import PropTypes from 'prop-types';
 
 export default function BurgerConstructor() {
     const { bun } = useSelector(store => store.cart.sortedCart);

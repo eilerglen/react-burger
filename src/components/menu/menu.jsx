@@ -47,3 +47,7 @@ const Menu = ({ setCurrent, onClick }) => {
 } 
 export default Menu;
 
+Menu.propTypes = {
+    setCurrent: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired
+}

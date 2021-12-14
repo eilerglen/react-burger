@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { nanoid } from '@reduxjs/toolkit';
+
 const initialState = {
   sortedCart: {
     bun: {},
@@ -30,7 +30,7 @@ export const cartSlice = createSlice({
         state.counts[bunId] && state.counts[bunId]--
         state.sortedCart.bun = item;
       } else {
-        const newFillers = [...state.sortedCart.fillers, {item, constructorId: nanoid()}]
+        const newFillers = [...state.sortedCart.fillers, {item, constructorId: Date.now().toString(36) + Math.random().toString(36).substr(2)}]
         state.sortedCart.fillers = newFillers;
       }
       // добавляем данные для заказа

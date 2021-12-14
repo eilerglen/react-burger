@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import cardStyles from './card.module.css';
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IngredientPropTypes } from '../../utils/utils';
 import { useSelector } from 'react-redux';
 import { useDrag } from "react-dnd";
 
@@ -32,6 +31,14 @@ const Card = ({ item, onClick }) => {
 export default Card;
 
 Card.propTypes = {
-    item: IngredientPropTypes,
+    item: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        image: PropTypes.string.isRequired,
+        image_mobile: PropTypes.string.isRequired,
+        image_large: PropTypes.string.isRequired,
+    }).isRequired,
     onClick: PropTypes.func.isRequired
+
 }

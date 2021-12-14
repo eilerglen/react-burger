@@ -6,7 +6,6 @@ import Modal from '../modal/modal';
 import { clearOrder, setOrder } from '../../services/orderSlice';
 import { closeOrderModal, openOrderModal } from '../../services/modalSlice';
 import { resetCart } from '../../services/cartSlice';
-import PropTypes from 'prop-types';
 
 const Order = () => {
     const {isOrderModalOpen} = useSelector(store => store.modal)
