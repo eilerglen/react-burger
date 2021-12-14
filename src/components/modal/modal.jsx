@@ -18,10 +18,10 @@ export default function Modal ({title, onClose, children, name})  {
                 onClose(e);
             }
         }
-        window.addEventListener("keydown",handleEsc);
+        window.addEventListener("keydown", handleEsc);
 
         return () => {
-            window.removeEventListener("keydown",handleEsc)
+            window.removeEventListener("keydown", handleEsc)
         };
     }, [onClose]);
 

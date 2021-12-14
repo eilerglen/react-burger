@@ -1,9 +1,8 @@
 import { ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import bunStyles from './bun.module.css'
 import PropTypes from 'prop-types';
-import { useEffect } from "react";
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Bun = ({ position }) => {
     const { bun } = useSelector(store => store.cart.sortedCart);
@@ -19,8 +18,8 @@ const Bun = ({ position }) => {
 
     return ( 
          <div className={isEmpty ? bunStyles.bun_empty : bunStyles.bun}>
-            {!isEmpty ?
-                <ConstructorElement
+            {!isEmpty 
+                ? <ConstructorElement
                     type={position}
                     isLocked={true}
                     text={bun.name}
@@ -37,5 +36,7 @@ const Bun = ({ position }) => {
         </div>
      );
 }
- 
+Bun.propTypes = {
+    position: PropTypes.string.isRequired,
+} 
 export default Bun;

@@ -23,7 +23,7 @@ export default function BurgerConstructor() {
         },
     });
 
-    const border = isHover ? '1px dashed gray' : 'none';
+    const border = isHover ? '2px dashed green' : 'none';
 
     return (
 

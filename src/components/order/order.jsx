@@ -14,9 +14,12 @@ const Order = () => {
     const {itemsToOrder} = useSelector(store => store.cart)
     const dispatch = useDispatch();
 
-     const handleOpenModal = () => {
-        dispatch(setOrder(itemsToOrder))
-        dispatch(openOrderModal())
+    const handleOpenModal = () => {
+        if(itemsToOrder) {
+            dispatch(setOrder(itemsToOrder))
+            dispatch(openOrderModal())
+        }
+        
     };
 
     const handleCloseModal = () => {
@@ -24,7 +27,7 @@ const Order = () => {
         dispatch(resetCart())
         dispatch(clearOrder())
       };
-      return (
+    return (
         <div className={orderStyles.order}>
             <span className={orderStyles.price}>
                 {total}&nbsp;<CurrencyIcon type="primary" />
