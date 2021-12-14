@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { useDrag } from "react-dnd";
 
 const Card = ({ item, onClick }) => {
-    const {counts}  = useSelector(store => store.cart)
+    const { counts } = useSelector(store => store.cart)
     const [, dragRef] = useDrag({
         type: "ingredients",
         item: {item},
@@ -17,7 +17,7 @@ const Card = ({ item, onClick }) => {
 
     return (
         <article className={cardStyles.item} key={item._id} onClick={() => onClick(item)} ref={dragRef}>
-            {counts[item._id]> 0 && <Counter count={counts[item._id]} />}
+            {counts[item._id] > 0 && <Counter count={counts[item._id]} />}
             <picture className={cardStyles.picture}>
                 <source media="(max-width: 767px)" srcSet={item.image_mobile} />
                 <source media="(min-width: 768px)" srcSet={item.image_large} />

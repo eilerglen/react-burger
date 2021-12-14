@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BASEURL } from "../utils/utils";
 
+
 export const setOrder = createAsyncThunk(
     'order/setOrder',
     async (ids) => {
         try {
-            const response = await fetch (`${BASEURL}/orders`, {
+            const response = await fetch(`${BASEURL}/orders`, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -20,16 +21,15 @@ export const setOrder = createAsyncThunk(
             }
             const order = await response.json()
             return order;
-
         } catch (error) {
-            console.log(error)
+            console.log('Order error' + error.message)
         }
     }
 );
 
-export const orderSlice = createSlice ({
+export const orderSlice = createSlice({
     name: 'order',
-    initialState:  {
+    initialState:{
         order: {},
         isLoading: false,
         hasError: false
@@ -53,7 +53,7 @@ export const orderSlice = createSlice ({
         .addCase(setOrder.rejected, (state) => {
             state.isLoading = false;
             state.hasError = true;
-            clearOrder()
+            state.order = {};
           })
     }
 })

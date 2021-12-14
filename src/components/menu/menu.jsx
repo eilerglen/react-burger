@@ -10,9 +10,9 @@ const MenuItem = ({title, refs, data, onClick}) => {
         <>
         <h2 className={menuStyles.title} ref={refs}>{title}</h2>
         <ul className={menuStyles.items}>
-            {data && data.map(item =>(
+            {data && data.map(item => (
                 <li key = {Date.now().toString(36) + Math.random().toString(36).substr(2)}>
-                    <Card item = {item} onClick={onClick}/>
+                     <Card item={item} onClick={onClick}/>
                 </li>
             ))}
         </ul>
@@ -20,8 +20,8 @@ const MenuItem = ({title, refs, data, onClick}) => {
     )
 }
 
-const Menu = ({current, setCurrent, onClick}) => {
-   const {ingredients} = useSelector(store => store.ingredients)
+const Menu = ({ setCurrent, onClick }) => {
+   const { ingredients } = useSelector(store => store.ingredients)
 
    const [bunRef, inViewBun] = useInView({ threshold: 0 });
    const [sauceRef, inViewSauce] = useInView({ threshold: 0 });
@@ -39,9 +39,9 @@ const Menu = ({current, setCurrent, onClick}) => {
 
     return (
         <div className={menuStyles.scroller}>
-            <MenuItem title="Булки" refs={bunRef} data={ingredients.filter(ingredient => ingredient.type === 'bun')} onClick ={onClick}/>
-            <MenuItem title="Начинки" refs={mainRef} data={ingredients.filter(ingredient => ingredient.type === 'main')} onClick ={onClick}/>
-            <MenuItem title="Соусы" refs={sauceRef} data={ingredients.filter(ingredient => ingredient.type === 'sauce')} onClick ={onClick}/>
+            <MenuItem title="Булки" refs={bunRef} data={ingredients.filter(ingredient => ingredient.type === 'bun')} onClick={onClick}/>
+            <MenuItem title="Начинки" refs={mainRef} data={ingredients.filter(ingredient => ingredient.type === 'main')} onClick={onClick}/>
+            <MenuItem title="Соусы" refs={sauceRef} data={ingredients.filter(ingredient => ingredient.type === 'sauce')} onClick={onClick}/>
         </div>
     )
 } 
