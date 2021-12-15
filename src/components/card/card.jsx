@@ -7,6 +7,9 @@ import { useDrag } from "react-dnd";
 
 const Card = ({ item, onClick }) => {
     const { counts } = useSelector(store => store.cart)
+
+    //Реализация возможности перетаскивания ингредиента
+    
     const [, dragRef] = useDrag({
         type: "ingredients",
         item: {item},
@@ -30,7 +33,6 @@ const Card = ({ item, onClick }) => {
 }
 
 export default Card;
-
 Card.propTypes = {
     item: IngredientPropTypes,
     onClick: PropTypes.func.isRequired

@@ -16,14 +16,18 @@ const BurgerIngredients = () => {
   const dispatch = useDispatch();
   const {isOpen, openingModal, closingModal} = useModal();
 
+// Монтирование 
+
   useEffect(() => {
     dispatch(getIngredients())
   },[dispatch])
+// Крупный показ карточки ингредиента
 
   const handleOpenModal = (item) => {
     dispatch(setIngredientDetailsView(item))
     openingModal()
   }
+// Закрытие крупного показа  карточки ингредиента
 
   const handleClose = (e) => {
     e.stopPropagation();

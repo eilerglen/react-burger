@@ -19,11 +19,10 @@ export default function BurgerConstructor() {
             dispatch(addIngredient(item));
         },
     });
-
+    //UX - рамка для выделения контейнера куда перемещать
     const border = isHover ? '2px dashed green' : 'none';
 
     return (
-
         <section className={constructorStyles.constructor} ref={dropRef} style={{ border }} >
             <Bun position="top" data={bun} />
             <div className={constructorStyles.scroller}>
@@ -32,8 +31,6 @@ export default function BurgerConstructor() {
             <Bun position="bottom" data={bun} />
             <Order />
         </section >
-
-
     );
 
 }

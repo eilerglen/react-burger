@@ -5,10 +5,14 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { deleteIngredient, moveIngredient } from '../../services/cartSlice';
 import { useDrag, useDrop } from 'react-dnd';
+import { IngredientPropTypes } from '../../utils/utils';
 
 const Ingredient = ({id, item, index, type }) => {
     const dispatch = useDispatch();
     const ref = useRef(null);
+    
+    //Попадание перетаскиваемого элемента в контейнер-приемник 
+
     const [{ handlerId }, drop] = useDrop({
         accept: "sort",
         collect(monitor) {
@@ -82,4 +86,11 @@ const Ingredient = ({id, item, index, type }) => {
  
 export default Ingredient;
 
+
+Ingredient.propTypes = {
+    item: IngredientPropTypes,
+    index: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+
+}
 

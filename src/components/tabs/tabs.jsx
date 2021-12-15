@@ -1,4 +1,3 @@
-import React from 'react';
 import tabStyles from './tabs.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
@@ -16,4 +15,5 @@ export default function Tabs({ current, onClick }) {
 
 Tabs.propTypes = {  
   current: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 }

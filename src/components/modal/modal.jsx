@@ -9,7 +9,7 @@ const modalRoot = document.getElementById('modal-root');
 
 export default function Modal ({title, onClose, children })  {
     
-    useEffect(() => {
+  useEffect(() => {
         const handleEsc = (e) => {
             if(e.keyCode === 27) {
                 onClose(e);
@@ -20,9 +20,9 @@ export default function Modal ({title, onClose, children })  {
         return () => {
             window.removeEventListener("keydown", handleEsc)
         };
-    }, [onClose]);
+  }, [onClose]);
 
-        return createPortal(
+  return createPortal(
           <>
           <ModalOverlay onClick={onClose}/>
               <div className={modalStyles.modal}>
@@ -32,15 +32,14 @@ export default function Modal ({title, onClose, children })  {
                   </span>  
                 {children}
               </div>
-         </>  
+          </>  
           , modalRoot     
-        )
+  )
 }
 
 Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
     title: PropTypes.string,
     children: PropTypes.object.isRequired,
-    name: PropTypes.string.isRequired
   }
   

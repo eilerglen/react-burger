@@ -13,6 +13,8 @@ const Order = () => {
     const dispatch = useDispatch();
     const {isOpen, openingModal, closingModal} = useModal();
 
+    //Вычисляем массив ингредиентов в заказе и мемоизируем 
+
     const itemsToOrder = useMemo(()=> {
         const itemsArr = fillers.map(elem => elem.item?._id)
         if (bun) {
@@ -34,7 +36,9 @@ const Order = () => {
         dispatch(resetCart())
         dispatch(clearOrder())
       };
-    //Вычмсляем стоимость
+
+    //Вычисляем стоимость и мемоизируем  
+   
     const countTotal = useMemo(() =>{
         const total = bun.price 
         ? (fillers.reduce((acc, p) => acc + p.item.price, 0) + bun.price * 2)

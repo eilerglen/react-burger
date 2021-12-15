@@ -3,6 +3,7 @@ import CompositionItem  from '../composition-item/composition-item'
 import { useSelector } from 'react-redux';
 
 const CompositionList = () => {
+    // Данные ингредиента
     const { calories, proteins, fat, carbohydrates } = useSelector(store => store.ingredientDetailsView.ingredientDetailsView)
     return (
         <ul className={compositionListStyles.composition}>
