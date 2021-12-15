@@ -4,7 +4,7 @@ import Order from '../order/order';
 import Bun from '../bun/bun';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from "react-dnd";
-import { addIngredient, countTotal} from '../../services/cartSlice';
+import { addIngredient } from '../../services/cartSlice';
 
 export default function BurgerConstructor() {
     const { bun } = useSelector(store => store.cart.sortedCart);
@@ -17,7 +17,6 @@ export default function BurgerConstructor() {
         }),
         drop(item) {
             dispatch(addIngredient(item));
-            dispatch(countTotal())
         },
     });
 

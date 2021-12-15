@@ -5,9 +5,7 @@ const initialState = {
     bun: {},
     fillers: [],
   },
-  itemsToOrder: [],
   counts: {},
-  total: 0,
 }
 
 export const cartSlice = createSlice({
@@ -42,7 +40,6 @@ export const cartSlice = createSlice({
       state.counts[id]--;
       state.sortedCart.fillers = newFillers;
       // обновляем данные для заказа
-      state.itemsToOrder = state.sortedCart.fillers.map(el => el.item?._id).concat([state.sortedCart.bun._id])
     },
     resetCart: (state) => state = initialState,
     moveIngredient: (state, action) => {
@@ -51,15 +48,10 @@ export const cartSlice = createSlice({
       [state.sortedCart.fillers[dragIndex], state.sortedCart.fillers[dropIndex]] = [state.sortedCart.fillers[dropIndex], state.sortedCart.fillers[dragIndex]];
 
     },
-    countTotal: (state) => {
-      const fillers = state.sortedCart.fillers;
-      state.total = state.sortedCart.bun.price 
-      ? (fillers.reduce((acc, p) => acc + p.item.price, 0) + state.sortedCart.bun.price * 2)
-      : (fillers.reduce((acc, p) => acc + p.item.price, 0));
-    }
+    
   },
 })
 
-export const { addIngredient, deleteIngredient, resetCart, countTotal, moveIngredient  } = cartSlice.actions;
+export const { addIngredient, deleteIngredient, resetCart, moveIngredient  } = cartSlice.actions;
 
 export default cartSlice.reducer;
