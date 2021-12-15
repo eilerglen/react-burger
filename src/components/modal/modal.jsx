@@ -7,7 +7,7 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 
 const modalRoot = document.getElementById('modal-root');
 
-export default function Modal ({title, onClose, children, name})  {
+export default function Modal ({title, onClose, children })  {
     
     useEffect(() => {
         const handleEsc = (e) => {
@@ -23,7 +23,8 @@ export default function Modal ({title, onClose, children, name})  {
     }, [onClose]);
 
         return createPortal(
-          <div className = {modalStyles.container}>
+          <>
+          <ModalOverlay onClick={onClose}/>
               <div className={modalStyles.modal}>
                   <h2 className ={modalStyles.heading}>{title}</h2>
                   <span className = {modalStyles.close} onClick = {onClose}>
@@ -31,8 +32,7 @@ export default function Modal ({title, onClose, children, name})  {
                   </span>  
                 {children}
               </div>
-            <ModalOverlay onClick={onClose}/>
-           </div>
+         </>  
           , modalRoot     
         )
 }

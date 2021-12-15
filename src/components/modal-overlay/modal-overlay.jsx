@@ -1,10 +1,10 @@
-import React, {useRef} from 'react';
+import {useRef, useEffect} from 'react';
 import overlayStyles from './modal-overlay.module.css';
 import PropTypes from 'prop-types';
 
 const ModalOverlay = ({ onClick }) => {
   const overlay = useRef(null)
-  React.useEffect(() => {
+  useEffect(() => {
     const handleOverlayClick = (e) => {
       if (e.target === overlay.current) {
         onClick(e);
