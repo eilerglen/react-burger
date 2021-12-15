@@ -4,11 +4,12 @@ import ingredientsStyles from "./burger-ingredients.module.css";
 import Menu from '../menu/menu';
 import Tabs from '../tabs/tabs';
 import { useDispatch } from 'react-redux';
-import { getIngredients, resetIngredientToShow, setIngredientToShow } from '../../services/ingredientsSlice';
+import { getIngredients } from '../../services/ingredientsSlice';
+import { setIngredientDetailsView,
+        resetIngredientDetailsView } from '../../services/ingredientDetailsViewSlice';
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal"
 import { useModal } from "../../utils/customHooks"
-
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState('bun')
@@ -20,14 +21,14 @@ const BurgerIngredients = () => {
   },[dispatch])
 
   const handleOpenModal = (item) => {
-    dispatch(setIngredientToShow(item))
+    dispatch(setIngredientDetailsView(item))
     openingModal()
   }
 
   const handleClose = (e) => {
     e.stopPropagation();
     closingModal()
-    dispatch(resetIngredientToShow())
+    dispatch(resetIngredientDetailsView())
   };
 
   return (

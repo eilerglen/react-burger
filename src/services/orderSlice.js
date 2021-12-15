@@ -1,29 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BASEURL } from "../utils/utils";
 
-
 export const setOrder = createAsyncThunk(
     'order/setOrder',
     async (ids) => {
-        try {
-            const response = await fetch(`${BASEURL}/orders`, {
-                method: 'POST',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    ingredients: ids
-                })
+        const response = await fetch(`${BASEURL}/orders`, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                ingredients: ids
             })
-            if (!response.ok) {
-                throw new Error('Fetch error')
-            }
-            const order = await response.json()
-            return order;
-        } catch (error) {
-            console.log('Order error' + error.message)
+        })
+        if (!response.ok) {
+            throw new Error('Fetch error')
         }
+        const order = await response.json()
+        return order;
     }
 );
 

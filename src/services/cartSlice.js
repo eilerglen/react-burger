@@ -15,7 +15,6 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addIngredient: (state, action) => {
-
       const {item} = action.payload;
       // управляем счетчиком ингридиентов
       if (!state.counts[item._id]) {

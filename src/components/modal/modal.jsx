@@ -8,8 +8,7 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 const modalRoot = document.getElementById('modal-root');
 
 export default function Modal ({title, onClose, children, name})  {
-    /* const isOpen = useSelector(store => store.modal[`is${name}ModalOpen`])*/
-
+    
     useEffect(() => {
         const handleEsc = (e) => {
             if(e.keyCode === 27) {

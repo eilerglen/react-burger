@@ -3,17 +3,13 @@ import { BASEURL } from "../utils/utils";
 
 export const getIngredients = createAsyncThunk(
     'ingredients/getIngredients',
-    async () => { 
-        try {
-            const response = await fetch (`${BASEURL}/ingredients`);
-            if(!response.ok) {
-                throw new Error('Failed response: ' + response)
-            }
-            const ingredients = await response.json();
-            return ingredients.data
-        } catch (error) {
-            console.log('Catched error: ' + error.message)
+    async () => {        
+        const response = await fetch (`${BASEURL}/ingredients`);
+        if(!response.ok) {
+            throw new Error('Failed response: ' + response)
         }
+        const ingredients = await response.json();
+        return ingredients.data
     }
 )
 
@@ -21,18 +17,17 @@ export const ingredientsSlice = createSlice({
     name: 'ingredients',
     initialState: {
         ingredients: [],
-        ingredientToShow: {},
         isLoading: false,
         hasError: false,
     },
-    reducers: {
+    /*reducers: {
         setIngredientToShow: (state, action) => {
             state.ingredientToShow = action.payload;
         },
         resetIngredientToShow: (state) => {
             state.ingredientToShow = {};
-        }
-    },
+        } 
+    },*/
     extraReducers: (builder) => {
         builder
         .addCase(getIngredients.pending, (state) => {
@@ -50,6 +45,7 @@ export const ingredientsSlice = createSlice({
             state.ingredients = [];
           })
         
+          
     }
 })
 
