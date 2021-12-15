@@ -1,18 +1,16 @@
-import React from 'react';
+import {useEffect} from 'react';
 import modalStyles from './modal.module.css';
-import ReactDOM from 'react-dom';
+import {createPortal} from 'react-dom';
 import PropTypes from 'prop-types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import { useSelector } from 'react-redux';
-
 
 const modalRoot = document.getElementById('modal-root');
 
 export default function Modal ({title, onClose, children, name})  {
-    const isOpen = useSelector(store => store.modal[`is${name}ModalOpen`])
+    /* const isOpen = useSelector(store => store.modal[`is${name}ModalOpen`])*/
 
-    React.useEffect(() => {
+    useEffect(() => {
         const handleEsc = (e) => {
             if(e.keyCode === 27) {
                 onClose(e);
@@ -25,7 +23,7 @@ export default function Modal ({title, onClose, children, name})  {
         };
     }, [onClose]);
 
-        return ReactDOM.createPortal(
+        return createPortal(
           <div className = {modalStyles.container}>
               <div className={modalStyles.modal}>
                   <h2 className ={modalStyles.heading}>{title}</h2>
@@ -33,8 +31,8 @@ export default function Modal ({title, onClose, children, name})  {
                     <CloseIcon/>
                   </span>  
                 {children}
-               </div>
-            <ModalOverlay isOpen ={isOpen} onClick={onClose}/>
+              </div>
+            <ModalOverlay onClick={onClose}/>
            </div>
           , modalRoot     
         )

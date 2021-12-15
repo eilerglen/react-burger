@@ -3,17 +3,17 @@ import {useEffect} from 'react';
 import ingredientsStyles from "./burger-ingredients.module.css";
 import Menu from '../menu/menu';
 import Tabs from '../tabs/tabs';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getIngredients, resetIngredientToShow, setIngredientToShow } from '../../services/ingredientsSlice';
-import { closeDetailsModal, openDetailsModal } from "../../services/modalSlice";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal"
+import { useModal } from "../../utils/customHooks"
 
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState('bun')
   const dispatch = useDispatch();
-  const {isDetailsModalOpen} = useSelector(store => store.modal)
+  const {isOpen, openingModal, closingModal} = useModal();
 
   useEffect(() => {
     dispatch(getIngredients())
@@ -21,12 +21,12 @@ const BurgerIngredients = () => {
 
   const handleOpenModal = (item) => {
     dispatch(setIngredientToShow(item))
-    dispatch(openDetailsModal())
+    openingModal()
   }
 
   const handleClose = (e) => {
     e.stopPropagation();
-    dispatch(closeDetailsModal())
+    closingModal()
     dispatch(resetIngredientToShow())
   };
 
@@ -35,7 +35,7 @@ const BurgerIngredients = () => {
       <h1 className={ingredientsStyles.title}>Соберите бургер</h1>
       <Tabs current={current} onClick={setCurrent} />
       <Menu current={current} setCurrent={setCurrent} onClick={handleOpenModal}/>
-      {isDetailsModalOpen && (
+      {isOpen && (
         <Modal name = "Details" title ="Детали ингредиента" onClose = {handleClose}>
           <IngredientDetails />
         </Modal>

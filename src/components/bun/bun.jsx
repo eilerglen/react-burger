@@ -6,15 +6,15 @@ import { useState, useEffect } from 'react';
 
 const Bun = ({ position }) => {
     const { bun } = useSelector(store => store.cart.sortedCart);
-    const [isEmpty, setEmpty] = useState(true);
+    /*const [isEmpty, setEmpty] = useState(true);
     useEffect(() => {
         if(bun._id) {
             setEmpty(false)
         } else {
             setEmpty(true)
         }
-    }, [bun])    
-    
+    }, [bun])*/    
+    const isEmpty = !bun._id
 
     return ( 
          <div className={isEmpty ? bunStyles.bun_empty : bunStyles.bun}>

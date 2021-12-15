@@ -3,26 +3,25 @@ import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-co
 import { useDispatch, useSelector } from 'react-redux';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
+import {useModal} from '../../utils/customHooks'
 import { clearOrder, setOrder } from '../../services/orderSlice';
-import { closeOrderModal, openOrderModal } from '../../services/modalSlice';
 import { resetCart } from '../../services/cartSlice';
 
 const Order = () => {
-    const {isOrderModalOpen} = useSelector(store => store.modal)
-    const { total } = useSelector(store => store.cart);
-    const {itemsToOrder} = useSelector(store => store.cart)
+    const { total, itemsToOrder } = useSelector(store => store.cart);
     const dispatch = useDispatch();
+    const {isOpen, openingModal, closingModal} = useModal();
 
     const handleOpenModal = () => {
         if(itemsToOrder) {
             dispatch(setOrder(itemsToOrder))
-            dispatch(openOrderModal())
+            openingModal()
         }
         
     };
 
     const handleCloseModal = () => {
-        dispatch(closeOrderModal())
+        closingModal()
         dispatch(resetCart())
         dispatch(clearOrder())
       };
@@ -32,7 +31,7 @@ const Order = () => {
                 {total}&nbsp;<CurrencyIcon type="primary" />
             </span>
             <Button onClick={handleOpenModal}>Оформить заказ</Button>
-            {isOrderModalOpen && 
+            {isOpen && 
                 (
                     <Modal name="Order" onClose={handleCloseModal}>
                         <OrderDetails/>
