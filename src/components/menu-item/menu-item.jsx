@@ -1,6 +1,7 @@
 import styles from './menu-item.module.css'
 import Card from '../card/card';
 import PropTypes from 'prop-types';
+import { IngredientPropTypes } from '../../utils/utils';
 
 const MenuItem = ({title, refs, data, onClick}) => {
     return (
@@ -20,9 +21,7 @@ const MenuItem = ({title, refs, data, onClick}) => {
 export default MenuItem;
 
 MenuItem.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-    }).isRequired).isRequired,
+    data: PropTypes.arrayOf(IngredientPropTypes).isRequired,
     title: PropTypes.string.isRequired,
     refs: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired

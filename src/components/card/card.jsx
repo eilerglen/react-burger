@@ -34,7 +34,7 @@ const Card = ({ item, onClick }) => {
 
 export default Card;
 Card.propTypes = {
-    item: IngredientPropTypes,
+    item: IngredientPropTypes.isRequired,
     onClick: PropTypes.func.isRequired
 
 }

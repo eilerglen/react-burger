@@ -9,32 +9,36 @@ import { clearOrder, setOrder } from '../../services/orderSlice';
 import { resetCart } from '../../services/cartSlice';
 
 const Order = () => {
+    const { order } = useSelector(store => store.order)
     const { bun ,fillers } = useSelector(store => store.cart.sortedCart);
     const dispatch = useDispatch();
-    const {isOpen, openingModal, closingModal} = useModal();
-
+    const { openingModal, closingModal} = useModal();
+    const orderNumber = order && order.order && order.order.number
     //Вычисляем массив ингредиентов в заказе и мемоизируем 
 
-    const itemsToOrder = useMemo(()=> {
-        const itemsArr = fillers.map(elem => elem.item?._id)
+    const idArray = useMemo(()=> {
+        const itemsArr = fillers.map(elem => elem.item._id)
         if (bun) {
-            itemsArr.push(bun?._id);    
+            itemsArr.push(bun._id);    
         }
         return itemsArr
     }, [fillers, bun])
 
-    const handleOpenModal = () => {
-        if(itemsToOrder) {
-            dispatch(setOrder(itemsToOrder))
-            openingModal()
+    const isDisabled = bun._id && idArray.length > 1 ? true : false;
+
+    function handleOpenModal() {
+        if (idArray) {
+            dispatch(setOrder(idArray));
+            openingModal();
         }
-        
-    };
+
+    }
 
     const handleCloseModal = () => {
         closingModal()
         dispatch(resetCart())
         dispatch(clearOrder())
+        console.log(order.order.number)
       };
 
     //Вычисляем стоимость и мемоизируем  
@@ -51,8 +55,8 @@ const Order = () => {
             <span className={orderStyles.price}>
                 {countTotal}&nbsp;<CurrencyIcon type="primary" />
             </span>
-            <Button onClick={handleOpenModal}>Оформить заказ</Button>
-            {isOpen && 
+            <Button disabled = {!isDisabled ? "disabled" : ""} onClick={handleOpenModal}>Оформить заказ</Button>
+            { orderNumber && 
                 (
                     <Modal name="Order" onClose={handleCloseModal}>
                         <OrderDetails/>

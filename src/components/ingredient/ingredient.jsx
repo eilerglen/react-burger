@@ -88,7 +88,7 @@ export default Ingredient;
 
 
 Ingredient.propTypes = {
-    item: IngredientPropTypes,
+    item: IngredientPropTypes.isRequired,
     index: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
 

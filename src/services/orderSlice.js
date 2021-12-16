@@ -27,7 +27,8 @@ export const orderSlice = createSlice({
     initialState:{
         order: {},
         isLoading: false,
-        hasError: false
+        hasError: false,
+        isSubmitOrderSuccess: false,
     },
     reducers: {
         clearOrder: (state) => {
@@ -44,6 +45,7 @@ export const orderSlice = createSlice({
             state.order = action.payload;
             state.isLoading = false;
             state.hasError = false;
+            state.isSubmitOrderSuccess = true;
         })
         .addCase(setOrder.rejected, (state) => {
             state.isLoading = false;
