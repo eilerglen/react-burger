@@ -1,6 +1,5 @@
 import Ingredient from "../ingredient/ingredient";
 import ingredientsListStyles from './ingredient-list.module.css';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 const IngredientsList = () => {

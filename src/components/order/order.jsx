@@ -24,6 +24,7 @@ const Order = () => {
         return itemsArr
     }, [fillers, bun])
 
+    //Делаем кнопку активной в зависимости от ингредиентов в конструкторе
     const isDisabled = bun._id && idArray.length > 1 ? true : false;
 
     function handleOpenModal() {
