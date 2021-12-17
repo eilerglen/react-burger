@@ -1,31 +1,66 @@
-import React from 'react';
 import orderStyles from './order.module.css'
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
+import { useMemo } from 'react';
+import {useModal} from '../../utils/customHooks'
+import { clearOrder, setOrder } from '../../services/orderSlice';
+import { resetCart } from '../../services/cartSlice';
 
+const Order = () => {
+    const { order } = useSelector(store => store.order)
+    const { bun ,fillers } = useSelector(store => store.cart.sortedCart);
+    const dispatch = useDispatch();
+    const { openingModal, closingModal} = useModal();
+    const orderNumber = order && order.order && order.order.number
+    //Вычисляем массив ингредиентов в заказе и мемоизируем 
 
-const Order = ({total}) => {
-    const [isOpen, setOpen] = React.useState(false);
+    const idArray = useMemo(()=> {
+        const itemsArr = fillers.map(elem => elem.item._id)
+        if (bun) {
+            itemsArr.push(bun._id);    
+        }
+        return itemsArr
+    }, [fillers, bun])
 
-    const handleOpenModal = () => {
-        setOpen(true);
-    };
+    //Делаем кнопку активной в зависимости от ингредиентов в конструкторе
+    const isDisabled = bun._id && idArray.length > 1 ? true : false;
+
+    function handleOpenModal() {
+        if (idArray) {
+            dispatch(setOrder(idArray));
+            openingModal();
+        }
+
+    }
+
     const handleCloseModal = () => {
-        setOpen(false);
-    };
+        closingModal()
+        dispatch(resetCart())
+        dispatch(clearOrder())
+        console.log(order.order.number)
+      };
 
+    //Вычисляем стоимость и мемоизируем  
+   
+    const countTotal = useMemo(() =>{
+        const total = bun.price 
+        ? (fillers.reduce((acc, p) => acc + p.item.price, 0) + bun.price * 2)
+        : (fillers.reduce((acc, p) => acc + p.item.price, 0));
+        return total
+    }, [bun, fillers])
+    
     return (
         <div className={orderStyles.order}>
             <span className={orderStyles.price}>
-                {total}&nbsp;<CurrencyIcon type="primary" />
+                {countTotal}&nbsp;<CurrencyIcon type="primary" />
             </span>
-            <Button onClick={handleOpenModal}>Оформить заказ</Button>
-            {isOpen && 
+            <Button disabled = {!isDisabled ? "disabled" : ""} onClick={handleOpenModal}>Оформить заказ</Button>
+            { orderNumber && 
                 (
-                    <Modal isOpen={isOpen} onClose={handleCloseModal}>
-                        <OrderDetails />
+                    <Modal name="Order" onClose={handleCloseModal}>
+                        <OrderDetails/>
                     </Modal>
                 )
             }
@@ -34,6 +69,3 @@ const Order = ({total}) => {
 }
 export default Order;
 
-Order.propTypes = {
-    total: PropTypes.number.isRequired
-}

@@ -2,29 +2,35 @@ import constructorStyles from './burger-constructor.module.css';
 import IngredientsList from '../ingredient-list/ingredient-list';
 import Order from '../order/order';
 import Bun from '../bun/bun';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useDrop } from "react-dnd";
+import { addIngredient } from '../../services/cartSlice';
 
+export default function BurgerConstructor() {
+    const { bun } = useSelector(store => store.cart.sortedCart);
 
-export default function BurgerConstructor({ ingredients }) {
-    const total = ingredients.reduce((acc, p) => acc + p.price, 0);
-    const bun =ingredients.find(item => item.type === 'bun');
+    const dispatch = useDispatch();
+    const [{ isHover }, dropRef] = useDrop({
+        accept: "ingredients",
+        collect: (monitor) => ({
+            isHover: monitor.isOver(),
+        }),
+        drop(item) {
+            dispatch(addIngredient(item));
+        },
+    });
+    //UX - рамка для выделения контейнера куда перемещать
+    const border = isHover ? '2px dashed green' : 'none';
 
     return (
-        <section className={constructorStyles.constructor}>
-            <Bun position="top"ingredients={bun} />
+        <section className={constructorStyles.constructor} ref={dropRef} style={{ border }} >
+            <Bun position="top" data={bun} />
             <div className={constructorStyles.scroller}>
-                <IngredientsList ingredients={ingredients.filter(item => item.type !== 'bun')} />
+                <IngredientsList />
             </div>
-            <Bun position="bottom" ingredients={bun} />
-            <Order total={total} />
-        </section>
+            <Bun position="bottom" data={bun} />
+            <Order />
+        </section >
     );
 
 }
-BurgerConstructor.propTypes = {
-    ingredients: PropTypes.arrayOf(PropTypes.shape({
-        price: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired
-    }).isRequired).isRequired,
-}
-

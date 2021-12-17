@@ -1,24 +1,26 @@
-import React from 'react';
+import PropTypes from 'prop-types'
+import { IngredientPropTypes } from '../../utils/utils';
 import cardStyles from './card.module.css';
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IngredientPropTypes } from '../../utils/utils';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import Modal from '../modal/modal'
+import { useSelector } from 'react-redux';
+import { useDrag } from "react-dnd";
 
-const Card = ({ item, count }) => {
-    const [isIngModalOpen, setIsIngModalOpen] = React.useState(false)
-    const [ingredientToShow, setIngredientToShow] = React.useState({})
-    const openIngModal = (data) => {
-        setIsIngModalOpen(true)
-        setIngredientToShow(data)
-    }
-    const handleClose = (e) => {
-        e.stopPropagation();
-        setIsIngModalOpen(false);
-    };
+const Card = ({ item, onClick }) => {
+    const { counts } = useSelector(store => store.cart)
+
+    //Реализация возможности перетаскивания ингредиента
+    
+    const [, dragRef] = useDrag({
+        type: "ingredients",
+        item: {item},
+        collect: monitor => ({
+            isDrag: monitor.isDragging()
+        })
+    })
+
     return (
-        <article className={cardStyles.item} key={item._id} onClick={() => openIngModal(item)}>
-            {count > 0 && <Counter count={count} />}
+        <article className={cardStyles.item} key={item._id} onClick={() => onClick(item)} ref={dragRef}>
+            {counts[item._id] > 0 && <Counter count={counts[item._id]} />}
             <picture className={cardStyles.picture}>
                 <source media="(max-width: 767px)" srcSet={item.image_mobile} />
                 <source media="(min-width: 768px)" srcSet={item.image_large} />
@@ -26,17 +28,14 @@ const Card = ({ item, count }) => {
             </picture>
             <span className={cardStyles.price}>{item.price}&nbsp;<CurrencyIcon type="primary" /></span>
             <p className={cardStyles.text}>{item.name}</p>
-            {isIngModalOpen && (
-                <Modal title='Детали ингредиента' isOpen={isIngModalOpen} onClose={handleClose}>
-                    <IngredientDetails ingredientToShow={ingredientToShow} />
-                </Modal>)
-            }
         </article>
     )
 }
 
 export default Card;
-
 Card.propTypes = {
-    item: IngredientPropTypes
+    item: IngredientPropTypes.isRequired,
+    onClick: PropTypes.func.isRequired
+
 }
+

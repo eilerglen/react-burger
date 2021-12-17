@@ -1,56 +1,39 @@
-import React from 'react';
+import { useEffect } from 'react';
 import menuStyles from './menu.module.css';
-import Card from '../card/card';
+import { useSelector } from 'react-redux';
+import { useInView } from 'react-intersection-observer';
 import PropTypes from 'prop-types';
+import MenuItem  from '../menu-item/menu-item';
 
-const Menu = ({ingredients, current}) => {
-    const bunRef = React.useRef(null)
-    const sauceRef = React.useRef(null)
-    const mainRef = React.useRef(null)
+const Menu = ({ setCurrent, onClick }) => {
+   const { ingredients } = useSelector(store => store.ingredients)
 
-    React.useEffect(() => {
-        (current === 'bun'
-            ? bunRef
-            : current === 'sauce'
-                ? sauceRef
-                : mainRef)
-            .current.scrollIntoView()
-    }, [current])
+   const [bunRef, inViewBun] = useInView({ threshold: 0 });
+   const [sauceRef, inViewSauce] = useInView({ threshold: 0 });
+   const [mainRef, inViewMain] = useInView({ threshold: 0 });
+
+   useEffect(() => {
+    if (inViewBun) {
+        setCurrent('bun')
+    } else if (inViewSauce) {
+        setCurrent('sauce')
+    } else if (inViewMain) {
+        setCurrent('main')
+    } 
+}, [setCurrent, inViewBun, inViewSauce, inViewMain])
 
     return (
-        <>
-            <h2 className={menuStyles.title} ref={bunRef}>Булки</h2>
-            <div className={menuStyles.items}>
-                {ingredients.filter(ingredient => ingredient.type === 'bun').map(bun => (
-                    <Card item={bun} key={bun._id} count={0} />
-                ))
-                }
-            </div>
-            <h2 className={menuStyles.title} ref={sauceRef}>Соусы</h2>
-            <div className={menuStyles.items}>
-                {ingredients.filter(ingredient => ingredient.type === 'sauce').map(sauce => (
-                    <Card item={sauce} key={sauce._id} count={1} />
-                ))
-                }
-            </div>
-            <h2 className={menuStyles.title} ref={mainRef}>Начинки</h2>
-            <div className={menuStyles.items}>
-                {ingredients.filter(ingredient => ingredient.type === 'main').map(main => (
-                    <Card item={main} key={main._id} count={2} />
-                ))
-                }
-            </div>
-
-        </>
+        <div className={menuStyles.scroller}>
+            <MenuItem title="Булки" refs={bunRef} data={ingredients.filter(ingredient => ingredient.type === 'bun')} onClick={onClick}/>
+            <MenuItem title="Начинки" refs={mainRef} data={ingredients.filter(ingredient => ingredient.type === 'main')} onClick={onClick}/>
+            <MenuItem title="Соусы" refs={sauceRef} data={ingredients.filter(ingredient => ingredient.type === 'sauce')} onClick={onClick}/>
+        </div>
     )
-}
+} 
 export default Menu;
 
 Menu.propTypes = {
-    ingredients: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-
-    }).isRequired).isRequired,
-    current: PropTypes.string
+    setCurrent: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired
 }
+

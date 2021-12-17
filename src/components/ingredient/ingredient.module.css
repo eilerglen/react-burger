@@ -1,19 +1,24 @@
 .item_container {
     display: flex;
-    align-items: center;   
+    align-items: center;
     width: 100%;
     justify-content: flex-end;
     list-style: none;
+    composes: pb-2 pt-2 from global;
     cursor: move;
 }
 
-.item_container svg {
-    margin-right: 8px;
-}
-.item_container div {
-   flex-grow:1;
-}
-.item_container span:first-of-type + span {
+:global(.constructor-element__text) {
     flex-grow: 1;
 }
 
+:global(.constructor-element) {
+    flex-grow: 1;
+}
+
+.list_item {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}

@@ -1,27 +1,55 @@
 import React from "react";
+import {useEffect} from 'react';
 import ingredientsStyles from "./burger-ingredients.module.css";
 import Menu from '../menu/menu';
 import Tabs from '../tabs/tabs';
-import PropTypes from 'prop-types';
-import { IngredientPropTypes } from "../../utils/utils";
+import { useDispatch } from 'react-redux';
+import { getIngredients } from '../../services/ingredientsSlice';
+import { setIngredientDetailsView,
+        resetIngredientDetailsView } from '../../services/ingredientDetailsViewSlice';
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import Modal from "../modal/modal"
+import { useModal } from "../../utils/customHooks"
 
-
-const BurgerIngridients = ({ingredients}) => {
+const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState('bun')
+  const dispatch = useDispatch();
+  const {isOpen, openingModal, closingModal} = useModal();
+
+// Монтирование 
+
+  useEffect(() => {
+    dispatch(getIngredients())
+  },[dispatch])
+// Крупный показ карточки ингредиента
+
+  const handleOpenModal = (item) => {
+    dispatch(setIngredientDetailsView(item))
+    openingModal()
+  }
+// Закрытие крупного показа  карточки ингредиента
+
+  const handleClose = (e) => {
+    e.stopPropagation();
+    closingModal()
+    dispatch(resetIngredientDetailsView())
+  };
 
   return (
     <section className={ingredientsStyles.ingredients}>
       <h1 className={ingredientsStyles.title}>Соберите бургер</h1>
       <Tabs current={current} onClick={setCurrent} />
-      <div className={ingredientsStyles.scroller}>
-        <Menu ingredients={ingredients} current={current} />
-      </div>
+      <Menu current={current} setCurrent={setCurrent} onClick={handleOpenModal}/>
+      {isOpen && (
+        <Modal name = "Details" title ="Детали ингредиента" onClose = {handleClose}>
+          <IngredientDetails />
+        </Modal>
+        )
+      }
     </section>
   );
 }
-export default BurgerIngridients;
+export default BurgerIngredients;
 
-BurgerIngridients.propTypes = {
-  ingredients: PropTypes.arrayOf(IngredientPropTypes).isRequired
-}
+
 
