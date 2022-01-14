@@ -1,18 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import ingredientsReducer from "./ingredientsSlice";
-import ingredientDetailsViewReducer from "./ingredientDetailsViewSlice";
-import orderReducer from "./orderSlice";
-import cartReducer from "./cartSlice";
+import rootReducer from "./index";
 
 const store = configureStore({
-  reducer: {
-    ingredients: ingredientsReducer,
-    ingredientDetailsView: ingredientDetailsViewReducer,
-    order: orderReducer,
-    cart: cartReducer,
-  },
+  reducer: rootReducer,
   devTools: true,
 });
 
 export default store;
 
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

@@ -1,12 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, FC } from 'react';
 import menuStyles from './menu.module.css';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../services/hooks';
 import { useInView } from 'react-intersection-observer';
-import PropTypes from 'prop-types';
 import MenuItem  from '../menu-item/menu-item';
+import { TIngredient } from '../../types/types';
 
-const Menu = ({ setCurrent, onClick }) => {
-   const { ingredients } = useSelector(store => store.ingredients)
+interface IMenu {
+    setCurrent: (current: string) => void;
+    onClick: (item: TIngredient) => void;
+}
+
+const Menu: FC<IMenu> = ({ setCurrent, onClick }) => {
+   const { ingredients } = useAppSelector(store => store.ingredients)
 
    const [bunRef, inViewBun] = useInView({ threshold: 0 });
    const [sauceRef, inViewSauce] = useInView({ threshold: 0 });
@@ -32,8 +37,4 @@ const Menu = ({ setCurrent, onClick }) => {
 } 
 export default Menu;
 
-Menu.propTypes = {
-    setCurrent: PropTypes.func.isRequired,
-    onClick: PropTypes.func.isRequired
-}
 

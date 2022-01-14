@@ -1,9 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BASEURL } from "../utils/utils";
 
+interface IinitialState {
+    order: {},
+    isLoading: boolean,
+    hasError: boolean,
+    isSubmitOrderSuccess: boolean
+}
+
 export const setOrder = createAsyncThunk(
     'order/setOrder',
-    async (ids) => {
+    async (ids: Array<string>) => {
         const response = await fetch(`${BASEURL}/orders`, {
             method: 'POST',
             mode: 'cors',
@@ -22,14 +29,15 @@ export const setOrder = createAsyncThunk(
     }
 );
 
+export const initialState: IinitialState = {
+    order: {},
+    isLoading: false,
+    hasError: false,
+    isSubmitOrderSuccess: false, 
+}
 export const orderSlice = createSlice({
     name: 'order',
-    initialState:{
-        order: {},
-        isLoading: false,
-        hasError: false,
-        isSubmitOrderSuccess: false,
-    },
+    initialState,
     reducers: {
         clearOrder: (state) => {
             state.order = {}

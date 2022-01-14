@@ -1,8 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { TIngredient, TFiller } from '../types/types';
 
-const initialState = {
+interface IinitialState {
   sortedCart: {
-    bun: {},
+    bun: TIngredient | null,
+    fillers: Array<TFiller>,
+  },
+  counts: {},
+}
+
+export const initialState: IinitialState = {
+  sortedCart: {
+    bun: null,
     fillers: [],
   },
   counts: {},
@@ -10,7 +19,7 @@ const initialState = {
 
 export const cartSlice = createSlice({
   name: 'cart',
-  initialState,
+  initialState: initialState,
   reducers: {
     addIngredient: (state, action) => {
       const {item} = action.payload;
@@ -23,7 +32,7 @@ export const cartSlice = createSlice({
 
       // сортируем
       if (item.type === 'bun') {
-        const bunId = state.sortedCart.bun._id;
+        const bunId = state.sortedCart.bun?._id;
         state.counts[bunId] && state.counts[bunId]--
         state.sortedCart.bun = item;
       } else {

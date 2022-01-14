@@ -1,7 +1,11 @@
 import navItemStyles from './nav-item.module.css';
-import PropTypes from 'prop-types';
+import {FC} from 'react'
 
-const NavItem = ({text, children}) => {
+type TNavItemProps = {
+  text: string
+}
+
+const NavItem: FC<TNavItemProps> = ({text, children}) => {
   return (
     <a href="/" className={`${navItemStyles.link} pt-4 pb-4 pl-5 pb-5`}>    
         <span className={navItemStyles.icon}>
@@ -13,8 +17,4 @@ const NavItem = ({text, children}) => {
 
 }
 
-NavItem.propTypes = {
-  text: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired,
-}
 export default NavItem
