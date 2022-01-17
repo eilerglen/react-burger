@@ -1,9 +1,9 @@
 import orderDetailsStyles from './order-details.module.css';
 import { ReactComponent as OrderDone } from '../../images/order-done.svg';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../services/hooks';
 
-export default function OrderDetails() {
-    const { order, isLoading } = useSelector(store => store.order)
+const OrderDetails = () => {
+    const { order, isLoading } = useAppSelector(store => store.order)
     return (
         <>
             <span className={orderDetailsStyles.order_number}>
@@ -18,3 +18,4 @@ export default function OrderDetails() {
         </>
     )
 }
+export default OrderDetails

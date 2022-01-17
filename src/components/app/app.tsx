@@ -4,8 +4,9 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
+import { FC } from 'react';
 
-function App() {
+const App: FC = () => {
   return (
     <>
       <AppHeader />

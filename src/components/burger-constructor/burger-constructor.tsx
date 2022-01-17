@@ -2,14 +2,13 @@ import constructorStyles from './burger-constructor.module.css';
 import IngredientsList from '../ingredient-list/ingredient-list';
 import Order from '../order/order';
 import Bun from '../bun/bun';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch } from '../../services/hooks';
 import { useDrop } from "react-dnd";
 import { addIngredient } from '../../services/cartSlice';
+import { FC } from 'react';
 
-export default function BurgerConstructor() {
-    const { bun } = useSelector(store => store.cart.sortedCart);
-
-    const dispatch = useDispatch();
+const BurgerConstructor: FC = () =>{
+    const dispatch = useAppDispatch();
     const [{ isHover }, dropRef] = useDrop({
         accept: "ingredients",
         collect: (monitor) => ({
@@ -24,13 +23,14 @@ export default function BurgerConstructor() {
 
     return (
         <section className={constructorStyles.constructor} ref={dropRef} style={{ border }} >
-            <Bun position="top" data={bun} />
+            <Bun position="top" />
             <div className={constructorStyles.scroller}>
                 <IngredientsList />
             </div>
-            <Bun position="bottom" data={bun} />
+            <Bun position="bottom" />
             <Order />
         </section >
     );
 
 }
+export default BurgerConstructor

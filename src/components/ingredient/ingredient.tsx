@@ -1,15 +1,26 @@
-import React, { useRef } from 'react';
+import React, { useRef, FC } from 'react';
 import ingredientStyles from "./ingredient.module.css";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import { deleteIngredient, moveIngredient } from '../../services/cartSlice';
-import { useDrag, useDrop } from 'react-dnd';
-import { IngredientPropTypes } from '../../utils/utils';
+import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd';
+import { TIngredient } from '../../types/types';
+import {  useAppDispatch } from '../../services/hooks';
+import { XYCoord } from 'dnd-core'
 
-const Ingredient = ({id, item, index, type }) => {
-    const dispatch = useDispatch();
-    const ref = useRef(null);
+
+
+interface IConstructorIngredient {
+    item: TIngredient
+    index: number
+}
+interface DragItem {
+    index: number;
+    id: string;
+    type: string;
+}
+const Ingredient: FC<IConstructorIngredient> = ({ item, index}) => {
+    const dispatch = useAppDispatch ();
+    const ref = useRef<HTMLLIElement>(null);
     
     //Попадание перетаскиваемого элемента в контейнер-приемник 
 
@@ -21,7 +32,7 @@ const Ingredient = ({id, item, index, type }) => {
                 isOver: monitor.isOver()
             };
         },
-        hover(item, monitor) {
+        hover(item: DragItem, monitor: DropTargetMonitor) {
             if (!ref.current) {
                 return;
             }
@@ -36,7 +47,7 @@ const Ingredient = ({id, item, index, type }) => {
             const hoverMiddleY =
                 (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
             const clientOffset = monitor.getClientOffset();
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+            const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
 
             if (dragIndex < dropIndex && hoverClientY < hoverMiddleY) {
                 return;
@@ -61,7 +72,7 @@ const Ingredient = ({id, item, index, type }) => {
     });
 
     const handleClose = () => {
-        dispatch(deleteIngredient({ id, itemIndex: index }))
+        dispatch(deleteIngredient({ id: item._id, itemIndex: index }))
     }
 
     const opacity = isDragging ? 0 : 1;
@@ -71,13 +82,7 @@ const Ingredient = ({id, item, index, type }) => {
         <li className={ingredientStyles.list_item} style={{ opacity }} data-handler-id={handlerId} ref={ref}>
             <div className={ingredientStyles.item_container}>
                 <DragIcon type="primary" />
-                <ConstructorElement
-                    type={type}
-                    text={item.name}
-                    price={item.price}
-                    thumbnail={item.image}
-                    handleClose={handleClose}
-                />
+                <ConstructorElement text={item.name} price={item.price} thumbnail={item.image} handleClose={handleClose} />
             </div>
         </li>
 
@@ -86,11 +91,4 @@ const Ingredient = ({id, item, index, type }) => {
  
 export default Ingredient;
 
-
-Ingredient.propTypes = {
-    item: IngredientPropTypes.isRequired,
-    index: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-
-}
 

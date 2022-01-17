@@ -1,6 +1,5 @@
 import orderStyles from './order.module.css'
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from 'react-redux';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import { useMemo } from 'react';
@@ -8,9 +7,8 @@ import {useModal} from '../../utils/customHooks'
 import { clearOrder, setOrder } from '../../services/orderSlice';
 import { resetCart } from '../../services/cartSlice';
 import { FC } from 'react';
-
-
 import { useAppSelector, useAppDispatch } from '../../services/hooks';
+
 const Order: FC = () => {
     const { order } = useAppSelector(store => store.order)
     const { bun ,fillers } = useAppSelector(store => store.cart.sortedCart);
@@ -20,11 +18,11 @@ const Order: FC = () => {
     //Вычисляем массив ингредиентов в заказе и мемоизируем 
 
     const idArray = useMemo(()=> {
-        const itemsArr = fillers.map(elem => elem.item?._id)
+        const orderItems= fillers.map(elem => elem.item?._id)
         if (bun) {
-            itemsArr.push(bun._id);    
+            orderItems.push(bun._id);    
         }
-        return itemsArr
+        return orderItems
     }, [fillers, bun])
 
     //Делаем кнопку активной в зависимости от ингредиентов в конструкторе

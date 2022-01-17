@@ -1,9 +1,10 @@
 import Ingredient from "../ingredient/ingredient";
-import ingredientsListStyles from './ingredient-list.module.css';
-import { useSelector } from 'react-redux';
+import { FC } from "react";
+import { useAppSelector } from '../../services/hooks';
+import ingredientsListStyles from './ingredient-list.module.css'
 
-const IngredientsList = () => {
-    const { fillers } = useSelector(store => store.cart.sortedCart);
+const IngredientsList: FC = () => {
+    const { fillers } =  useAppSelector(store => store.cart.sortedCart);
     return (
         <ul className={ingredientsListStyles.main_container}>
                {fillers && fillers.map((elem, index) =>

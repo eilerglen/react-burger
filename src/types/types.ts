@@ -11,7 +11,16 @@ export type TIngredient = {
   __v: number;
 }
 
-export type TFiller = {
-  item: TIngredient;
-  constructorId: string;
+export type TFiller = TIngredient & {constructorId: string;}
+
+// **тип заказа**
+export type TOrder = {
+  ingredients: Array<string>;
+  number: number;
+  _id: string;
+  name: string;
+  price: number;
 }
+
+
+

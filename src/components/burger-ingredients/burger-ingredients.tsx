@@ -10,10 +10,13 @@ import { setIngredientDetailsView,
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal"
 import { useModal } from "../../utils/customHooks"
+import { FC } from "react";
+import {  useAppDispatch } from '../../services/hooks';
+import { TIngredient } from "../../types/types";
 
-const BurgerIngredients = () => {
+const BurgerIngredients: FC = () => {
   const [current, setCurrent] = React.useState('bun')
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {isOpen, openingModal, closingModal} = useModal();
 
 // Монтирование 
@@ -23,7 +26,7 @@ const BurgerIngredients = () => {
   },[dispatch])
 // Крупный показ карточки ингредиента
 
-  const handleOpenModal = (item) => {
+  const handleOpenModal = (item: TIngredient) => {
     dispatch(setIngredientDetailsView(item))
     openingModal()
   }
