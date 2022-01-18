@@ -9,6 +9,7 @@ import { FC } from 'react';
 
 const BurgerConstructor: FC = () =>{
     const dispatch = useAppDispatch();
+    
     const [{ isHover }, dropRef] = useDrop({
         accept: "ingredients",
         collect: (monitor) => ({

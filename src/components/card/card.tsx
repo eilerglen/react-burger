@@ -1,12 +1,18 @@
-import PropTypes from 'prop-types'
-import { IngredientPropTypes } from '../../utils/utils';
 import cardStyles from './card.module.css';
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from 'react-redux';
 import { useDrag } from "react-dnd";
+import { TIngredient } from '../../types/types';
+import {FC} from 'react';
+import {  useAppSelector } from '../../services/hooks';
 
-const Card = ({ item, onClick }) => {
-    const { counts } = useSelector(store => store.cart)
+interface ICard {
+    item: TIngredient;
+    onClick: (item: TIngredient) => void
+
+}
+
+const Card: FC<ICard> = ({ item, onClick }) => {
+    const { counts } = useAppSelector(store => store.cart)
 
     //Реализация возможности перетаскивания ингредиента
     
@@ -33,9 +39,4 @@ const Card = ({ item, onClick }) => {
 }
 
 export default Card;
-Card.propTypes = {
-    item: IngredientPropTypes.isRequired,
-    onClick: PropTypes.func.isRequired
-
-}
 

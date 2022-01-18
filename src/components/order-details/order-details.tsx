@@ -1,13 +1,14 @@
 import orderDetailsStyles from './order-details.module.css';
 import { ReactComponent as OrderDone } from '../../images/order-done.svg';
 import { useAppSelector } from '../../services/hooks';
+import { TOrder } from '../../types/types';
 
 const OrderDetails = () => {
     const { order, isLoading } = useAppSelector(store => store.order)
     return (
         <>
             <span className={orderDetailsStyles.order_number}>
-               {order.success && order.order.number}
+               {order as TOrder && (order as TOrder).number}
             </span>
             <span className={orderDetailsStyles.subtitle}>{isLoading ? 'загружаем...' : 'идентификатор заказа'}</span>
             <span className={orderDetailsStyles.icon}>

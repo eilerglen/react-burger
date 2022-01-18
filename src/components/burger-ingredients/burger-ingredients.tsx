@@ -3,7 +3,6 @@ import {useEffect} from 'react';
 import ingredientsStyles from "./burger-ingredients.module.css";
 import Menu from '../menu/menu';
 import Tabs from '../tabs/tabs';
-import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/ingredientsSlice';
 import { setIngredientDetailsView,
         resetIngredientDetailsView } from '../../services/ingredientDetailsViewSlice';

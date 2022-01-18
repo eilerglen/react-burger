@@ -1,8 +1,31 @@
 import tabStyles from './tabs.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
+import {FC} from 'react';
 
-export default function Tabs({ current, onClick }) {
+type TTab = {
+  value: string;
+  title: string
+}
+
+const tabs: Array<TTab>  = [
+  {
+    value: 'bun',
+    title: 'Булки'
+  },
+  {
+    value: 'main',
+    title: 'Начинки'
+  },
+  {
+    value: 'sauce',
+    title: 'Соусы'
+  },
+]
+interface ITab {
+  current: string;
+}
+
+const Tabs: FC<ITab> = ({ current, onClick }) =>{
 
   return (
     <div className={tabStyles.tab_container}>
@@ -13,7 +36,6 @@ export default function Tabs({ current, onClick }) {
   );
 }
 
-Tabs.propTypes = {  
-  current: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
-}
+
+
+export default Tabs

@@ -22,5 +22,10 @@ export type TOrder = {
   price: number;
 }
 
+export type TIngredientList = Array<TIngredient>
+export type TConstructorIngredient = TIngredient & {
+  constructorId: string
+}
+
 
 
