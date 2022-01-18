@@ -1,9 +1,9 @@
 import detailsModalStyles from './ingredient-details.module.css';
 import CompositionList from '../composition-list/composition-list';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../services/hooks';
 
-function IngredientDetails() {
-    const ingredientToShow = useSelector(store => store.ingredientDetailsView.ingredientDetailsView)
+const IngredientDetails: FC = () =>{
+    const ingredientToShow = useAppSelector(store => store.ingredientDetailsView.ingredientDetailsView)
     return (
         <div className={detailsModalStyles.detail}>
             <picture className={detailsModalStyles.picture}>

@@ -29,9 +29,9 @@ const Menu: FC<IMenu> = ({ setCurrent, onClick }) => {
 
     return (
         <div className={menuStyles.scroller}>
-            <MenuItem title="Булки" refs={bunRef} data={ingredients.filter(ingredient => ingredient.type === 'bun')} onClick={onClick}/>
-            <MenuItem title="Начинки" refs={mainRef} data={ingredients.filter(ingredient => ingredient.type === 'main')} onClick={onClick}/>
-            <MenuItem title="Соусы" refs={sauceRef} data={ingredients.filter(ingredient => ingredient.type === 'sauce')} onClick={onClick}/>
+            <MenuItem title="Булки" refs={bunRef} data={ingredients && ingredients.filter(ingredient => ingredient.type === 'bun')} onClick={onClick}/>
+            <MenuItem title="Начинки" refs={mainRef} data={ingredients && ingredients.filter(ingredient => ingredient.type === 'main')} onClick={onClick}/>
+            <MenuItem title="Соусы" refs={sauceRef} data={ingredients && ingredients.filter(ingredient => ingredient.type === 'sauce')} onClick={onClick}/>
         </div>
     )
 } 
