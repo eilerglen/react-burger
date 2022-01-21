@@ -1,13 +1,16 @@
 import {useRef, useEffect} from 'react';
 import overlayStyles from './modal-overlay.module.css';
-import PropTypes from 'prop-types';
+import {FC} from 'react'
 
-const ModalOverlay = ({ onClick }) => {
+interface IModalOverlay {
+  onClick: () => void
+}
+const ModalOverlay: FC<IModalOverlay> = ({ onClick }) => {
   const overlay = useRef(null)
   useEffect(() => {
-    const handleOverlayClick = (e) => {
+    const handleOverlayClick = (e: MouseEvent) => {
       if (e.target === overlay.current) {
-        onClick(e);
+        onClick();
       }
     };
     document.addEventListener("click", handleOverlayClick);
@@ -24,6 +27,3 @@ const ModalOverlay = ({ onClick }) => {
 
 export default ModalOverlay;
 
-ModalOverlay.propTypes = {
-  onClick: PropTypes.func.isRequired
-}

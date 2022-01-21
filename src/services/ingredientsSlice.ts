@@ -1,6 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BASEURL } from "../utils/utils";
+import {TIngredientList} from '../types/types'
 
+interface IIngredientsState {
+    ingredients: TIngredientList;
+    isLoading: boolean;
+    hasError: boolean;
+}
 export const getIngredients = createAsyncThunk(
     'ingredients/getIngredients',
     async () => {        
@@ -12,22 +18,16 @@ export const getIngredients = createAsyncThunk(
         return ingredients.data
     }
 )
+export const initialState: IIngredientsState = {
+    ingredients: [],
+    isLoading: false,
+    hasError: false,
+}
 
 export const ingredientsSlice = createSlice({
     name: 'ingredients',
-    initialState: {
-        ingredients: [],
-        isLoading: false,
-        hasError: false,
-    },
-    /*reducers: {
-        setIngredientToShow: (state, action) => {
-            state.ingredientToShow = action.payload;
-        },
-        resetIngredientToShow: (state) => {
-            state.ingredientToShow = {};
-        } 
-    },*/
+    initialState,
+    reducers: {},
     extraReducers: (builder) => {
         builder
         .addCase(getIngredients.pending, (state) => {
@@ -43,12 +43,8 @@ export const ingredientsSlice = createSlice({
             state.isLoading = false;
             state.hasError = true;
             state.ingredients = [];
-          })
-        
-          
+          })         
     }
 })
-
-export const { setIngredientToShow, resetIngredientToShow } = ingredientsSlice.actions;
 
 export default ingredientsSlice.reducer;

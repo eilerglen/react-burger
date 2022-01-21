@@ -1,16 +1,23 @@
 import compositionListStyles from './composition-list.module.css';
 import CompositionItem  from '../composition-item/composition-item'
-import { useSelector } from 'react-redux';
+import { useAppSelector} from '../../services/hooks';
+import {FC} from 'react'
 
-const CompositionList = () => {
+interface INutritionList {
+    calories: number | undefined;
+    proteins: number | undefined; 
+    fat: number | undefined;
+    carbohydrates: number | undefined;
+}
+
+const CompositionList: FC<INutritionList> = ({ calories, proteins, fat, carbohydrates }) => {
     // Данные ингредиента
-    const { calories, proteins, fat, carbohydrates } = useSelector(store => store.ingredientDetailsView.ingredientDetailsView)
     return (
         <ul className={compositionListStyles.composition}>
-            <CompositionItem title='Калории,ккал' value={calories} />
-            <CompositionItem title='Белки, г' value={proteins} />
-            <CompositionItem title='Жиры, г' value={fat} />
-            <CompositionItem title='Углеводы, г' value={carbohydrates} />
+            <CompositionItem title='Калории,ккал' value={(calories as number)} />
+            <CompositionItem title='Белки, г' value={(proteins as number)} />
+            <CompositionItem title='Жиры, г' value={(proteins as number)} />
+            <CompositionItem title='Углеводы, г' value={(proteins as number)} />
         </ul>
     )
 }

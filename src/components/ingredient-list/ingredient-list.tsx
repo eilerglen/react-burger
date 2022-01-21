@@ -11,8 +11,6 @@ const IngredientsList: FC = () => {
                 <Ingredient
                     key={elem.constructorId || elem.item._id}
                     item={elem.item}
-                    id={elem.item._id}
-                    type={elem.item.type}
                     index={index}
                 />
                 )

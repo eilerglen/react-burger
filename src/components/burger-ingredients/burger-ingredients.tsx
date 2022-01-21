@@ -4,8 +4,8 @@ import ingredientsStyles from "./burger-ingredients.module.css";
 import Menu from '../menu/menu';
 import Tabs from '../tabs/tabs';
 import { getIngredients } from '../../services/ingredientsSlice';
-import { setIngredientDetailsView,
-        resetIngredientDetailsView } from '../../services/ingredientDetailsViewSlice';
+import { setIngredientDetails,
+        resetIngredientDetails } from '../../services/ingredientDetailsSlice';
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal"
 import { useModal } from "../../utils/customHooks"
@@ -14,7 +14,7 @@ import {  useAppDispatch } from '../../services/hooks';
 import { TIngredient } from "../../types/types";
 
 const BurgerIngredients: FC = () => {
-  const [current, setCurrent] = React.useState('bun')
+  const [current, setCurrent] = React.useState<string>('bun')
   const dispatch = useAppDispatch();
   const {isOpen, openingModal, closingModal} = useModal();
 
@@ -25,25 +25,25 @@ const BurgerIngredients: FC = () => {
   },[dispatch])
 // Крупный показ карточки ингредиента
 
-  const handleOpenModal = (item: TIngredient) => {
-    dispatch(setIngredientDetailsView(item))
+  const handleOpenModal = (item: TIngredient): void => {
+    dispatch(setIngredientDetails(item))
     openingModal()
   }
 // Закрытие крупного показа  карточки ингредиента
 
-  const handleClose = (e) => {
-    e.stopPropagation();
+  const handleClose = (e:Event) => {
+    e.stopPropagation()
     closingModal()
-    dispatch(resetIngredientDetailsView())
+    dispatch(resetIngredientDetails())
   };
 
   return (
     <section className={ingredientsStyles.ingredients}>
       <h1 className={ingredientsStyles.title}>Соберите бургер</h1>
-      <Tabs current={current} onClick={setCurrent} />
-      <Menu current={current} setCurrent={setCurrent} onClick={handleOpenModal}/>
+      <Tabs current={current} />
+      <Menu setCurrent = {setCurrent}onClick={handleOpenModal}/>
       {isOpen && (
-        <Modal name = "Details" title ="Детали ингредиента" onClose = {handleClose}>
+        <Modal onClose = {handleClose}>
           <IngredientDetails />
         </Modal>
         )

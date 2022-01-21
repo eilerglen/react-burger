@@ -2,12 +2,12 @@ import tabStyles from './tabs.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import {FC} from 'react';
 
-type TTab = {
+type TTabs = {
   value: string;
   title: string
 }
 
-const tabs: Array<TTab>  = [
+const tabs: Array<TTabs>  = [
   {
     value: 'bun',
     title: 'Булки'
@@ -25,17 +25,20 @@ interface ITab {
   current: string;
 }
 
-const Tabs: FC<ITab> = ({ current, onClick }) =>{
-
+const Tabs: FC<ITab> = ({ current }) => {
   return (
     <div className={tabStyles.tab_container}>
-      <Tab value="bun" active={current === 'bun'} onClick={onClick}>Булки</Tab>
-      <Tab value="main" active={current === 'main'} onClick={onClick}>Начинки</Tab>
-      <Tab value="sauce" active={current === 'sauce'} onClick={onClick}>Соусы</Tab>
+      {tabs.map(({ value, title }) => (
+        <Tab
+          value={value}
+          key={value}
+          active={current === value}
+          onClick={()=>{}}
+        >
+          {title}
+        </Tab>
+      ))}
     </div>
   );
 }
-
-
-
-export default Tabs
+export default Tabs;

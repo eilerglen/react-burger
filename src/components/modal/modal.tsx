@@ -1,18 +1,24 @@
 import {useEffect} from 'react';
 import modalStyles from './modal.module.css';
 import {createPortal} from 'react-dom';
-import PropTypes from 'prop-types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
+import {FC} from 'react';
 
-const modalRoot = document.getElementById('modal-root');
+interface IModal {
+  title?: string;
+  onClose: () => void;
+  name: 'Order' | 'Details';
+  titleType?: 'id' | 'default';
+}
+const modalRoot = document.getElementById('modal-root') as HTMLElement;
 
-export default function Modal ({title, onClose, children })  {
+const Modal: FC<IModal> = ({title, onClose, children }) => {
     
   useEffect(() => {
-        const handleEsc = (e) => {
-            if(e.keyCode === 27) {
-                onClose(e);
+        const handleEsc = (e: KeyboardEvent) => {
+            if(e.key === 'Escape') {
+                onClose();
             }
         }
         window.addEventListener("keydown", handleEsc);
@@ -28,7 +34,7 @@ export default function Modal ({title, onClose, children })  {
               <div className={modalStyles.modal}>
                   <h2 className ={modalStyles.heading}>{title}</h2>
                   <span className = {modalStyles.close} onClick = {onClose}>
-                    <CloseIcon/>
+                    <CloseIcon type = "primary"/>
                   </span>  
                 {children}
               </div>
@@ -37,9 +43,4 @@ export default function Modal ({title, onClose, children })  {
   )
 }
 
-Modal.propTypes = {
-    onClose: PropTypes.func.isRequired,
-    title: PropTypes.string,
-    children: PropTypes.object.isRequired,
-  }
-  
+export default Modal

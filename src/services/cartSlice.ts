@@ -24,29 +24,22 @@ export const cartSlice = createSlice({
     addIngredient: (state, action) => {
       const {item} = action.payload;
       // управляем счетчиком ингридиентов
-      if (!state.counts[item._id]) {
-        state.counts[item._id] = 1;
-      } else {
-        state.counts[item._id]++;
-      }
-
+      
       // сортируем
       if (item.type === 'bun') {
-        const bunId = state.sortedCart.bun?._id;
-        state.counts[bunId] && state.counts[bunId]--
         state.sortedCart.bun = item;
       } else {
         const newFillers = [...state.sortedCart.fillers, {item, constructorId: Date.now().toString(36) + Math.random().toString(36).substr(2)}]
         state.sortedCart.fillers = newFillers;
       }
       // добавляем данные для заказа
-      state.itemsToOrder = state.sortedCart.bun._id ? state.sortedCart.fillers.map(el => el.item._id).concat([state.sortedCart.bun._id]) : state.sortedCart.fillers.map(el => el.item._id)
+     
     },
     deleteIngredient: (state, action) => {
       const { id, itemIndex } = action.payload;
       const newFillers = [...state.sortedCart.fillers];
       newFillers.splice(itemIndex, 1);
-      state.counts[id]--;
+
       state.sortedCart.fillers = newFillers;
       // обновляем данные для заказа
     },
