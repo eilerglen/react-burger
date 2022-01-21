@@ -8,8 +8,7 @@ import {FC} from 'react';
 interface IModal {
   title?: string;
   onClose: () => void;
-  name: 'Order' | 'Details';
-  titleType?: 'id' | 'default';
+  
 }
 const modalRoot = document.getElementById('modal-root') as HTMLElement;
 

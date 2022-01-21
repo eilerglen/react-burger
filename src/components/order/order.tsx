@@ -8,13 +8,14 @@ import { clearOrder, setOrder } from '../../services/orderSlice';
 import { resetCart } from '../../services/cartSlice';
 import { FC } from 'react';
 import { useAppSelector, useAppDispatch } from '../../services/hooks';
+import { TOrder } from '../../types/types';
 
 const Order: FC = () => {
     const { order } = useAppSelector(store => store.order)
     const { bun ,fillers } = useAppSelector(store => store.cart.sortedCart);
     const dispatch = useAppDispatch();
     const { openingModal, closingModal} = useModal();
-    const orderNumber = order && order?.order && order?.order?.number
+    const orderNumber =  order  as TOrder && (order as TOrder).number
     //Вычисляем массив ингредиентов в заказе и мемоизируем 
 
     const idArray = useMemo(()=> {
@@ -59,7 +60,7 @@ const Order: FC = () => {
             <Button onClick={handleOpenModal}>Оформить заказ</Button>
             { orderNumber && 
                 (
-                    <Modal name="Order" onClose={handleCloseModal}>
+                    <Modal onClose={handleCloseModal}>
                         <OrderDetails/>
                     </Modal>
                 )

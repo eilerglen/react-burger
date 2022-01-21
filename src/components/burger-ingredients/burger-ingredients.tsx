@@ -31,8 +31,7 @@ const BurgerIngredients: FC = () => {
   }
 // Закрытие крупного показа  карточки ингредиента
 
-  const handleClose = (e:Event) => {
-    e.stopPropagation()
+  const handleClose = () => {
     closingModal()
     dispatch(resetIngredientDetails())
   };

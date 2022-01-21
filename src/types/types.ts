@@ -29,7 +29,6 @@ export type TOrder = {
   number: number;
   _id: string;
   name: string;
-  price: number;
 }
 
 

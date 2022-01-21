@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BASEURL } from "../utils/utils";
+import { TOrder} from '../types/types'
 
 interface IinitialState {
-    order: {},
+    order: {} | TOrder,
     isLoading: boolean,
     hasError: boolean,
     isSubmitOrderSuccess: boolean
