@@ -8,18 +8,19 @@ import { clearOrder, setOrder } from '../../services/orderSlice';
 import { resetCart } from '../../services/cartSlice';
 import { FC } from 'react';
 import { useAppSelector, useAppDispatch } from '../../services/hooks';
-import { TOrder } from '../../types/types';
 
 const Order: FC = () => {
     const { order } = useAppSelector(store => store.order)
+    console.log(order)
     const { bun ,fillers } = useAppSelector(store => store.cart.sortedCart);
     const dispatch = useAppDispatch();
     const { openingModal, closingModal} = useModal();
-    const orderNumber =  order  as TOrder && (order as TOrder).number
+    const orderNumber = order && order.order && order.order.number
+    console.log(orderNumber)
     //Вычисляем массив ингредиентов в заказе и мемоизируем 
 
     const idArray = useMemo(()=> {
-        const orderItems= fillers.map(elem => elem.item?._id)
+        const orderItems= fillers.map(elem => elem.item._id)
         if (bun) {
             orderItems.push(bun._id);    
         }
@@ -27,7 +28,7 @@ const Order: FC = () => {
     }, [fillers, bun])
 
     //Делаем кнопку активной в зависимости от ингредиентов в конструкторе
-    const isDisabled = bun?._id && idArray.length > 1 ? true : false;
+    // const isDisabled = bun?._id && idArray.length > 1 ? true : false;
 
     function handleOpenModal() {
         if (idArray) {
@@ -57,11 +58,11 @@ const Order: FC = () => {
             <span className={orderStyles.price}>
                 {countTotal}&nbsp;<CurrencyIcon type="primary" />
             </span>
-            <Button onClick={handleOpenModal}>Оформить заказ</Button>
+            <Button type = "primary" size = 'large' onClick={handleOpenModal}> Оформить заказ</Button>
             { orderNumber && 
                 (
-                    <Modal onClose={handleCloseModal}>
-                        <OrderDetails/>
+                    <Modal title = "Детали заказа " onClose={handleCloseModal}>
+                        <OrderDetails number = {orderNumber}/>
                     </Modal>
                 )
             }

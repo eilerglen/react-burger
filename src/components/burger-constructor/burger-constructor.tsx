@@ -20,7 +20,7 @@ const BurgerConstructor: FC = () => {
       },
     })
   
-    const border = isHover ? '1px dashed gray' : 'none'
+    const border = isHover ? '2px dashed green' : 'none'
   
     return (
       <section className={styles.container} ref={dropRef} style={{ border }}>

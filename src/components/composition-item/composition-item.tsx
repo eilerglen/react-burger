@@ -1,5 +1,4 @@
 import compositionStyles from './composition-item.module.css'
-import PropTypes from 'prop-types';
 import {FC} from 'react'
 
 interface INutrition {
@@ -17,7 +16,3 @@ const CompositionItem: FC<INutrition> = ({ title, value }) => {
 
 export default CompositionItem ;
 
-CompositionItem.propTypes = {
-    title: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired
-}

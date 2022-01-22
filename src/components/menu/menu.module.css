@@ -1,29 +1,19 @@
-.text {
-  composes: text text_type_main-default from global;
-  min-height: 48px;
-  text-align: center;
-}
-
-.price {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  composes: mt-1 mb-1 text_type_digits-medium from global;
-}
-
 .scroller {
-  max-height: 900px;
+  max-height: 600px;
   overflow-y: auto;
   scrollbar-color: #8585AD #2F2F37;
   scrollbar-width: thin;
+  overflow-x: hidden;
 }
 
 .scroller::-webkit-scrollbar {
   width: 8px;
 }
+
 .scroller::-webkit-scrollbar-track {
   background: #2F2F37;
 }
+
 .scroller::-webkit-scrollbar-thumb {
   background: #8585AD;
-}  
+}

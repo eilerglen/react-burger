@@ -3,7 +3,7 @@ import { BASEURL } from "../utils/utils";
 import { TOrder} from '../types/types'
 
 interface IinitialState {
-    order: {} | TOrder,
+    order: null | TOrder,
     isLoading: boolean,
     hasError: boolean,
     isSubmitOrderSuccess: boolean
@@ -31,7 +31,7 @@ export const setOrder = createAsyncThunk(
 );
 
 export const initialState: IinitialState = {
-    order: {},
+    order: null,
     isLoading: false,
     hasError: false,
     isSubmitOrderSuccess: false, 
@@ -41,7 +41,7 @@ export const orderSlice = createSlice({
     initialState,
     reducers: {
         clearOrder: (state) => {
-            state.order = {}
+            state.order = null
         },
     },
     extraReducers: (builder) => {
@@ -59,7 +59,7 @@ export const orderSlice = createSlice({
         .addCase(setOrder.rejected, (state) => {
             state.isLoading = false;
             state.hasError = true;
-            state.order = {};
+            state.order = null;
           })
     }
 })

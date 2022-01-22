@@ -42,7 +42,7 @@ const BurgerIngredients: FC = () => {
       <Tabs current={current} />
       <Menu setCurrent = {setCurrent}onClick={handleOpenModal}/>
       {isOpen && (
-        <Modal onClose = {handleClose}>
+        <Modal title = 'Ингредиенты' onClose = {handleClose}>
           <IngredientDetails />
         </Modal>
         )

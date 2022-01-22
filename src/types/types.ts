@@ -26,9 +26,10 @@ export type TFiller = {
 export type TOrder = {
   success: boolean;
   ingredients: Array<string>;
-  number: number;
+  order: {
+    number: number
+  }
   _id: string;
-  name: string;
 }
 
 

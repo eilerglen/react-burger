@@ -22,7 +22,7 @@ const Bun: FC<IBunPos> = ({ position }) => {
   const positionText: string = position === 'top' ? '(верх)' : '(низ)'
 
   return (
-    <div className = {bunStyles.bun}>
+    <div className = {isEmpty ? bunStyles.bun_empty : bunStyles.bun}>
       {!isEmpty ? (
         <ConstructorElement
           type={position}

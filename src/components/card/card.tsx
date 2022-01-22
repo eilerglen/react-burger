@@ -22,23 +22,25 @@ const Card: FC<ICard>= ({ item, onClick }) => {
         })
     })
     const count = useMemo(() => {
-        if( item.type === 'bun') {
-          if(bun?._id && item._id === bun._id) {
+        if( item?.type === 'bun') {
+          if(bun?._id && item?._id === bun._id) {
             return 2
           }
         }
         return fillers.reduce((acc, el) => el.item._id === item._id ? acc + 1 : acc, 0)
       },[bun, fillers])
     
-    return (    
-            <article className={cardStyles.card} key={item._id} onClick={() => onClick(item)} ref={dragRef}>
-                {count > 0 && <Counter count={count}/>}
-                <picture className={cardStyles.picture}>
-                    <img className={cardStyles.image} src={item.image} alt={item.name} />
-                </picture>
-                <span className={cardStyles.price}>{item.price}&nbsp;<CurrencyIcon type="primary" /></span>
-                <p className={cardStyles.text}>{item.name}</p>
-            </article>
+      return (
+        <article className={cardStyles.item} key={item._id} onClick={() => onClick(item)} ref={dragRef}>
+            {count > 0 && <Counter count={count} />}
+            <picture className={cardStyles.picture}>
+                <source media="(max-width: 767px)" srcSet={item.image_mobile} />
+                <source media="(min-width: 768px)" srcSet={item.image_large} />
+                <img className={cardStyles.image} src={item.image} alt={item.name} />
+            </picture>
+            <span className={cardStyles.price}>{item.price}&nbsp;<CurrencyIcon type="primary" /></span>
+            <p className={cardStyles.text}>{item.name}</p>
+        </article>
     )
 }
 export default Card;

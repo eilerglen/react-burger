@@ -7,8 +7,6 @@ import { TIngredient } from '../../types/types';
 import {  useAppDispatch } from '../../services/hooks';
 import { XYCoord } from 'dnd-core'
 
-
-
 interface IConstructorIngredient {
     item: TIngredient
     index: number
