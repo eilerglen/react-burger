@@ -28,7 +28,7 @@ const Card: FC<ICard>= ({ item, onClick }) => {
           }
         }
         return fillers.reduce((acc, el) => el.item._id === item._id ? acc + 1 : acc, 0)
-      },[bun, fillers])
+      },[bun, fillers, item])
     
       return (
         <article className={cardStyles.item} key={item._id} onClick={() => onClick(item)} ref={dragRef}>

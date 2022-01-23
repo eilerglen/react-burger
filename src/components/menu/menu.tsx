@@ -12,7 +12,6 @@ interface IMenu {
 
 const Menu: FC<IMenu> = ({ setCurrent, onClick }) => {
    const { ingredients } = useAppSelector(store => store.ingredients)
-
    const [bunRef, inViewBun] = useInView({ threshold: 0 });
    const [sauceRef, inViewSauce] = useInView({ threshold: 0 });
    const [mainRef, inViewMain] = useInView({ threshold: 0 });
