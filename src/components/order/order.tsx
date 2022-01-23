@@ -3,7 +3,7 @@ import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-co
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import { useMemo } from 'react';
-import {useModal} from '../../utils/customHooks'
+import {useModal} from '../../utils/useModal'
 import { clearOrder, setOrder } from '../../services/orderSlice';
 import { resetCart } from '../../services/cartSlice';
 import { FC } from 'react';
@@ -11,12 +11,10 @@ import { useAppSelector, useAppDispatch } from '../../services/hooks';
 
 const Order: FC = () => {
     const { order } = useAppSelector(store => store.order)
-    console.log(order)
     const { bun ,fillers } = useAppSelector(store => store.cart.sortedCart);
     const dispatch = useAppDispatch();
     const { openingModal, closingModal} = useModal();
     const orderNumber = order && order.order && order.order.number
-    console.log(orderNumber)
     //Вычисляем массив ингредиентов в заказе и мемоизируем 
 
     const idArray = useMemo(()=> {
@@ -28,7 +26,7 @@ const Order: FC = () => {
     }, [fillers, bun])
 
     //Делаем кнопку активной в зависимости от ингредиентов в конструкторе
-    // const isDisabled = bun?._id && idArray.length > 1 ? true : false;
+    const isDisabled = bun?._id && idArray.length > 1 ? true : false;
 
     function handleOpenModal() {
         if (idArray) {
@@ -58,7 +56,7 @@ const Order: FC = () => {
             <span className={orderStyles.price}>
                 {countTotal}&nbsp;<CurrencyIcon type="primary" />
             </span>
-            <Button type = "primary" size = 'large' onClick={handleOpenModal}> Оформить заказ</Button>
+            {isDisabled && <Button type = "primary" size = 'large' onClick={handleOpenModal}> Оформить заказ</Button>}
             { orderNumber && 
                 (
                     <Modal title = "Детали заказа " onClose={handleCloseModal}>

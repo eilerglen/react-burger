@@ -32,7 +32,7 @@ const Card: FC<ICard>= ({ item, onClick }) => {
     
       return (
         <article className={cardStyles.item} key={item._id} onClick={() => onClick(item)} ref={dragRef}>
-            {count > 0 && <Counter count={count} />}
+            {count > 0 && <Counter count={count} size={'default'}/>}
             <picture className={cardStyles.picture}>
                 <source media="(max-width: 767px)" srcSet={item.image_mobile} />
                 <source media="(min-width: 768px)" srcSet={item.image_large} />

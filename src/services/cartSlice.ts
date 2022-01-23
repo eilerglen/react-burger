@@ -36,7 +36,7 @@ export const cartSlice = createSlice({
      
     },
     deleteIngredient: (state, action) => {
-      const { id, itemIndex } = action.payload;
+      const { itemIndex } = action.payload;
       const newFillers = [...state.sortedCart.fillers];
       newFillers.splice(itemIndex, 1);
 

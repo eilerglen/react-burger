@@ -1,8 +1,7 @@
 import { useState } from "react";
-import {FC} from 'react'
 
 const useModal = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
     const openingModal = () => {
         setIsOpen(true);
     }

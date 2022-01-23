@@ -8,7 +8,7 @@ import { setIngredientDetails,
         resetIngredientDetails } from '../../services/ingredientDetailsSlice';
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal"
-import { useModal } from "../../utils/customHooks"
+import { useModal } from "../../utils/useModal"
 import { FC } from "react";
 import {  useAppDispatch } from '../../services/hooks';
 import { TIngredient } from "../../types/types";
