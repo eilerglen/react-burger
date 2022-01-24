@@ -1,6 +1,7 @@
 import {setCookie} from '../utils/cookie'
-import { loginRequestApi } from './api';
+import { loginRequestApi, registerRequestApi } from './api';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 const initialState = {
   isAuthorized: false,
   user: {
@@ -23,6 +24,18 @@ export const login = createAsyncThunk('auth/login', async (form) => {
     return Promise.reject(res.message)
   }
 })
+
+export const register = createAsyncThunk('auth/register', async (form) => {
+  const res = await registerRequestApi(form)
+  if (res && res.success) {
+    console.log('register success' + res.user)
+    return res.user
+  } else {
+    return Promise.reject(res.message)
+  }
+})
+
+
 export const loginSlice = createSlice({
   name: 'login',
   initialState,

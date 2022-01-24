@@ -53,3 +53,24 @@ export const loginRequestApi = async(form) => {
     return Promise.reject(error.message)
   }
 }
+
+export const registerRequestApi = async(form) => {
+try {
+  let response = await fetch(`${BASEURL}/auth/register`, {
+    method: 'POST',
+    headers: {
+      'Content-type':'application/json',
+
+    },
+    body: JSON.stringify(form),
+  })
+  const res = await checkResponse(response)
+  return res
+
+}
+catch (error) {
+  console.log('Catched error' + error.message)
+  return Promise.reject(error.message)
+}
+
+}
