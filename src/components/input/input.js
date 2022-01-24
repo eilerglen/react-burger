@@ -1,6 +1,7 @@
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components"
+import React from 'react'
 
-const CustomInput = ({icon, name, placeholder, value, onChange, disabled }) => {
+const CustomInput = ({icon, type,  name, placeholder, value, onChange, disabled }) => {
   const [isDisabled, setDisabled] = React.useState(true)
 
   const onBlur = () => {
@@ -23,5 +24,7 @@ const CustomInput = ({icon, name, placeholder, value, onChange, disabled }) => {
       onChange = {onChange}
     />
   )
-  export default CustomInput
+ 
 }
+
+export default CustomInput

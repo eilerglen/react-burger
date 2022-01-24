@@ -1,13 +1,14 @@
 import React , {FC} from 'react'
-import styles from './auth.module.css'
+import styles from './login.module.css'
 import {Button, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components'
 import {Link, Redirect, useLocation} from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../services/hooks'
 import CustomInput from '../../components/input/input'
+import {login} from '../../services/loginSlice'
 
 const LoginPage = () => {
   const [form, setForm] = React.useState({email: '', password: ''})
-  const {isAuthorized} = useAppSelector((store) => store.login)
+  const {isAuthorized} = useAppSelector(store => store.login)
   const location = useLocation()
 
   const dispatch = useAppDispatch()
@@ -22,7 +23,7 @@ const LoginPage = () => {
     }
   }
   if(isAuthorized) {
-    return <Redirect to = {location.state.from  || '/'}/>
+    return <Redirect to = {location.state.from || '/'}/>
   }
 
   return (

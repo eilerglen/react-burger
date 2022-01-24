@@ -1,3 +1,10 @@
+import {Location} from 'history'
+
+export interface TLocationState extends Location {
+  from: string;
+  pushLocation?: Location;
+}
+
 export type TIngredient = {
   _id: string;
   name: string;
