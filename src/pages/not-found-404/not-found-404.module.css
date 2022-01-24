@@ -1,0 +1,23 @@
+.wrapper {
+  background: url('https://pictures.s3.yandex.net/resources/Frame_5_1618586219.png');
+  background-position: center;
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.text {
+  composes: text text_type_main-medium mt-4 from global;
+}
+
+.title {
+  composes: text text_type_digits-large from global;
+}
+
+.link {
+  composes: text text_type_main-medium from global;
+  text-decoration: none;
+  color: var(--colors-interface-accent)
+}

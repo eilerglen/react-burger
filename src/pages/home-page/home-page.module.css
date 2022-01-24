@@ -1,0 +1,7 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  height: 85vh;
+}
