@@ -1,5 +1,10 @@
 import {setCookie} from '../utils/cookie'
-import { loginRequestApi, registerRequestApi } from './api';
+import { 
+  getUserApi,
+  loginRequestApi, 
+  refreshExpiredTokenApi, 
+  registerRequestApi,
+  updateUserApi } from './api';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -18,7 +23,7 @@ export const login = createAsyncThunk('auth/login', async (form) => {
     setCookie('token', res.accessToken, {path: '/'})
     localStorage.setItem('token', res.refreshToken)
     localStorage.setItem('userName', res.user.name)
-    console.log('login success, ' + res.user.name)
+    console.log('Login success, ' + res.user.name)
     return res
   } else {
     return Promise.reject(res.message)
@@ -35,6 +40,26 @@ export const register = createAsyncThunk('auth/register', async (form) => {
   }
 })
 
+export const updateUser = createAsyncThunk('auth/updateUser', async(form) => {
+  try {
+    const res = await updateUserApi(form)
+
+    if(res && res.success) {
+      localStorage.setItem('userName', res.user.name)
+      console.log('update success', res)
+      return res.user
+    }
+    throw new Error(res)
+  }
+  catch(error) {
+    if(error.message === 'jwt expired') {
+      console.log(error.message)
+      await refreshExpiredTokenApi(getUserApi, null)
+      return Promise.reject(error.message)
+    }
+    console.log(`Catched and handled error: "${error.message}"`)
+  }
+})
 
 export const authSlice = createSlice({
   name: 'login',
@@ -74,7 +99,19 @@ export const authSlice = createSlice({
       .addCase(register.fulfilled, (state) => {
         state.isLoading = false
         state.hasError = false
-        
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true
+        state.hasError = false
+      })
+      .addCase(updateUser.rejected, (state) => {
+        state.isLoading = false
+        state.hasError = true
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.user = action.payload
+        state.isLoading = false
+        state.hasError = false
       })
   }
 
