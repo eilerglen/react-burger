@@ -8,38 +8,36 @@ import { useLocation, Redirect, useHistory } from 'react-router-dom';
 import { TLocationState } from '../../types/types';
 
 const RegisterPage = () => {
-  const [isAuthorised, isLoading, hasError] = useAppSelector(store => store.auth)
-  console.log(isAuthorised, isLoading)
-  const dispatch = useAppDispatch()
-  const location = useLocation()
-  const history = useHistory()
-  const [isVisible, setVisible] = React.useState(false)
-  const [form, setForm] = React.useState({ name: '', email: '', password: '' });
-
-  const onChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    let res = await dispatch(register(form))
-    console.log(res)
-    if (!isLoading && !hasError) {
-        setForm({ name: '', email: '', password: '' })
-        return history.replace('/login');
+    const { isAuthorized, isLoading, hasError } = useAppSelector(store => store.auth)
+    const location = useLocation();
+    const history = useHistory()
+  
+    const [isVisible, setVisible] = React.useState(false)
+    const [form, setForm] = React.useState({ name: '', email: '', password: '' });
+    const dispatch = useAppDispatch();
+  
+    const onChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        let res = await dispatch(register(form))
+        console.log(res)
+        if (!isLoading && !hasError) {
+            setForm({ name: '', email: '', password: '' })
+            return history.replace('/login');
+        }
     }
-  }
-  if(isAuthorised) {
-    console.log(' in name', location.state)
-    const {from} = location.state || {from: { pathname: '/'}}
+    if (isAuthorized) {
+        console.log('in name ', location.state)
+        const { from } = location.state || { from: { pathname: '/' } }
+        return (
+            <Redirect to={from} />
+        )
+    }
     return (
-      <Redirect to = {from}/>
-    )
-  }
-  return (
-    <>
-     {!isLoading && (
+        <>
+        {!isLoading && (
         <div className={styles.wrapper}>
             <form className={styles.form} onSubmit={onSubmit}>
                 <h1 className={styles.heading}>Регистрация</h1>
@@ -50,7 +48,7 @@ const RegisterPage = () => {
                     value={form.name}
                     onChange={onChange}
                 />
-
+  
                 <Input
                     type="email"
                     placeholder="Email"
@@ -58,7 +56,7 @@ const RegisterPage = () => {
                     value={form.email}
                     onChange={onChange}
                 />
-
+  
                 <Input
                     type={isVisible ? 'text' : "password"}
                     placeholder="Пароль"
@@ -68,7 +66,7 @@ const RegisterPage = () => {
                     onChange={onChange}
                     onIconClick={() => setVisible(!isVisible)}
                 />
-
+  
                 <span className={styles.button}>
                     <Button>Зарегистрироваться</Button>
                 </span>
@@ -82,7 +80,7 @@ const RegisterPage = () => {
         </div>
         )}
     </>
-  )
-
-}
-export default RegisterPage
+    );
+  }
+  
+  export default RegisterPage;
