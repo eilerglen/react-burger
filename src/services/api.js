@@ -24,6 +24,25 @@ export const getUserApi = async () => {
     return await Promise.reject(err)
   }
 }
+// Регистрация
+
+export const registerRequestApi = async (form) => {
+  try {
+    const response = await fetch(`${BASEURL}/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form),
+    })
+    const res = await checkResponse(response)
+    return res
+  } catch (error) {
+    console.log('Catched error ' + error.message)
+    return Promise.reject(error.message)
+  }
+}
+// Получить токен
 
 export const refreshExpiredTokenApi = async (func, args = null) => {
   const refreshToken = localStorage.getItem('token');
@@ -54,6 +73,7 @@ export const refreshExpiredTokenApi = async (func, args = null) => {
     console.log('Refresh error: ' + error.message)
   }
 }
+// Залогиниться
 
 export const loginRequestApi = async (form) => {
   try {
@@ -70,22 +90,7 @@ export const loginRequestApi = async (form) => {
     return Promise.reject(error.message)
   }
 }
-
-export const loginRequestApi = async (form) => {
-  try {
-    const response = await fetch(`${BASEURL}/auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(form),
-    })
-    return await checkResponse(response)
-  } catch (error) {
-    console.log(error.message)
-    return Promise.reject(error.message)
-  }
-}
+// Вспоминаем пароль
 
 export const forgotPasswordApi = async(email) => {
   try {
@@ -110,6 +115,7 @@ export const forgotPasswordApi = async(email) => {
     return Promise.reject(error.message)
   }
 }
+// Сбросить пароль
 
 export const resetPasswordApi = async({password, token}) => {
   try {
@@ -135,6 +141,7 @@ export const resetPasswordApi = async({password, token}) => {
     return Promise.reject(error.message)
   }
 }
+// Обновить данные пользователя
 export const updateUserApi = async({name, email, password}) => {
   try {
     const response = await fetch(`${BASEURL}/auth/user`, {
