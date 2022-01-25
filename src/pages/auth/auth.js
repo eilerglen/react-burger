@@ -1,14 +1,14 @@
 import React , {FC} from 'react'
-import styles from './login.module.css'
+import styles from './auth.module.css'
 import {Button, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components'
 import {Link, Redirect, useLocation} from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../services/hooks'
 import CustomInput from '../../components/input/input'
-import {login} from '../../services/loginSlice'
+import {login} from '../../services/authSlice'
 
-const LoginPage = () => {
+const AuthPage = () => {
   const [form, setForm] = React.useState({email: '', password: ''})
-  const {isAuthorized} = useAppSelector(store => store.login)
+  const {isAuthorized} = useAppSelector(store => store.auth)
   const location = useLocation()
 
   const dispatch = useAppDispatch()
@@ -45,6 +45,12 @@ const LoginPage = () => {
       </form>
       <p className={styles.text}>
         Вы - новый пользователь?&nbsp;
+        <Link className = {styles.link} to = {'/register'}>
+          Зарегистрироваться
+        </Link>
+      </p>
+      <p className={styles.text}>
+        Забыли пароль?&nbsp;
         <Link className = {styles.link} to = {'/forgot-password'}>
           Восстановить пароль
         </Link>
@@ -53,4 +59,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+export default AuthPage

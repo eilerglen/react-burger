@@ -36,7 +36,7 @@ export const register = createAsyncThunk('auth/register', async (form) => {
 })
 
 
-export const loginSlice = createSlice({
+export const authSlice = createSlice({
   name: 'login',
   initialState,
   reducers: {},
@@ -48,10 +48,10 @@ export const loginSlice = createSlice({
         state.isAuthorized = false
       })
       .addCase(login.rejected, (state) => {
+        state.user = initialState.user
         state.isLoading = false
         state.hasError = true
         state.isAuthorized = false
-        state.user = initialState.user
       })
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload.user
@@ -60,8 +60,24 @@ export const loginSlice = createSlice({
         state.isAuthorized = true
         
       })
+      .addCase(register.pending, (state) => {
+        state.isLoading = true
+        state.hasError = false
+        
+        
+      })
+      .addCase(register.rejected, (state) => {
+        state.isLoading = false
+        state.hasError = true
+        
+      })
+      .addCase(register.fulfilled, (state) => {
+        state.isLoading = false
+        state.hasError = false
+        
+      })
   }
 
 })
 
-export default loginSlice.reducer;
+export default authSlice.reducer;

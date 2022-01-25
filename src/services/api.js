@@ -1,6 +1,7 @@
 import {BASEURL} from '../utils/utils'
 import {setCookie} from '../utils/cookie'
 
+
 const checkResponse = (res)=> {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err))
 
@@ -55,22 +56,70 @@ export const loginRequestApi = async(form) => {
 }
 
 export const registerRequestApi = async(form) => {
-try {
-  let response = await fetch(`${BASEURL}/auth/register`, {
-    method: 'POST',
-    headers: {
-      'Content-type':'application/json',
+  try {
+    let response = await fetch(`${BASEURL}/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-type':'application/json',
 
-    },
-    body: JSON.stringify(form),
-  })
-  const res = await checkResponse(response)
-  return res
+      },
+      body: JSON.stringify(form),
+    })
+    const res = await checkResponse(response)
+    return res
+  }
+  catch (error) {
+    console.log('Catched error' + error.message)
+    return Promise.reject(error.message)
+  }
 
 }
-catch (error) {
-  console.log('Catched error' + error.message)
-  return Promise.reject(error.message)
+
+export const forgotPasswordApi = async(email) => {
+  try {
+    let response = await fetch(`${BASEURL}/password-reset`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+      }),
+    })
+    const res = await checkResponse(response)
+    if(res && res.success) {
+      return res
+    } else {
+      return Promise.reject(res.message)
+    }
+  }
+  catch(error) {
+    console.log('Catched error' + error.message)
+    return Promise.reject(error.message)
+  }
 }
 
+export const resetPasswordApi = async({password, token}) => {
+  try {
+    let response = await fetch(`${BASEURL}/password-reset/reset`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        password,
+        token,
+      }),
+    })
+    const res = await checkResponse(response)
+    if(res && res.success) {
+      return res
+    } else {
+      return Promise.reject(res.message)
+    }
+  }
+  catch(error) {
+    console.log('Catched error' + error.message)
+    return Promise.reject(error.message)
+  }
 }

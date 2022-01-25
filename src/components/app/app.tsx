@@ -1,12 +1,15 @@
 import HomePage from '../../pages/home-page/home-page'
-import LoginPage from '../../pages/login/login'
+import AuthPage from '../../pages/auth/auth'
 import RegisterPage from '../../pages/register/register'
+import NotFound404 from '../../pages/not-found-404/not-found-404'
+import Profile from '../../pages/profile/profile'
+import ForgotPassword from '../../pages/forgot-password/forgot-password'
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import {Route, Switch, useLocation, useHistory} from 'react-router-dom'
-import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { TLocationState } from '../../types/types';
+import { getIngredients } from '../../services/ingredientsSlice';
 
 
 const App: FC = () => {
@@ -16,19 +19,30 @@ const App: FC = () => {
   const isPush = history.action === 'PUSH'
   let pushLocation = isPush && location.state && location.state.pushLocation
 
+  useEffect(() => {
+    dispatch(getIngredients())
+  },[dispatch])
+
   return (
     <>
       <AppHeader />
-      <Switch location = {pushLocation || location }/>
+      <Switch location = {pushLocation || location }>
         <Route path='/' exact>
           <HomePage />
         </Route>
         <Route path='/login' exact>
-          <LoginPage />
+          <AuthPage />
         </Route>
         <Route path='/register' exact>
           <RegisterPage />
         </Route>
+        <Route path='/profile' exact>
+          <Profile />
+        </Route>
+        <Route path='/forgot-password' exact>
+          <ForgotPassword />
+        </Route>
+      </Switch>  
     </>
   );
 }

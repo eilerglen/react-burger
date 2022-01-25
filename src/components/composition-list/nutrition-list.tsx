@@ -3,10 +3,10 @@ import CompositionItem  from '../nutrition-item/nutrition-item'
 import {FC} from 'react'
 
 interface INutritionList {
-    calories: number | undefined;
-    proteins: number | undefined; 
-    fat: number | undefined;
-    carbohydrates: number | undefined;
+    calories?: number;
+    proteins?: number; 
+    fat?: number;
+    carbohydrates?: number;
 }
 
 const CompositionList: FC<INutritionList> = ({ calories, proteins, fat, carbohydrates }) => {

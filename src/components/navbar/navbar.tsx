@@ -8,8 +8,10 @@ import NavItem from "../nav-item/nav-item";
 import navbarStyles from "./navbar.module.css";
 import { Link } from 'react-router-dom';
 import { FC } from "react";
+import { useAppSelector } from "../../services/hooks";
 
  const NavBar: FC = () => {
+  const name = useAppSelector((store) => store.auth.user.name) 
   return (
     <nav className={navbarStyles.navbar}>
       <ul className={navbarStyles.nav_menu}>
@@ -18,7 +20,7 @@ import { FC } from "react";
             <NavItem text="Конструктор" link={'/'}>
                <BurgerIcon type = "primary"/>
             </NavItem>
-            <NavItem text="Лента заказов" link ={''}>
+            <NavItem text="Лента заказов" link ={'/feed'}>
                <ListIcon type = "primary"/>
             </NavItem>
           </div>
@@ -30,7 +32,7 @@ import { FC } from "react";
           
         </li>
         <li >
-          <NavItem text="Личный кабинет" link ={'/profile'}>
+          <NavItem text={ name ? name : "Личный кабинет"} link ={'/profile'}>
             <ProfileIcon type = "primary" />
           </NavItem>
         </li>
