@@ -26,22 +26,6 @@ export const getUserApi = async () => {
 }
 // Регистрация
 
-export const registerRequestApi = async (form) => {
-  try {
-    const response = await fetch(`${BASEURL}/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(form),
-    })
-    const res = await checkResponse(response)
-    return res
-  } catch (error) {
-    console.log('Catched error ' + error.message)
-    return Promise.reject(error.message)
-  }
-}
 // Получить токен
 
 export const refreshExpiredTokenApi = async (func, args = null) => {
@@ -90,6 +74,24 @@ export const loginRequestApi = async (form) => {
     return Promise.reject(error.message)
   }
 }
+// Разлогинится
+export const logoutRequestApi = async () => {
+  try {
+    const response = await fetch(`${BASEURL}/auth/logout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token: localStorage.getItem('token'),
+      }),
+    })
+    return await checkResponse(response)
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}
+// Забыли пароль?
 
 export const forgotPasswordApi = async(email) => {
   try {

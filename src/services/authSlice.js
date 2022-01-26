@@ -2,6 +2,7 @@ import {setCookie} from '../utils/cookie'
 import { 
   getUserApi,
   loginRequestApi, 
+  logoutRequestApi,
   refreshExpiredTokenApi, 
   registerRequestApi,
   updateUserApi } from './api';
@@ -16,7 +17,7 @@ const initialState = {
   isLoading: false,
   hasError: false
 }
-
+// Функция логгирования
 export const login = createAsyncThunk('auth/login', async (form) => {
   const res = await loginRequestApi(form)
   if (res && res.success) {
@@ -25,6 +26,20 @@ export const login = createAsyncThunk('auth/login', async (form) => {
     localStorage.setItem('userName', res.user.name)
     console.log('Login success, ' + res.user.name)
     return res
+  } else {
+    return Promise.reject(res.message)
+  }
+})
+// Функция разлоггирования
+
+export const logout = createAsyncThunk('auth/logout', async () => {
+  const res = await logoutRequestApi()
+  if (res && res.success) {
+    setCookie('token', '', {path: '/'})
+    localStorage.removeItem('token')
+    localStorage.removeItem('userName')
+    console.log('logout success')
+    return res;
   } else {
     return Promise.reject(res.message)
   }
@@ -98,6 +113,20 @@ export const authSlice = createSlice({
       })
       .addCase(register.fulfilled, (state) => {
         state.isLoading = false
+        state.hasError = false
+      })
+      .addCase(logout.pending, (state) => {
+        state.isLoading = true
+        state.hasError = false
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.isAuthorized = false
+        state.isLoading = false
+        state.hasError = false
+        state.user = initialState.user
+      })
+      .addCase(logout.rejected, (state) => {
+        state.isLoading = true
         state.hasError = false
       })
       .addCase(updateUser.pending, (state) => {
