@@ -4,6 +4,7 @@ import RegisterPage from '../../pages/register/register'
 import NotFound404 from '../../pages/not-found-404/not-found-404'
 import Profile from '../../pages/profile/profile'
 import ForgotPassword from '../../pages/forgot-password/forgot-password'
+import ResetPassword from '../../pages/reset-password/reset-password'
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import {Route, Switch, useLocation, useHistory} from 'react-router-dom'
 import AppHeader from '../app-header/app-header';
@@ -43,7 +44,7 @@ const App: FC = () => {
           <ForgotPassword />
         </Route>
         <Route path='/reset-password' exact>
-          <ForgotPassword />
+          <ResetPassword />
         </Route>
       </Switch>  
     </>

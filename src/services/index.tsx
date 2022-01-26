@@ -3,6 +3,7 @@ import ingredientsReducer from './ingredientsSlice'
 import orderReducer from './orderSlice'
 import ingredientDetailsReducer from './ingredientDetailsSlice'
 import authReducer from './authSlice'
+import passwordReducer from './passwordSlice'
 
 const rootReducer = {
   ingredients: ingredientsReducer,
@@ -10,6 +11,7 @@ const rootReducer = {
   order: orderReducer,
   ingredientDetails: ingredientDetailsReducer,
   auth: authReducer,
+  password: passwordReducer,
 }
 
 export default rootReducer
