@@ -11,11 +11,11 @@ const RegisterPage = () => {
     const { isAuthorized, isLoading, hasError } = useAppSelector(store => store.auth)
     const location = useLocation();
     const history = useHistory()
-  
+
     const [isVisible, setVisible] = React.useState(false)
     const [form, setForm] = React.useState({ name: '', email: '', password: '' });
     const dispatch = useAppDispatch();
-  
+
     const onChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
@@ -48,7 +48,7 @@ const RegisterPage = () => {
                     value={form.name}
                     onChange={onChange}
                 />
-  
+
                 <Input
                     type="email"
                     placeholder="Email"
@@ -56,7 +56,7 @@ const RegisterPage = () => {
                     value={form.email}
                     onChange={onChange}
                 />
-  
+
                 <Input
                     type={isVisible ? 'text' : "password"}
                     placeholder="Пароль"
@@ -66,7 +66,7 @@ const RegisterPage = () => {
                     onChange={onChange}
                     onIconClick={() => setVisible(!isVisible)}
                 />
-  
+
                 <span className={styles.button}>
                     <Button>Зарегистрироваться</Button>
                 </span>
@@ -81,6 +81,6 @@ const RegisterPage = () => {
         )}
     </>
     );
-  }
-  
-  export default RegisterPage;
+}
+
+export default RegisterPage;

@@ -71,21 +71,6 @@ export const loginRequestApi = async (form) => {
   }
 }
 
-export const loginRequestApi = async (form) => {
-  try {
-    const response = await fetch(`${BASEURL}/auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(form),
-    })
-    return await checkResponse(response)
-  } catch (error) {
-    console.log(error.message)
-    return Promise.reject(error.message)
-  }
-}
 
 export const forgotPasswordApi = async(email) => {
   try {
@@ -154,5 +139,22 @@ export const updateUserApi = async({name, email, password}) => {
   } catch (error) {
     console.log('Update user failed: ', error)
     return Promise.reject(error)
+  }
+}
+export const registerRequestApi = async (form) => {
+  try {
+    const response = await fetch(`${BASEURL}/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form),
+    })
+    const res = await checkResponse(response)
+    console.log(res)
+    return res 
+  } catch (error) {
+    console.log('Catched error ' + error.message)
+    return Promise.reject(error.message)
   }
 }

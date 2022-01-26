@@ -23,7 +23,7 @@ const AuthPage = () => {
     }
   }
   if(isAuthorized) {
-    return <Redirect to = {location.state.from || '/'}/>
+    return <Redirect to = {location.state?.from || '/'}/>
   }
 
   return (

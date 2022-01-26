@@ -27,7 +27,7 @@ const App: FC = () => {
     <>
       <AppHeader />
       <Switch location = {pushLocation || location }>
-        <Route path='/' exact>
+        <Route path='/' exact = {true}>
           <HomePage />
         </Route>
         <Route path='/login' exact>
@@ -40,6 +40,9 @@ const App: FC = () => {
           <Profile />
         </Route>
         <Route path='/forgot-password' exact>
+          <ForgotPassword />
+        </Route>
+        <Route path='/reset-password' exact>
           <ForgotPassword />
         </Route>
       </Switch>  

@@ -62,3 +62,8 @@ export type TIcons =
     | 'HideIcon'
     | 'LogoutIcon'
 
+// **useLocation type**
+export interface TLocationState extends Location {
+  from: string;
+  pushLocation?: Location;
+}
