@@ -5,6 +5,7 @@ import { TIngredient } from '../../types/types';
 import {FC} from 'react';
 import {  useAppSelector } from '../../services/hooks';
 import { useMemo } from 'react'
+import { Link, useLocation } from 'react-router-dom';
 
 interface ICard {
     item: TIngredient;
@@ -13,6 +14,7 @@ interface ICard {
 const Card: FC<ICard>= ({ item, onClick }) => {
     const { bun } = useAppSelector((store) => store.cart.sortedCart);
     const { fillers } = useAppSelector((store) => store.cart.sortedCart);
+    const location = useLocation()
 
     const [, dragRef] = useDrag({
         type: "ingredients",
@@ -31,6 +33,11 @@ const Card: FC<ICard>= ({ item, onClick }) => {
       },[bun, fillers, item])
     
       return (
+          <Link className={cardStyles.item} to={{
+              pathname: `/ingredients/${item._id}`,
+              state: {from: location.pathname, pushLocation: location}
+          }}>
+          
         <article className={cardStyles.item} key={item._id} onClick={() => onClick(item)} ref={dragRef}>
             {count > 0 && <Counter count={count} size={'default'}/>}
             <picture className={cardStyles.picture}>
@@ -41,6 +48,7 @@ const Card: FC<ICard>= ({ item, onClick }) => {
             <span className={cardStyles.price}>{item.price}&nbsp;<CurrencyIcon type="primary" /></span>
             <p className={cardStyles.text}>{item.name}</p>
         </article>
+        </Link>
     )
 }
 export default Card;

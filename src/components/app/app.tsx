@@ -5,6 +5,7 @@ import NotFound404 from '../../pages/not-found-404/not-found-404'
 import Profile from '../../pages/profile/profile'
 import ForgotPassword from '../../pages/forgot-password/forgot-password'
 import ResetPassword from '../../pages/reset-password/reset-password'
+import IngredientPage from '../../pages/ingredient/ingredient'
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import {Route, Switch, useLocation, useHistory} from 'react-router-dom'
 import AppHeader from '../app-header/app-header';
@@ -46,6 +47,7 @@ const App: FC = () => {
         <Route path='/reset-password' exact>
           <ResetPassword />
         </Route>
+        <Route path = '/ingredients/:id'></Route>
       </Switch>  
     </>
   );

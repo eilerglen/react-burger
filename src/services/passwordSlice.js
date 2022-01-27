@@ -18,6 +18,7 @@ export const forgotPassword = createAsyncThunk('password/forgot', async (email) 
   }
   return res
 })
+
 export const resetPassword = createAsyncThunk('password/reset', async (form) => {
   const res = await resetPasswordApi(form)
   if (!res.success) {
