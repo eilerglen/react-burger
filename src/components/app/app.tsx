@@ -12,6 +12,7 @@ import AppHeader from '../app-header/app-header';
 import { FC, useEffect } from 'react';
 import { TLocationState } from '../../types/types';
 import { getIngredients } from '../../services/ingredientsSlice';
+
 import Spinner from '../spinner/spinner'
 
 
@@ -27,9 +28,7 @@ const App: FC = () => {
     dispatch(getIngredients())
   },[dispatch])
 
-  const closeModal = () => {
-
-  }
+  
   return (
    
     <>

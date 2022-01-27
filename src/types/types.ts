@@ -67,3 +67,8 @@ export interface TLocationState extends Location {
   from: string;
   pushLocation?: Location;
 }
+
+export type TProtectedHOC = {
+  path: string;
+  exact: boolean;
+}

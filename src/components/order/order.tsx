@@ -8,10 +8,14 @@ import { clearOrder, setOrder } from '../../services/orderSlice';
 import { resetCart } from '../../services/cartSlice';
 import { FC } from 'react';
 import { useAppSelector, useAppDispatch } from '../../services/hooks';
+import { useHistory } from 'react-router-dom'
+
 
 const Order: FC = () => {
+    const { isAuthorized } = useAppSelector((store) => store.auth)
     const { order } = useAppSelector(store => store.order)
     const { bun ,fillers } = useAppSelector(store => store.cart.sortedCart);
+    const history = useHistory()
     const dispatch = useAppDispatch();
     const { openingModal, closingModal} = useModal();
     const orderNumber = order && order.order && order.order.number
@@ -29,6 +33,9 @@ const Order: FC = () => {
     const isDisabled = bun?._id && idArray.length > 1 ? true : false;
 
     function handleOpenModal() {
+        if(!isAuthorized) {
+          return history.replace('/login')
+        }
         if (idArray) {
             dispatch(setOrder(idArray));
             openingModal();
