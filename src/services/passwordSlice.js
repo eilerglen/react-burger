@@ -13,7 +13,9 @@ export const forgotPassword = createAsyncThunk('password/forgot', async (email) 
   const res = await forgotPasswordApi(email)
   if (res.success) {
     localStorage.setItem('emailConfirmationSended', 'true')
+
   } else {
+    
     throw new Error(res.message)
   }
   return res
@@ -22,6 +24,7 @@ export const forgotPassword = createAsyncThunk('password/forgot', async (email) 
 export const resetPassword = createAsyncThunk('password/reset', async (form) => {
   const res = await resetPasswordApi(form)
   if (!res.success) {
+    localStorage.setItem('emailConfirmationSended', 'false')
     throw new Error(res.message)
   } 
   return res

@@ -32,6 +32,8 @@ const ResetPassword = () => {
   if (success) {
       localStorage.removeItem('emailConfirmationSended')
       return (<Redirect to={{ pathname: '/login' }} />)
+  
+        
   }
   return (
       <div className={styles.wrapper}>

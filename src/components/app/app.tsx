@@ -10,6 +10,9 @@ import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import {Route, Switch, useLocation, useHistory} from 'react-router-dom'
 import AppHeader from '../app-header/app-header';
 import { FC, useEffect } from 'react';
+import ProtectedRoute from '../protected-route/protected-route'
+import ProtectedAuthorizedRoute from '../protected-authorized-route/protected-authorized-route'
+import ProtectedRouteWithReset from '../protected-reset-password/protected-reset-password'
 import { TLocationState } from '../../types/types';
 import { getIngredients } from '../../services/ingredientsSlice';
 
@@ -38,21 +41,21 @@ const App: FC = () => {
         <Route path='/' exact = {true}>
           <HomePage />
         </Route>
-        <Route path='/login' exact>
+        <ProtectedAuthorizedRoute path='/login' exact >
           <AuthPage />
-        </Route>
-        <Route path='/register' exact>
+        </ProtectedAuthorizedRoute>
+        <ProtectedAuthorizedRoute path='/register' exact>
           <RegisterPage />
-        </Route>
-        <Route path='/profile' exact>
+        </ProtectedAuthorizedRoute>
+        <ProtectedRoute path='/profile' exact>
           <Profile />
-        </Route>
-        <Route path='/forgot-password' exact>
+        </ProtectedRoute>
+        <ProtectedAuthorizedRoute path='/forgot-password' exact>
           <ForgotPassword />
-        </Route>
-        <Route path='/reset-password' exact>
+        </ProtectedAuthorizedRoute>
+        <ProtectedRouteWithReset path='/reset-password' exact>
           <ResetPassword />
-        </Route>
+        </ProtectedRouteWithReset>
         <Route path='/ingredients/:id' exact>
           <IngredientPage />
         </Route>

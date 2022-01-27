@@ -25,3 +25,4 @@ const ProtectedRoute: FC<TProtectedHOC> = ({children, ...rest}) => {
 }
 
 export default ProtectedRoute
+
