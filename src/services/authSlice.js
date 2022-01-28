@@ -55,6 +55,25 @@ export const register = createAsyncThunk('auth/register', async (form) => {
   }
 })
 
+export const getUser = createAsyncThunk('auth/getUser', async () => {
+  try {
+    const response = await getUserApi()
+    if (response && response.success) {
+      localStorage.setItem('userName', response.user.name)
+      return response
+    }
+    throw new Error(response.message)
+  } catch (error) {
+    if (error.message === 'jwt expired') {
+      console.log(error.message)
+      await refreshExpiredTokenApi(getUserApi, null)
+      return Promise.reject(error)
+    }
+    console.log(`Catched and hadled error: "${error.message}"`)
+    return Promise.reject(error.message)
+  }
+})
+
 export const updateUser = createAsyncThunk('auth/updateUser', async(form) => {
   try {
     const res = await updateUserApi(form)

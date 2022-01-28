@@ -14,6 +14,7 @@ import ProtectedRoute from '../protected-route/protected-route'
 import ProtectedAuthorizedRoute from '../protected-authorized-route/protected-authorized-route'
 import ProtectedRouteWithReset from '../protected-reset-password/protected-reset-password'
 import { TLocationState } from '../../types/types';
+import { getUser } from '../../services/authSlice'
 import { getIngredients } from '../../services/ingredientsSlice';
 
 import Spinner from '../spinner/spinner'
@@ -29,7 +30,8 @@ const App: FC = () => {
 
   useEffect(() => {
     dispatch(getIngredients())
-  },[dispatch])
+    dispatch(getUser())
+  }, [dispatch])
 
   
   return (
@@ -41,21 +43,21 @@ const App: FC = () => {
         <Route path='/' exact = {true}>
           <HomePage />
         </Route>
-        <ProtectedAuthorizedRoute path='/login' exact >
+        <ProtectedAuthorizedRoute path='/login' exact = {true} >
           <AuthPage />
         </ProtectedAuthorizedRoute>
-        <ProtectedAuthorizedRoute path='/register' exact>
+        <ProtectedAuthorizedRoute path='/register' exact = {true}>
           <RegisterPage />
         </ProtectedAuthorizedRoute>
-        <ProtectedRoute path='/profile' exact>
+        <ProtectedRoute path='/profile' exact = {true}>
           <Profile />
         </ProtectedRoute>
-        <ProtectedAuthorizedRoute path='/forgot-password' exact>
+        <Route path='/forgot-password' exact>
           <ForgotPassword />
-        </ProtectedAuthorizedRoute>
-        <ProtectedRouteWithReset path='/reset-password' exact>
+        </Route>
+        <Route path='/reset-password' exact = {true}>
           <ResetPassword />
-        </ProtectedRouteWithReset>
+        </Route>
         <Route path='/ingredients/:id' exact>
           <IngredientPage />
         </Route>

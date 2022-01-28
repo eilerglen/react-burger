@@ -5,6 +5,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { resetPassword } from '../../services/passwordSlice';
+
 import { useEffect } from 'react';
 
 
@@ -30,11 +31,11 @@ const ResetPassword = () => {
   }
 
   if (success) {
-      localStorage.removeItem('emailConfirmationSended')
+      localStorage.removeItem('isEmail')
       return (<Redirect to={{ pathname: '/login' }} />)
   
         
-  }
+  } 
   return (
       <div className={styles.wrapper}>
           <form className={styles.form} onSubmit={onSubmit}>

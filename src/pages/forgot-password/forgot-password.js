@@ -10,8 +10,8 @@ const ForgotPassword = () => {
     const dispatch = useAppDispatch();
     const location = useLocation();
     const { isAuthorized } = useAppSelector(store => store.auth)
-    const { isLoading, hasError } = useAppSelector(store => store.password)
-    const hasConfirmation = localStorage.getItem('emailConfirmationSended');
+    const { isLoading, isEmailSuccess } = useAppSelector(store => store.password)
+    const emailConfirm = localStorage.getItem('isEmail');
 
     const onChange = (e) => {
         setEmail(e.target.value);
@@ -29,9 +29,12 @@ const ForgotPassword = () => {
         )
     }
 
-    if (!isLoading && !hasError) {
-       return (<Redirect to={{ pathname: '/reset-password', state: { from: { pathname: '/forgot-password' } } }} />)
+    if (!isLoading && isEmailSuccess) {
+        return (
+            <Redirect to={{ pathname: '/reset-password' 
+        }} />)
     }
+    
     return (
         <div className={styles.wrapper}>
             <form className={styles.form} onSubmit={onSubmit}>

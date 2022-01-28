@@ -5,14 +5,16 @@ import { FC } from "react";
 
 const ProtectedRouteWithReset: FC<TProtectedHOC> = ({ children, ...rest }) => {
     const { isAuthorized } = useAppSelector(store => store.auth)
-    const emailConfirmationSended = localStorage.getItem('emailConfirmationSended')
+    const { isEmailSuccess } = useAppSelector(store => store.password)
+
+    const emailConfirm = localStorage.getItem('isEmail')
     const location = useLocation<TLocationState>();
     const { from } = location.state || { from: { pathname: '/' } }
 
     return (
         <Route {...rest}
-            render={(location) =>
-                !isAuthorized && emailConfirmationSended === 'true' ? (
+            render={() =>
+                !isAuthorized && isEmailSuccess ? (
                     children
                 ) : (
                     <Redirect to={from} />
