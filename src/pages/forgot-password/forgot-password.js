@@ -11,8 +11,7 @@ const ForgotPassword = () => {
     const location = useLocation();
     const { isAuthorized } = useAppSelector(store => store.auth)
     const { isLoading, isEmailSuccess } = useAppSelector(store => store.password)
-    const emailConfirm = localStorage.getItem('isEmail');
-
+   
     const onChange = (e) => {
         setEmail(e.target.value);
     };
@@ -29,7 +28,7 @@ const ForgotPassword = () => {
         )
     }
 
-    if (!isLoading && isEmailSuccess) {
+    if (!isLoading && isEmailSuccess ) {
         return (
             <Redirect to={{ pathname: '/reset-password' 
         }} />)

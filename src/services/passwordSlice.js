@@ -25,9 +25,8 @@ export const forgotPassword = createAsyncThunk('password/forgot', async (email) 
 
 export const resetPassword = createAsyncThunk('password/reset', async (form) => {
   const res = await resetPasswordApi(form)
-  if (!res.success) {
-    localStorage.setItem('isEmail', 'false')
-    throw new Error(res.message)
+  if (res.success) {
+    localStorage.removeItem('isEmail', 'true')
   } 
   return res
 })
@@ -75,7 +74,7 @@ export const passwordSlice = createSlice({
         state.isLoading = false
         state.hasError = false
         state.isEmailSuccess = true;
-
+        state.isPasswordSuccess = false
       })
   },
 })

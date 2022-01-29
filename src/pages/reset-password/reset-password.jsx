@@ -15,6 +15,8 @@ const ResetPassword = () => {
   const [error, setError] = React.useState(false);
   const dispatch = useAppDispatch();
   const { success, isLoading, hasError, errorMessage } = useAppSelector(store => store.password)
+  const emailConfirm = localStorage.getItem('isEmail');
+
 
   useEffect(() => {
       setError(hasError)
@@ -30,12 +32,8 @@ const ResetPassword = () => {
       setForm({ password: '', token: '' })
   }
 
-  if (success) {
-      localStorage.removeItem('isEmail')
-      return (<Redirect to={{ pathname: '/login' }} />)
-  
-        
-  } 
+  if (!(emailConfirm === 'true')) return (<Redirect to={{ pathname: '/login' }} />)
+
   return (
       <div className={styles.wrapper}>
           <form className={styles.form} onSubmit={onSubmit}>
