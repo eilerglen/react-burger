@@ -4,8 +4,9 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import { Link, Redirect, useLocation } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../services/hooks'
 import { forgotPassword } from '../../services/passwordSlice'
+import { FC } from 'react'
 
-const ForgotPassword = () => {
+const ForgotPassword: FC = () => {
     const [email, setEmail] = React.useState("");
     const dispatch = useAppDispatch();
     const location = useLocation();

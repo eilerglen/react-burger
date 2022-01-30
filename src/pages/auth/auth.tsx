@@ -1,21 +1,27 @@
-import React , {FC} from 'react'
+import React , {FC, FormEvent} from 'react'
 import styles from './auth.module.css'
 import {Button, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components'
 import {Link, Redirect, useLocation} from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../services/hooks'
 import CustomInput from '../../components/input/input'
 import {login} from '../../services/authSlice'
+import {TLocationState} from '../../types/types'
 
-const AuthPage = () => {
-  const [form, setForm] = React.useState({email: '', password: ''})
+type TForm = {
+  email: string
+  password: string
+}
+
+const AuthPage: FC = () => {
+  const [form, setForm] = React.useState<TForm>({email: '', password: ''})
   const {isAuthorized} = useAppSelector(store => store.auth)
-  const location = useLocation()
+  const location = useLocation<TLocationState>()
 
   const dispatch = useAppDispatch()
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({...form, [e.target.name]: e.target.value})
   }
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault()
     if(form.email && form.password) {
       dispatch(login(form))

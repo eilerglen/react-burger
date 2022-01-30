@@ -5,6 +5,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { resetPassword } from '../../services/passwordSlice';
+import { FC } from 'react'
 
 import { useEffect } from 'react';
 

@@ -4,8 +4,9 @@ import React from "react"
 import styles from './profile-form.module.css'
 import { useAppDispatch, useAppSelector } from "../../services/hooks"
 import { updateUser } from '../../services/authSlice';
+import { FC } from 'react'
 
-const ProfileForm = () => {
+const ProfileForm: FC = () => {
   const { name, email } = useAppSelector(store => store.auth.user)
   const [form, setForm] = React.useState({ name: name, email: email, password: '' })
   const [isEdited, setEdited] = React.useState(false)

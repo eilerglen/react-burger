@@ -55,9 +55,9 @@ const App: FC = () => {
         <Route path='/forgot-password' exact>
           <ForgotPassword />
         </Route>
-        <Route path='/reset-password' exact = {true}>
+        <ProtectedRouteWithReset path='/reset-password' exact = {true}>
           <ResetPassword />
-        </Route>
+        </ProtectedRouteWithReset>
         <Route path='/ingredients/:id' exact>
           <IngredientPage />
         </Route>

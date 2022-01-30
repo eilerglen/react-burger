@@ -3,6 +3,7 @@ import BurgerIngredients from "../../components/burger-ingredients/burger-ingred
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import styles from './home-page.module.css'
+import { FC } from 'react'
 
 const HomePage = () => {
   return (

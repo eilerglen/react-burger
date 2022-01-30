@@ -3,6 +3,7 @@ import { useLocation, Redirect } from "react-router-dom";
 import styles from './profile.module.css'
 import ProfileNav from "../../components/profile-nav/profile-nav";
 import ProfileForm from "../../components/profile-form/profile-form";
+import { FC } from 'react'
 
 
 const Profile = () => {

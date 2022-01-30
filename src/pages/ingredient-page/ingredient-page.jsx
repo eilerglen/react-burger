@@ -1,5 +1,6 @@
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
 import styles from './ingredient-page.module.css';
+import { FC } from 'react'
 
 const IngredientPage = () => {
   return (

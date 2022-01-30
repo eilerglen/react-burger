@@ -2,8 +2,12 @@ import styles from './profile-nav.module.css'
 import { NavLink, useHistory } from 'react-router-dom'
 import { useAppDispatch } from '../../services/hooks'
 import { logout } from '../../services/authSlice'
+import { FC } from 'react'
 
-const ProfileNav = ({ text }) => {
+// interface IProfileNav {
+//   text: string
+// }
+const ProfileNav =  ({ text }) => {
   const dispatch = useAppDispatch()
   const history = useHistory()
   const onClick = async () => {
