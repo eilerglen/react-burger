@@ -14,7 +14,7 @@ interface IinitialState {
   user: {
     name: string,
     email: string,
-  },
+  } 
   isLoading: boolean,
   hasError: boolean,
 }
@@ -83,12 +83,12 @@ export const getUser = createAsyncThunk('auth/user', async () => {
       localStorage.setItem('userName', response.user.name)
       return response
     }
-    throw new Error(response.message)
+   
   } catch (error: any) {
     if (error.message === 'jwt expired') {
       console.log(error.message)
       await refreshExpiredTokenApi(getUserApi, '')
-      return Promise.reject(error)
+      
     }
     console.log(`Catched and hadled error: "${error.message}"`)
     return Promise.reject(error.message)

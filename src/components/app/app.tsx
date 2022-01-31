@@ -30,8 +30,8 @@ const App: FC = () => {
 
   useEffect(() => {
     dispatch(getIngredients())
-   if(!user){dispatch(getUser())} 
-  }, [dispatch])
+   if(user){dispatch(getUser())} 
+  }, [])
 
   
   return (
