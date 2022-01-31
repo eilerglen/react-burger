@@ -24,13 +24,13 @@ const App: FC = () => {
   const dispatch = useAppDispatch()
   const location = useLocation<TLocationState>()
   const history = useHistory()
-  const { isLoading } = useAppSelector(store => store.auth)
+  const { isLoading, user } = useAppSelector(store => store.auth)
   const isPush = history.action === 'PUSH'
   let pushLocation = isPush && location.state && location.state.pushLocation
 
   useEffect(() => {
     dispatch(getIngredients())
-    dispatch(getUser())
+   if(!user){dispatch(getUser())} 
   }, [dispatch])
 
   

@@ -63,6 +63,8 @@ export const logout = createAsyncThunk('auth/logout', async () => {
   }
 })
 
+// Функция регистрации
+
 export const register = createAsyncThunk('auth/register', async (form: Tform) => {
   const res = await registerRequestApi(form)
   if (res && res.success) {
@@ -72,6 +74,7 @@ export const register = createAsyncThunk('auth/register', async (form: Tform) =>
     return Promise.reject(res.message)
   }
 })
+// Функция получить юзера
 
 export const getUser = createAsyncThunk('auth/user', async () => {
   try {
@@ -84,7 +87,7 @@ export const getUser = createAsyncThunk('auth/user', async () => {
   } catch (error: any) {
     if (error.message === 'jwt expired') {
       console.log(error.message)
-      await refreshExpiredTokenApi(getUserApi, null)
+      await refreshExpiredTokenApi(getUserApi, '')
       return Promise.reject(error)
     }
     console.log(`Catched and hadled error: "${error.message}"`)

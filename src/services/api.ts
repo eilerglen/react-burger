@@ -12,7 +12,6 @@ const checkResponse = (res: Response)=> {
 
 // Получить юзверя
 export const getUserApi = async () => {
-  try {
     const response = await fetch(`${BASEURL}/auth/user`, {
       method: 'GET',
       headers: {
@@ -21,10 +20,8 @@ export const getUserApi = async () => {
       },
     })
     return await checkResponse(response)
-  } catch (err) {
-      return await Promise.reject(err)
-  }
 }
+
 // Регистрация
 export const registerRequestApi = async (form: TUser) => {
   try {
