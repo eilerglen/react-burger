@@ -1,37 +1,24 @@
 .link {
-    display: flex;
-    font-size: 16px;
-    align-items: center;
-    line-height: 24px;
-    text-decoration: none;
-    color: #f2f2f3;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  line-height: 24px;
+  text-decoration: none;
+  color: #f2f2f3;
+  composes: ml-2 mt-4 mb-4 pt-4 pb-4 pr-5 pl-5 text text_type_main-default from global;
+  color: var(--text-inactive-color);
+}
 
-  }
+.link:first-of-type {
+  margin-left: 0;
+}
 
-  .link:first-of-type {
-    margin-left: 0;
-  }
+.active {
+  color: var(--text-primary-color)
+}
 
-  .text {
-    margin-left: 4px;
-    color: #8585ad;
-  }
-
-  .text:hover,
-  .text:active {
-    color: #f2f2f3;
-  }
-
-  .text_active {
-    color: #f2f2f3;
-  }
-
-  .icon {
-    margin-right: 4px;
-    display: flex;
-    color: #8585ad;
-  }
-
-  .link:first-of-type {
-    margin-left: 0;
-  }
+.icon {
+  composes: mr-2 from global;
+  display: flex;
+  color: #8585ad;
+}

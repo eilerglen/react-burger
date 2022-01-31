@@ -1,17 +1,28 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { resetPasswordApi, forgotPasswordApi } from './api'
 
+interface IinitialState {
+  isLoading: boolean,
+  hasError: boolean,
+  success: boolean,
+  errorMessage?: string,
+  isEmailSuccess: boolean,
 
-export const initialState = {
+}
+type Tform = {
+  password: string,
+  token: string
+}
+
+export const initialState: IinitialState = {
   isLoading: false,
   hasError: false,
   success: false,
   errorMessage: '',
   isEmailSuccess: false,
-  isPasswordSuccess: false
 }
 
-export const forgotPassword = createAsyncThunk('password/forgot', async (email) => {
+export const forgotPassword = createAsyncThunk('password/forgot', async (email: string) => {
   const res = await forgotPasswordApi(email)
   if (res.success) {
     localStorage.setItem('isEmail', 'true')
@@ -23,10 +34,10 @@ export const forgotPassword = createAsyncThunk('password/forgot', async (email) 
   return res
 })
 
-export const resetPassword = createAsyncThunk('password/reset', async (form) => {
+export const resetPassword = createAsyncThunk('password/reset', async (form: Tform) => {
   const res = await resetPasswordApi(form)
-  if (res.success) {
-    localStorage.removeItem('isEmail', 'true')
+  if (!res.success) {
+    throw new Error(res.message)
   } 
   return res
 })
@@ -55,7 +66,6 @@ export const passwordSlice = createSlice({
         state.isLoading = false
         state.hasError = false
         state.success = true
-        state.isPasswordSuccess = true
       })
       .addCase(forgotPassword.pending, (state) => {
         state.errorMessage = ''
@@ -74,7 +84,6 @@ export const passwordSlice = createSlice({
         state.isLoading = false
         state.hasError = false
         state.isEmailSuccess = true;
-        state.isPasswordSuccess = false
       })
   },
 })

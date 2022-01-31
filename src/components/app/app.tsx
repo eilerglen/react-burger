@@ -39,7 +39,7 @@ const App: FC = () => {
     <>
      {isLoading && <Spinner />}
        <AppHeader />
-      <Switch location = {pushLocation || location }>
+       <Switch location={pushLocation || location}>
         <Route path='/' exact = {true}>
           <HomePage />
         </Route>
@@ -52,9 +52,15 @@ const App: FC = () => {
         <ProtectedRoute path='/profile' exact = {true}>
           <Profile />
         </ProtectedRoute>
-        <Route path='/forgot-password' exact>
+        <ProtectedRoute path='/profile/orders' exact = {true}>
+          <Profile />
+        </ProtectedRoute>
+        <ProtectedRoute path='/profile/orders/:id' exact = {true}>
+          <Profile />
+        </ProtectedRoute>
+        <ProtectedAuthorizedRoute path='/forgot-password' exact = {true}>
           <ForgotPassword />
-        </Route>
+        </ProtectedAuthorizedRoute>
         <ProtectedRouteWithReset path='/reset-password' exact = {true}>
           <ResetPassword />
         </ProtectedRouteWithReset>

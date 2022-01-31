@@ -2,7 +2,7 @@ import IngredientDetails from '../../components/ingredient-details/ingredient-de
 import styles from './ingredient-page.module.css';
 import { FC } from 'react'
 
-const IngredientPage = () => {
+const IngredientPage: FC = () => {
   return (
     <div className={styles.wrapper}>
       <h2 className={styles.title}>Детали ингредиента</h2>

@@ -1,22 +1,25 @@
 import styles from '../register/register.module.css'
-import React from 'react'
+import React, {FormEvent} from 'react'
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Redirect, useLocation } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../services/hooks'
 import { forgotPassword } from '../../services/passwordSlice'
 import { FC } from 'react'
+import { TLocationState } from '../../types/types';
+
+
 
 const ForgotPassword: FC = () => {
-    const [email, setEmail] = React.useState("");
+    const [email, setEmail] = React.useState<string>("");
     const dispatch = useAppDispatch();
-    const location = useLocation();
+    const location = useLocation<TLocationState>();
     const { isAuthorized } = useAppSelector(store => store.auth)
     const { isLoading, isEmailSuccess } = useAppSelector(store => store.password)
    
-    const onChange = (e) => {
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
     };
-    const onSubmit = (e) => {
+    const onSubmit = (e: FormEvent) => {
         e.preventDefault();
         dispatch(forgotPassword(email))
         setEmail("");

@@ -5,7 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import styles from './home-page.module.css'
 import { FC } from 'react'
 
-const HomePage = () => {
+const HomePage: FC = () => {
   return (
     <div className={styles.wrapper}>
       <DndProvider backend = {HTML5Backend}>

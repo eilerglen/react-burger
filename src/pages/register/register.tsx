@@ -7,19 +7,25 @@ import { register } from '../../services/authSlice';
 import { useLocation, Redirect, useHistory } from 'react-router-dom';
 import { TLocationState } from '../../types/types';
 
-const RegisterPage = () => {
+type TForm = {
+    name: string;
+    email: string;
+    password: string;
+}
+
+const RegisterPage: FC = () => {
     const { isAuthorized, isLoading, hasError } = useAppSelector(store => store.auth)
-    const location = useLocation();
+    const location = useLocation<TLocationState>();
     const history = useHistory()
 
-    const [isVisible, setVisible] = React.useState(false)
-    const [form, setForm] = React.useState({ name: '', email: '', password: '' });
+    const [isVisible, setVisible] = React.useState<boolean>(false)
+    const [form, setForm] = React.useState<TForm>({ name: '', email: '', password: '' });
     const dispatch = useAppDispatch();
 
-    const onChange = (e) => {
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
-    const onSubmit = async (e) => {
+    const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
         let res = await dispatch(register(form))
         console.log(res)

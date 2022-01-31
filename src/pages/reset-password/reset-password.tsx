@@ -5,38 +5,47 @@ import { Link, Redirect } from 'react-router-dom';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { resetPassword } from '../../services/passwordSlice';
-import { FC } from 'react'
+import { FC, FormEvent } from 'react'
 
 import { useEffect } from 'react';
 
+type TForm = {
+    password: string;
+    token: string;
+}
 
-const ResetPassword = () => {
-  const [form, setForm] = React.useState({ password: '', token: '' });
-  const [isVisible, setVisible] = React.useState(false)
-  const [error, setError] = React.useState(false);
+const ResetPassword: FC = () => {
+  const [form, setForm] = React.useState<TForm>({ password: '', token: '' });
+  const [isVisible, setVisible] = React.useState<boolean>(false)
+  const [error, setError] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const { success, isLoading, hasError, errorMessage } = useAppSelector(store => store.password)
-  const emailConfirm = localStorage.getItem('isEmail');
+  const { success, isLoading, hasError, errorMessage, isEmailSuccess } = useAppSelector(store => store.password)
+//   const emailConfirm = localStorage.getItem('isEmail');
 
 
   useEffect(() => {
       setError(hasError)
   }, [hasError])
 
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setForm({ ...form, [e.target.name]: e.target.value });
       setError(false)
   };
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent) => {
       e.preventDefault();
       dispatch(resetPassword(form))
       setForm({ password: '', token: '' })
   }
 
-  if (!(emailConfirm === 'true')) return (<Redirect to={{ pathname: '/login' }} />)
+  if (success) 
+    {
+        localStorage.removeItem('isEmail')
+        return (<Redirect to={{ pathname: '/login' }} />)
+        
+    }
 
   return (
-      <div className={styles.wrapper}>
+      <div className={styles.wrapper}>n 
           <form className={styles.form} onSubmit={onSubmit}>
               <h1 className={styles.heading}>Восстановление пароля</h1>
 

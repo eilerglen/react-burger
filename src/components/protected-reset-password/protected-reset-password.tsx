@@ -14,7 +14,7 @@ const ProtectedRouteWithReset: FC<TProtectedHOC> = ({ children, ...rest }) => {
     return (
         <Route {...rest}
             render={() =>
-                !isAuthorized && isEmailSuccess ? (
+                !isAuthorized && emailConfirm === 'true' && isEmailSuccess ? (
                     children
                 ) : (
                     <Redirect to={from} />

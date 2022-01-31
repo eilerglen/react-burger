@@ -2,12 +2,13 @@ import {BASEURL} from '../utils/utils'
 import {
   getCookie,
   setCookie} from '../utils/cookie'
+import { TUser } from '../types/types'
 
-
-const checkResponse = (res)=> {
+const checkResponse = (res: Response)=> {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err))
 
 }
+
 
 // Получить юзверя
 export const getUserApi = async () => {
@@ -21,14 +22,33 @@ export const getUserApi = async () => {
     })
     return await checkResponse(response)
   } catch (err) {
-    return await Promise.reject(err)
+      return await Promise.reject(err)
   }
 }
 // Регистрация
-
+export const registerRequestApi = async (form: TUser) => {
+  try {
+    const response = await fetch(`${BASEURL}/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form),
+    })
+    const res = await checkResponse(response)
+    return res
+  } catch (error: any) {
+    console.log('Catched error ' + error.message)
+    return Promise.reject(error.message)
+  }
+}
 // Получить токен
+type TAllowableArgs = 
+ | string
+ | string[]
+ | TUser
 
-export const refreshExpiredTokenApi = async (func, args = null) => {
+export const refreshExpiredTokenApi = async (func?: Function, args?: TAllowableArgs ) => {
   const refreshToken = localStorage.getItem('token');
   try {
     const response = await fetch(`${BASEURL}/auth/token`, {
@@ -53,13 +73,13 @@ export const refreshExpiredTokenApi = async (func, args = null) => {
       return res;
     } 
     throw new Error(res.message)
-  } catch (error) {
+  } catch (error: any) {
     console.log('Refresh error: ' + error.message)
   }
 }
 // Залогиниться
 
-export const loginRequestApi = async (form) => {
+export const loginRequestApi = async (form: TUser) => {
   try {
     const response = await fetch(`${BASEURL}/auth/login`, {
       method: 'POST',
@@ -69,9 +89,9 @@ export const loginRequestApi = async (form) => {
       body: JSON.stringify(form),
     })
     return await checkResponse(response)
-  } catch (error) {
+  } catch (error: any) {
     console.log(error.message)
-    return Promise.reject(error.message)
+    return Promise.reject()
   }
 }
 // Разлогинится
@@ -87,13 +107,13 @@ export const logoutRequestApi = async () => {
       }),
     })
     return await checkResponse(response)
-  } catch (error) {
-    return Promise.reject(error)
+  } catch (error: any) {
+    return Promise.reject(error.message)
   }
 }
 // Забыли пароль?
 
-export const forgotPasswordApi = async (email) => {
+export const forgotPasswordApi = async (email: string) => {
   try {
     let response = await fetch(`${BASEURL}/password-reset`, {
       method: 'POST',
@@ -110,7 +130,7 @@ export const forgotPasswordApi = async (email) => {
     } else {
       return Promise.reject(res.message)
     }
-  } catch (error) {
+  } catch (error: any) {
     console.log('Catched error ' + error.message)
     return Promise.reject(error.message)
   }
@@ -119,7 +139,7 @@ export const forgotPasswordApi = async (email) => {
 
 // Сбросить пароль
 
-export const resetPasswordApi = async ({ password, token }) => {
+export const resetPasswordApi = async ({ password, token }: TUser) => {
   try {
     let response = await fetch(`${BASEURL}/password-reset/reset`, {
       method: 'POST',
@@ -137,14 +157,14 @@ export const resetPasswordApi = async ({ password, token }) => {
     } else {
       return Promise.reject(res.message)
     }
-  } catch (error) {
+  } catch (error: any) {
     console.log('Catched error ' + error.message)
     return Promise.reject(error.message)
   }
 }
 
 // Обновить данные пользователя
-export const updateUserApi = async({name, email, password}) => {
+export const updateUserApi = async({name, email, password}: TUser) => {
   try {
     const response = await fetch(`${BASEURL}/auth/user`, {
       method: 'PATCH',
@@ -160,25 +180,8 @@ export const updateUserApi = async({name, email, password}) => {
     })
     const res = await checkResponse(response)
     return res
-  } catch (error) {
+  } catch (error: any) {
     console.log('Update user failed: ', error)
-    return Promise.reject(error)
-  }
-}
-export const registerRequestApi = async (form) => {
-  try {
-    const response = await fetch(`${BASEURL}/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(form),
-    })
-    const res = await checkResponse(response)
-    console.log(res)
-    return res 
-  } catch (error) {
-    console.log('Catched error ' + error.message)
     return Promise.reject(error.message)
   }
 }

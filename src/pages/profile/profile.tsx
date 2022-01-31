@@ -4,11 +4,12 @@ import styles from './profile.module.css'
 import ProfileNav from "../../components/profile-nav/profile-nav";
 import ProfileForm from "../../components/profile-form/profile-form";
 import { FC } from 'react'
+import { TLocationState } from '../../types/types'
 
 
-const Profile = () => {
+const Profile: FC = () => {
   const {isAuthorized} = useAppSelector((store) => store.auth)
-  const location = useLocation()
+  const location = useLocation<TLocationState>()
 
   if(!isAuthorized) {
     const {from} = location.state || {from: {pathname: '/login' }}

@@ -9,14 +9,11 @@ type TNavItemProps = {
 
 const NavItem: FC<TNavItemProps> = ({text, link, children}) => {
   return (
-    <NavLink to={link} className={`${navItemStyles.link} pt-4 pb-4 pl-5 pb-5`} exact>    
-        <span className={navItemStyles.icon}>
-          {children}
-        </span>
-        <p className={`${navItemStyles.text} text text_type_main-default pl-2`}>{text}</p>  
+    <NavLink to={link} className={navItemStyles.link} activeClassName={navItemStyles.active} exact>
+      <span className={navItemStyles.icon}>{children}</span>
+      <p className={navItemStyles.text}>{text}</p>
     </NavLink>
-  );
-
+  )
 }
 
 export default NavItem

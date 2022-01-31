@@ -8,17 +8,35 @@ import {
   updateUserApi } from './api';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+
+interface IinitialState {
+  isAuthorized: boolean,
+  user: {
+    name: string,
+    email: string,
+  },
+  isLoading: boolean,
+  hasError: boolean,
+}
+export type Tform = {
+  name: string,
+  password: string,
+  email: string
+}
+export type Tlogin = Omit<Tform, 'name'> 
+
+export const initialState: IinitialState = {
   isAuthorized: false,
   user: {
     name: '',
     email: '',
   },
   isLoading: false,
-  hasError: false
+  hasError: false,
 }
+
 // Функция логгирования
-export const login = createAsyncThunk('auth/login', async (form) => {
+export const login = createAsyncThunk('auth/login', async (form: Tlogin) => {
   const res = await loginRequestApi(form)
   if (res && res.success) {
     setCookie('token', res.accessToken, {path: '/'})
@@ -45,7 +63,7 @@ export const logout = createAsyncThunk('auth/logout', async () => {
   }
 })
 
-export const register = createAsyncThunk('auth/register', async (form) => {
+export const register = createAsyncThunk('auth/register', async (form: Tform) => {
   const res = await registerRequestApi(form)
   if (res && res.success) {
     console.log('register success' + res.user)
@@ -55,7 +73,7 @@ export const register = createAsyncThunk('auth/register', async (form) => {
   }
 })
 
-export const getUser = createAsyncThunk('auth/getUser', async () => {
+export const getUser = createAsyncThunk('auth/user', async () => {
   try {
     const response = await getUserApi()
     if (response && response.success) {
@@ -63,7 +81,7 @@ export const getUser = createAsyncThunk('auth/getUser', async () => {
       return response
     }
     throw new Error(response.message)
-  } catch (error) {
+  } catch (error: any) {
     if (error.message === 'jwt expired') {
       console.log(error.message)
       await refreshExpiredTokenApi(getUserApi, null)
@@ -74,7 +92,7 @@ export const getUser = createAsyncThunk('auth/getUser', async () => {
   }
 })
 
-export const updateUser = createAsyncThunk('auth/updateUser', async(form) => {
+export const updateUser = createAsyncThunk('auth/updateUser', async(form: Tform) => {
   try {
     const res = await updateUserApi(form)
 
@@ -85,7 +103,7 @@ export const updateUser = createAsyncThunk('auth/updateUser', async(form) => {
     }
     throw new Error(res)
   }
-  catch(error) {
+  catch(error: any) {
     if(error.message === 'jwt expired') {
       console.log(error.message)
       await refreshExpiredTokenApi(getUserApi, null)
@@ -155,7 +173,7 @@ export const authSlice = createSlice({
       .addCase(getUser.rejected, (state) => {
         state.isLoading = false
         state.hasError = true
-        // state.user = initialState.user
+        state.user = initialState.user
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.user = action.payload.user
