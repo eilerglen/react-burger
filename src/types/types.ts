@@ -74,3 +74,4 @@ export type TProtectedHOC = {
 }
 
 export type TUser = { email?: string; name?: string; password?: string, token?: string };
+

@@ -182,3 +182,74 @@ export const updateUserApi = async({name, email, password}: TUser) => {
     return Promise.reject(error.message)
   }
 }
+
+export const getAllOrdersApi = async () => {
+  try {
+    let response = await fetch(`${BASEURL}/orders/all`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: getCookie('token'),
+      },
+    })
+    const res = await checkResponse(response)
+    if (res && res.success) {
+      return res
+    } else {
+      return Promise.reject(res.message)
+    }
+  } catch (error: any) {
+    console.log('Catched error ' + error.message)
+    return Promise.reject(error.message)
+  }
+}
+
+export const sendOrderApi = async(ids: string []) => {
+  try {
+    const response = await fetch(`${BASEURL}/orders`, {
+      method: 'post',
+      mode: 'cors',
+      headers:  {
+        'Content-Type': 'application/json',
+        authorization: getCookie('token'),
+      },
+      body: JSON.stringify({
+        ingredients: ids,
+      }),
+      
+    })
+    const res = await checkResponse(response)
+    if(res && res.success) {
+      console.log(res)
+      return res
+    } else {
+      return Promise.reject(res.message)
+    }
+
+  }
+  catch (err: any) {
+    console.log('Catched error ' + err.message)
+    return Promise.reject(err.message)
+  }
+}
+
+export const getOrderByIdApi = async (id: string) => {
+  try {
+    let response = await fetch(`${BASEURL}/orders/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    const res = await checkResponse(response)
+    if (res && res.success) {
+      console.log(res)
+      return res
+    } else {
+      return Promise.reject(res.message)
+    }
+  } catch (error: any) {
+    console.log('Catched error ' + error.message)
+    return Promise.reject(error.message)
+  }
+}
