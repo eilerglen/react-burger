@@ -1,7 +1,7 @@
 import orderDetailsStyles from './order-details.module.css';
 import { ReactComponent as OrderDone } from '../../images/order-done.svg';
 import { useAppSelector } from '../../services/hooks';
-import Spinner from '../spinner/spinner'
+import LoaderSpinner from '../loader/loader';
 import {FC} from 'react';
 
 interface TOrderNumber {
@@ -17,7 +17,7 @@ const OrderDetails: FC<TOrderNumber> = ({ number }) => {
             </span>
             <span className={orderDetailsStyles.subtitle}>{isLoading ? 'загружаем...' : 'идентификатор заказа'}</span>
             <span className={orderDetailsStyles.icon}>
-                {isLoading ? <Spinner /> : <OrderDone />}
+                {isLoading ? <LoaderSpinner /> : <OrderDone />}
             </span>
             <p className={orderDetailsStyles.text}>Ваш заказ начали готовить</p>
             <p className={`${orderDetailsStyles.text} ${orderDetailsStyles.text_secondary}`}>Дождитесь готовности на орбитальной станции</p>

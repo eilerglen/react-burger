@@ -1,3 +1,10 @@
+import {Location} from 'history'
+
+export interface TLocationState extends Location {
+  from: string;
+  pushLocation?: Location;
+}
+
 export type TIngredient = {
   _id: string;
   name: string;
@@ -55,3 +62,15 @@ export type TIcons =
     | 'HideIcon'
     | 'LogoutIcon'
 
+// **useLocation type**
+export interface TLocationState extends Location {
+  from: string;
+  pushLocation?: Location;
+}
+
+export type TProtectedHOC = {
+  path: string;
+  exact: boolean;
+}
+
+export type TUser = { email?: string; name?: string; password?: string, token?: string };
