@@ -6,7 +6,7 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { resetPassword } from '../../services/passwordSlice';
 import { FC, FormEvent } from 'react'
-
+import LoaderSpinner from '../../components/loader/loader';
 import { useEffect } from 'react';
 
 type TForm = {
@@ -45,9 +45,10 @@ const ResetPassword: FC = () => {
     }
 
   return (
-      <div className={styles.wrapper}>n 
+      <div className={styles.wrapper}>
+          {isLoading && <LoaderSpinner />}
           <form className={styles.form} onSubmit={onSubmit}>
-              <h1 className={styles.heading}>Восстановление пароля</h1>
+              <h1 className = "text text_type_main-medium mb-6">Восстановление пароля</h1>
 
               <Input
                   type={isVisible ? 'text' : "password"}

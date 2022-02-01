@@ -16,28 +16,27 @@ import ProtectedRouteWithReset from '../protected-reset-password/protected-reset
 import { TLocationState } from '../../types/types';
 import { getUser } from '../../services/authSlice'
 import { getIngredients } from '../../services/ingredientsSlice';
-
-import Spinner from '../spinner/spinner'
-
+import LoaderSpinner from '../loader/loader';
 
 const App: FC = () => {
   const dispatch = useAppDispatch()
   const location = useLocation<TLocationState>()
   const history = useHistory()
-  const { isLoading, user } = useAppSelector(store => store.auth)
+  const { isLoading } = useAppSelector(store => store.auth)
   const isPush = history.action === 'PUSH'
   let pushLocation = isPush && location.state && location.state.pushLocation
 
-  useEffect(() => {
-    dispatch(getIngredients())
-   if(user){dispatch(getUser())} 
-  }, [])
+  useEffect(() => { 
+   dispatch(getIngredients())
+  dispatch(getUser()) 
+  }, [dispatch])
 
-  
+
+
   return (
    
     <>
-     {isLoading && <Spinner />}
+     {isLoading && <LoaderSpinner type='default'/>}
        <AppHeader />
        <Switch location={pushLocation || location}>
         <Route path='/' exact = {true}>
@@ -70,14 +69,12 @@ const App: FC = () => {
         {/* <Route>
           <NotFound404 />
         </Route> */}
-      </Switch> 
-      {/* {pushLocation && (
-        <Route path='/ingredients/:id'>
-          <Modal title='Детали ингредиента' onClose={closeModal}>
-            <IngredientDetails />
-          </Modal>
+
+        <Route>
+          <NotFound404 />
         </Route>
-      )} */}
+      </Switch> 
+     
     </>
   )
    

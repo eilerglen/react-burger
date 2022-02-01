@@ -109,7 +109,7 @@ export const updateUser = createAsyncThunk('auth/updateUser', async(form: Tform)
   catch(error: any) {
     if(error.message === 'jwt expired') {
       console.log(error.message)
-      await refreshExpiredTokenApi(getUserApi, null)
+      await refreshExpiredTokenApi(getUserApi, '')
       return Promise.reject(error.message)
     }
     console.log(`Catched and handled error: "${error.message}"`)

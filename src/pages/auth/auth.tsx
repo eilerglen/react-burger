@@ -35,7 +35,7 @@ const AuthPage: FC = () => {
   return (
     <div className = {styles.wrapper}>
       <form className={styles.form} onSubmit = {onSubmit}>
-        <h1 className={styles.heading}>Вход</h1>
+        <h1 className="text text_type_main-medium mb-6">Вход</h1>
         <CustomInput
         disabled = {false}
         name = 'email'

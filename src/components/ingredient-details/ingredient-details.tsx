@@ -1,8 +1,7 @@
 import detailsModalStyles from './ingredient-details.module.css';
 import NutritionList from '../nutrition-list/nutrition-list';
 import { useAppSelector, useAppParams } from '../../services/hooks';
-import Spinner from '../spinner/spinner'
-
+import LoaderSpinner from '../loader/loader';
 
 const IngredientDetails = () => {
     const { id } = useAppParams();
@@ -27,7 +26,7 @@ const IngredientDetails = () => {
                         <h3 className={detailsModalStyles.title}>{activeIngredient?.name}</h3>
                         <NutritionList {...activeIngredient} />
                     </div>
-            ) : (<Spinner />)
+            ) : (<LoaderSpinner />)
             }
         </>
 

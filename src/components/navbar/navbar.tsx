@@ -11,7 +11,7 @@ import { FC } from "react";
 import { useAppSelector } from "../../services/hooks";
 
  const NavBar: FC = () => {
-  const name = useAppSelector((store) => store.auth.user.name) 
+ const name = useAppSelector((store) => store.auth.user.name) 
   return (
     <nav className={navbarStyles.navbar}>
       <ul className={navbarStyles.nav_menu}>
@@ -32,7 +32,7 @@ import { useAppSelector } from "../../services/hooks";
           
         </li>
         <li >
-          <NavItem text={ name ? name : "Личный кабинет"} link ={'/profile'}>
+        <NavItem text={ name ? name : "Личный кабинет"} link ={'/profile'}>
             <ProfileIcon type = "primary" />
           </NavItem>
         </li>

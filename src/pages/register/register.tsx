@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { register } from '../../services/authSlice';
 import { useLocation, Redirect, useHistory } from 'react-router-dom';
 import { TLocationState } from '../../types/types';
+import LoaderSpinner from "../../components/loader/loader";
 
 type TForm = {
     name: string;
@@ -43,10 +44,11 @@ const RegisterPage: FC = () => {
     }
     return (
         <>
+        {isLoading && <LoaderSpinner/>}
         {!isLoading && (
         <div className={styles.wrapper}>
             <form className={styles.form} onSubmit={onSubmit}>
-                <h1 className={styles.heading}>Регистрация</h1>
+                <h1 className = "text text_type_main-medium mb-6">Регистрация</h1>
                 <Input
                     type="text"
                     placeholder="Имя"

@@ -1,9 +1,7 @@
 import React from "react";
-import {useEffect} from 'react';
 import ingredientsStyles from "./burger-ingredients.module.css";
 import Menu from '../menu/menu';
 import Tabs from '../tabs/tabs';
-import { getIngredients } from '../../services/ingredientsSlice';
 import { setIngredientDetails,
         resetIngredientDetails } from '../../services/ingredientDetailsSlice';
 import IngredientDetails from "../ingredient-details/ingredient-details";
@@ -18,11 +16,6 @@ const BurgerIngredients: FC = () => {
   const dispatch = useAppDispatch();
   const {isOpen, openingModal, closingModal} = useModal();
 
-// Монтирование 
-
-  useEffect(() => {
-    dispatch(getIngredients())
-  },[dispatch])
 // Крупный показ карточки ингредиента
 
   const handleOpenModal = (item: TIngredient): void => {

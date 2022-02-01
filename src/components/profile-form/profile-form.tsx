@@ -6,17 +6,21 @@ import { useAppDispatch, useAppSelector } from "../../services/hooks"
 import { updateUser } from '../../services/authSlice';
 import { FC } from 'react'
 
+type TForm = {
+    name: string;
+    value: string;
+}
 const ProfileForm: FC = () => {
   const { name, email } = useAppSelector(store => store.auth.user)
   const [form, setForm] = React.useState({ name: name, email: email, password: '' })
   const [isEdited, setEdited] = React.useState(false)
-  const onChange = (event) => {
+  const onChange = (event: React.ChangeEvent<TForm>) => {
       setForm({ ...form, [event.target.name]: event.target.value });
       if (!isEdited) { setEdited(true) }
   };
   const dispatch = useAppDispatch();
 
-  const onSubmit = (event) => {
+  const onSubmit = (event: React.SyntheticEvent) => {
       event.preventDefault()
       if (form.name && form.email) {
           dispatch(updateUser(form))

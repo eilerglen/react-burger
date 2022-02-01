@@ -4,10 +4,10 @@ import { useAppDispatch } from '../../services/hooks'
 import { logout } from '../../services/authSlice'
 import { FC } from 'react'
 
-// interface IProfileNav {
-//   text: string
-// }
-const ProfileNav =  ({ text }) => {
+interface IProfileNav {
+  text: string
+}
+const ProfileNav: FC<IProfileNav> =  ({ text }) => {
   const dispatch = useAppDispatch()
   const history = useHistory()
   const onClick = async () => {
