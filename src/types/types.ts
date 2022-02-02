@@ -82,3 +82,7 @@ export type TOrderStatusCode = 'done' | 'pending'|'created' |'cancel'
 export type TOrderStatuses = {
   [k in TOrderStatusCode]: TOrderStatus
 }
+
+export type TAllOrderList = 
+| []
+| Array<TOrder>

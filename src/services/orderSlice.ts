@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { TOrder, TUser} from '../types/types'
-import {sendOrderApi, refreshExpiredTokenApi} from '../services/api'
+import { TOrder, TAllOrderList, TUser} from '../types/types'
+import {sendOrderApi, getAllOrdersApi, refreshExpiredTokenApi, getUserOrdersApi} from '../services/api'
 
 interface IinitialState {
+    allOrders: TAllOrderList,
+    userOrders: TAllOrderList,
     order: null | TOrder,
     isLoading: boolean,
     hasError: boolean,
@@ -35,7 +37,47 @@ export const setOrder = createAsyncThunk('order/setOrder', async (ids: Array<str
     }     
 })
 
+export const getOrders = createAsyncThunk('order/getOrders', async () => {
+    try {
+        const response: IApiResponse = await getAllOrdersApi()
+        if(response && response.success) {
+            console.log(response)
+            return response
+        }
+        throw new Error(response.message)
+    }
+    catch(error) {
+        if(error === 'jwt expired') {
+            console.log(error)
+            return await refreshExpiredTokenApi(getAllOrdersApi, '')
+        }
+        console.log(`Catched and handled error: ${error}`)
+        return Promise.reject(error)
+    }
+
+})
+
+export const getUserOrders = createAsyncThunk('order/getUserOrders', async()=> {
+    try {
+        const response: IApiResponse = await getUserOrdersApi()
+        if (response && response.success) {
+            console.log(response)
+            return response
+        }
+        throw new Error(response.message)
+    } catch (error: any) {
+    if (error.message === 'jwt expired') {
+      console.log(error.message)
+      return await refreshExpiredTokenApi(getUserOrdersApi, '')
+    }
+    console.log(`Catched and hadled error: "${error.message}"`)
+    return Promise.reject(error.message)
+  }
+})
+
 export const initialState: IinitialState = {
+    allOrders: [],
+    userOrders: [],
     order: null,
     isLoading: false,
     hasError: false,
@@ -66,6 +108,34 @@ export const orderSlice = createSlice({
             state.hasError = true;
             state.order = null;
           })
+        .addCase(getOrders.pending, (state) => {
+            state.isLoading = true
+            state.hasError = false
+          })
+        .addCase(getOrders.fulfilled, (state, action) => {
+            state.allOrders = action.payload.orders
+            
+            state.isLoading = false
+            state.hasError = false
+          })
+        .addCase(getOrders.rejected, (state) => {
+            state.isLoading = false
+            state.hasError = true
+          })
+          .addCase(getUserOrders.pending, (state) => {
+            state.isLoading = true
+            state.hasError = false
+          })
+          .addCase(getUserOrders.fulfilled, (state, action) => {
+            state.userOrders = action.payload.orders
+            state.isLoading = false
+            state.hasError = false
+          })
+          .addCase(getUserOrders.rejected, (state) => {
+            state.isLoading = false
+            state.hasError = true
+            state.userOrders = []
+          })      
     }
 })
 

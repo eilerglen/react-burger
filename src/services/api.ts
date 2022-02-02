@@ -133,7 +133,6 @@ export const forgotPasswordApi = async (email: string) => {
   }
 }
 
-
 // Сбросить пароль
 
 export const resetPasswordApi = async ({ password, token }: TUser) => {
@@ -194,6 +193,7 @@ export const getAllOrdersApi = async () => {
     })
     const res = await checkResponse(response)
     if (res && res.success) {
+       console.log(res)
       return res
     } else {
       return Promise.reject(res.message)
@@ -239,6 +239,28 @@ export const getOrderByIdApi = async (id: string) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+      },
+    })
+    const res = await checkResponse(response)
+    if (res && res.success) {
+      console.log(res)
+      return res
+    } else {
+      return Promise.reject(res.message)
+    }
+  } catch (error: any) {
+    console.log('Catched error ' + error.message)
+    return Promise.reject(error.message)
+  }
+}
+
+export const getUserOrdersApi = async () => {
+  try {
+    let response = await fetch(`${BASEURL}/orders`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: getCookie('token'),
       },
     })
     const res = await checkResponse(response)
