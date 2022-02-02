@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { BASEURL } from "../utils/utils";
-import { TOrder} from '../types/types'
+import { TOrder, TUser} from '../types/types'
+import {sendOrderApi, refreshExpiredTokenApi} from '../services/api'
 
 interface IinitialState {
     order: null | TOrder,
@@ -8,27 +8,32 @@ interface IinitialState {
     hasError: boolean,
     isSubmitOrderSuccess: boolean
 }
+interface IApiResponse {
+    success: boolean;
+    message?: string
+    user?: TUser
+    order: TOrder | Array<TOrder>
+}
 
-export const setOrder = createAsyncThunk(
-    'order/setOrder',
-    async (ids: Array<string>) => {
-        const response = await fetch(`${BASEURL}/orders`, {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                ingredients: ids
-            })
-        })
-        if (!response.ok) {
-            throw new Error('Fetch error')
+export const setOrder = createAsyncThunk('order/setOrder', async (ids: Array<string>) => {
+    try {
+        const response: IApiResponse = await sendOrderApi(ids)
+        console.log(response)
+        if(response && response.success) {
+            return response.order
         }
-        const order = await response.json()
-        return order;
-    }
-);
+        throw new Error(response.message)
+    
+    } catch(error) {
+        console.log(error)
+        if(error === 'jwt expired') {
+            console.log(error)
+            return await refreshExpiredTokenApi(sendOrderApi, ids)
+        }
+        console.log(`Catched and handled error: ${error}`)
+        return Promise.reject(error)
+    }     
+})
 
 export const initialState: IinitialState = {
     order: null,

@@ -12,8 +12,8 @@ const FeedPage: FC = () => {
 
   return (
     <>
-      {!wsConnected && !hasError && <LoaderSpinner />}
-      {wsConnected && !hasError && (
+      {/* {!hasError && <LoaderSpinner />} */}
+      (
         <>
           <section className={styles.wrapper}>
             <section className={styles.order_list}>
@@ -30,7 +30,7 @@ const FeedPage: FC = () => {
            
           </section>
         </>
-      )}
+      )
     </>
   )
 }

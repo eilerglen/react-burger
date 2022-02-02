@@ -6,6 +6,7 @@ import Profile from '../../pages/profile/profile'
 import ForgotPassword from '../../pages/forgot-password/forgot-password'
 import ResetPassword from '../../pages/reset-password/reset-password'
 import IngredientPage from '../../pages/ingredient-page/ingredient-page'
+import FeedPage from '../../pages/feed/feed'
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import {Route, Switch, useLocation, useHistory} from 'react-router-dom'
 import AppHeader from '../app-header/app-header';
@@ -41,6 +42,9 @@ const App: FC = () => {
        <Switch location={pushLocation || location}>
         <Route path='/' exact = {true}>
           <HomePage />
+        </Route>
+        <Route path='/feed' exact = {true}>
+          <FeedPage />
         </Route>
         <ProtectedAuthorizedRoute path='/login' exact = {true} >
           <AuthPage />
