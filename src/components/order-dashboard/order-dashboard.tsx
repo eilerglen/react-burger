@@ -4,9 +4,10 @@ import { useAppSelector } from '../../services/hooks'
 
 export const OrderDashboard: FC =() => {
   const {orders} = useAppSelector(store => store.feed)
+  const  {allOrders} = useAppSelector((state) => state.order)
 
-  const readyOrders = orders && orders.filter(item => item.status === 'done').slice(0, 21);
-  const inProgressOrders = orders && orders.filter(item => item.status === 'pending').slice(0, 21);
+  const readyOrders = allOrders && allOrders.filter(item => item.status === 'done').slice(0, 21);
+  const inProgressOrders =allOrders && allOrders.filter(item => item.status === 'pending').slice(0, 21);
 
   return (
     <section className={styles.dashboard}>
