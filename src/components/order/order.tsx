@@ -9,7 +9,7 @@ import { resetCart } from '../../services/cartSlice';
 import { FC } from 'react';
 import { useAppSelector, useAppDispatch } from '../../services/hooks';
 import { useHistory } from 'react-router-dom'
-
+import { TOrder } from '../../types/types';
 
 const Order: FC = () => {
     const { isAuthorized } = useAppSelector((store) => store.auth)
@@ -18,7 +18,7 @@ const Order: FC = () => {
     const history = useHistory()
     const dispatch = useAppDispatch();
     const { openingModal, closingModal} = useModal();
-    const orderNumber = order && order.order && order.order.number
+    const orderNumber = order as TOrder && (order as TOrder).number
     //Вычисляем массив ингредиентов в заказе и мемоизируем 
 
     const idArray = useMemo(()=> {

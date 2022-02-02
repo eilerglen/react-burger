@@ -1,0 +1,20 @@
+.card {
+  composes: mt-4 p-6 from global
+}
+.card:first-of-type {
+  margin-top: 0
+}
+
+.header {
+  composes: mb-6 from global;
+  display: flex;
+  justify-content: space-between;
+}
+
+.image {
+  max-height: 56px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

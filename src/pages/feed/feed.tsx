@@ -3,6 +3,7 @@ import styles from './feed.module.css'
 import { useEffect } from 'react'
 import { useAppSelector, useAppDispatch } from '../../services/hooks'
 import LoaderSpinner from '../../components/loader/loader'
+import FeedCard from '../../components/feed-card/feed-card'
 import ScrollContainer from '../../components/scroll-container/scroll-container'
 
 const FeedPage: FC = () => {
