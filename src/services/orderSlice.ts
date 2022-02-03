@@ -182,5 +182,5 @@ export const orderSlice = createSlice({
     }
 })
 
-export const { clearOrder } = orderSlice.actions;
+export const { clearOrder, setOrderToShow, resetOrderToShow } = orderSlice.actions;
 export default orderSlice.reducer;

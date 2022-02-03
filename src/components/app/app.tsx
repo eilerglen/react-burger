@@ -20,6 +20,8 @@ import { getUser } from '../../services/authSlice'
 import { getIngredients } from '../../services/ingredientsSlice';
 import LoaderSpinner from '../loader/loader';
 import ProfileOrders from '../../pages/profile-orders/profile-orders'
+import OrderItemDetails from '../order-item-details/order-item-details'
+import { resetOrderToShow } from '../../services/orderSlice'
 
 const App: FC = () => {
   const dispatch = useAppDispatch()
@@ -35,7 +37,9 @@ const App: FC = () => {
   dispatch(getUser()) 
   }, [dispatch])
 
+  const closeModal = () => {
 
+  }
 
   return (
    
@@ -76,12 +80,15 @@ const App: FC = () => {
         <Route path='/ingredients/:id' exact>
           <OrderInfo  />
         </Route>
-
-
         <Route>
           <NotFound404 />
         </Route>
       </Switch> 
+      {pushLocation && (
+        <Route path='/feed/:id'>
+          <OrderItemDetails onClose={closeModal} />
+        </Route>
+      )}
      
     </>
   )

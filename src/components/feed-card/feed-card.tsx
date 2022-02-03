@@ -5,7 +5,11 @@ import { TIngredient, TLocationState, TOrder } from '../../types/types'
 import { useAppDispatch, useAppSelector } from '../../services/hooks'
 import { findData } from '../../utils/findData'
 import {Link, useLocation, useRouteMatch } from 'react-router-dom'
-import { ORDER_STATUS} from '../../utils/utils'
+import calculatePrice from '../../utils/calculatePrice'
+import { ORDER_STATUS } from '../../utils/utils'
+import { formatOrderDate} from '../../utils/formatDate'
+import { useModal } from '../../utils/useModal'
+import { setOrderToShow } from '../../services/orderSlice'
 
 interface IFeedCard {
   item: TOrder;
@@ -42,10 +46,14 @@ const FeedCard: FC<IFeedCard> = ({ item }) => {
   const { url } = useRouteMatch()
   const dispatch = useAppDispatch()
   const location = useLocation<TLocationState>()
+  const { openingModal, closingModal} = useModal();
 
   // собираем данные ингредиентов по их id
   const formattedIngredients = findData(ingredients, ingredientList)
-
+  const handleOpen = () => {
+    dispatch(setOrderToShow(item))
+    openingModal();
+  }
   // 
 
   const color =
@@ -61,7 +69,7 @@ const FeedCard: FC<IFeedCard> = ({ item }) => {
     <Link
       to={{ pathname: `${url}/${number}`, state: { from: location.pathname, pushLocation: location } }}
       className={styles.link}
-      // onClick={handleOpen}
+      onClick={handleOpen}
     >
       <article className={styles.card}>
         <header className={styles.header}>
