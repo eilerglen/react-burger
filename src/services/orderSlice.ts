@@ -115,6 +115,12 @@ export const orderSlice = createSlice({
         clearOrder: (state) => {
             state.order = null
         },
+        setOrderToShow: (state, action) => {
+            state.orderToShow = action.payload
+        },
+        resetOrderToShow: (state) => {
+            state.orderToShow = {}
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -166,14 +172,12 @@ export const orderSlice = createSlice({
             state.hasError = false
           })
           .addCase(getOrderById.fulfilled, (state, action) => {
-            // state.userToShow = action.payload
             state.isLoading = false
             state.hasError = false
           })
           .addCase(getOrderById.rejected, (state) => {
             state.isLoading = false
             state.hasError = true
-            // state.userToShow = {}
           })     
     }
 })
