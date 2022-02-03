@@ -15,7 +15,7 @@ const Card: FC<ICard>= ({ item, onClick }) => {
     const { bun } = useAppSelector((store) => store.cart.sortedCart);
     const { fillers } = useAppSelector((store) => store.cart.sortedCart);
     const location = useLocation()
-
+    
     const [, dragRef] = useDrag({
         type: "ingredients",
         item: { item },
@@ -37,7 +37,6 @@ const Card: FC<ICard>= ({ item, onClick }) => {
               pathname: `/ingredients/${item._id}`,
               state: {from: location.pathname, pushLocation: location}
           }}>
-          
         <article className={cardStyles.item} key={item._id} onClick={() => onClick(item)} ref={dragRef}>
             {count > 0 && <Counter count={count} size={'default'}/>}
             <picture className={cardStyles.picture}>

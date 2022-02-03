@@ -7,6 +7,7 @@ import ForgotPassword from '../../pages/forgot-password/forgot-password'
 import ResetPassword from '../../pages/reset-password/reset-password'
 import IngredientPage from '../../pages/ingredient-page/ingredient-page'
 import FeedPage from '../../pages/feed/feed'
+import OrderInfo from '../../pages/order-info/order-info'
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import {Route, Switch, useLocation, useHistory} from 'react-router-dom'
 import AppHeader from '../app-header/app-header';
@@ -26,8 +27,9 @@ const App: FC = () => {
   const history = useHistory()
   const { isLoading } = useAppSelector(store => store.auth)
   const isPush = history.action === 'PUSH'
-  let pushLocation = isPush && location.state && location.state.pushLocation
 
+  let pushLocation = isPush && location.state && location.state.pushLocation
+ 
   useEffect(() => { 
    dispatch(getIngredients())
   dispatch(getUser()) 
@@ -71,9 +73,10 @@ const App: FC = () => {
         <Route path='/ingredients/:id' exact>
           <IngredientPage />
         </Route>
-        {/* <Route>
-          <NotFound404 />
-        </Route> */}
+        <Route path='/ingredients/:id' exact>
+          <OrderInfo  />
+        </Route>
+
 
         <Route>
           <NotFound404 />

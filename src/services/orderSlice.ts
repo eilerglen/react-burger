@@ -1,10 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TOrder, TAllOrderList, TUser} from '../types/types'
-import {sendOrderApi, getAllOrdersApi, refreshExpiredTokenApi, getUserOrdersApi} from '../services/api'
+import {
+    sendOrderApi, 
+    getAllOrdersApi, 
+    refreshExpiredTokenApi, 
+    getUserOrdersApi,
+    getOrderByIdApi } from '../services/api'
 
 interface IinitialState {
     allOrders: TAllOrderList,
     userOrders: TAllOrderList,
+    orderToShow: {} | TOrder
     order: null | TOrder,
     isLoading: boolean,
     hasError: boolean,
@@ -75,9 +81,28 @@ export const getUserOrders = createAsyncThunk('order/getUserOrders', async()=> {
   }
 })
 
+export const getOrderById = createAsyncThunk('orders/getOrderById', async(id: string) => {
+    try {
+        const response: IApiResponse= await getOrderByIdApi(id)
+        if (response && response.success) {
+          console.log(response)
+          return response
+        }
+        throw new Error(response.message)
+      } catch (error: any) {
+        if (error.message === 'jwt expired') {
+          console.log(error.message)
+          return await refreshExpiredTokenApi(getOrderByIdApi, id)
+        }
+        console.log(`Catched and hadled error: "${error.message}"`)
+        return Promise.reject(error.message)
+      }
+})
+
 export const initialState: IinitialState = {
     allOrders: [],
     userOrders: [],
+    orderToShow: {},
     order: null,
     isLoading: false,
     hasError: false,
@@ -135,7 +160,21 @@ export const orderSlice = createSlice({
             state.isLoading = false
             state.hasError = true
             state.userOrders = []
-          })      
+          }) 
+          .addCase(getOrderById.pending, (state) => {
+            state.isLoading = true
+            state.hasError = false
+          })
+          .addCase(getOrderById.fulfilled, (state, action) => {
+            // state.userToShow = action.payload
+            state.isLoading = false
+            state.hasError = false
+          })
+          .addCase(getOrderById.rejected, (state) => {
+            state.isLoading = false
+            state.hasError = true
+            // state.userToShow = {}
+          })     
     }
 })
 
