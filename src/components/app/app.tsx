@@ -80,7 +80,7 @@ const App: FC = () => {
         <Route path='/ingredients/:id' exact>
           <IngredientPage />
         </Route>
-        <Route path='/ingredients/:id' exact>
+        <Route path='/feed/:id' exact>
           <OrderInfo  />
         </Route>
         <Route>
@@ -89,6 +89,12 @@ const App: FC = () => {
       </Switch> 
       {pushLocation && (
         <Route path='/feed/:id'>
+          <OrderItemDetails onClose={closeModal} />
+        </Route>
+      )}
+
+      {pushLocation && (
+        <Route path='/profile/orders/:id'>
           <OrderItemDetails onClose={closeModal} />
         </Route>
       )}
