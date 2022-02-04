@@ -22,6 +22,7 @@ import LoaderSpinner from '../loader/loader';
 import ProfileOrders from '../../pages/profile-orders/profile-orders'
 import OrderItemDetails from '../order-item-details/order-item-details'
 import { resetOrderToShow } from '../../services/orderSlice'
+import { useModal } from '../../utils/useModal'
 
 const App: FC = () => {
   const dispatch = useAppDispatch()
@@ -29,7 +30,8 @@ const App: FC = () => {
   const history = useHistory()
   const { isLoading } = useAppSelector(store => store.auth)
   const isPush = history.action === 'PUSH'
-
+  const { openingModal, closingModal} = useModal(); 
+  
   let pushLocation = isPush && location.state && location.state.pushLocation
  
   useEffect(() => { 
@@ -38,7 +40,8 @@ const App: FC = () => {
   }, [dispatch])
 
   const closeModal = () => {
-
+    history.goBack()
+    closingModal()
   }
 
   return (

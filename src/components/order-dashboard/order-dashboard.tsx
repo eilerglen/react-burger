@@ -3,7 +3,7 @@ import styles from './order-dashboard.module.css'
 import { useAppSelector } from '../../services/hooks'
 
 export const OrderDashboard: FC =() => {
-  const {orders} = useAppSelector(store => store.feed)
+  const {orders, total, totalToday} = useAppSelector(store => store.feed)
   const  {allOrders} = useAppSelector((state) => state.order)
 
   const readyOrders = allOrders && allOrders.filter(item => item.status === 'done').slice(0, 21);
@@ -32,11 +32,11 @@ export const OrderDashboard: FC =() => {
                 </div>
                 <div className={styles.row}>
                     <header className={styles.row__title}>Выполнено за все время:</header>
-                    {/* <p className={styles.row__content}>{total}</p> */}
+                    <p className={styles.row__content}>{total}</p>
                 </div>
                 <div className={styles.row}>
                     <header className={styles.row__title}>Выполнено за сегодня:</header>
-                    {/* <p className={styles.row__content}>{totalToday}</p> */}
+                    <p className={styles.row__content}>{totalToday}</p>
                 </div>
             </article>
      </section>  

@@ -24,6 +24,9 @@ const ProfileOrders: FC = () => {
   if(!isAuthorized ) {
     console.log('in name', location.state)
     const { from } = location.state || {from: {pathname: '/'}}
+    return (
+      <Redirect to = {from}/>
+    )
 
   }
   return (
