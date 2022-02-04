@@ -23,6 +23,8 @@ import ProfileOrders from '../../pages/profile-orders/profile-orders'
 import OrderItemDetails from '../order-item-details/order-item-details'
 import { resetOrderToShow } from '../../services/orderSlice'
 import { useModal } from '../../utils/useModal'
+import IngredientDetails from '../ingredient-details/ingredient-details'
+import Modal from '../modal/modal'
 
 const App: FC = () => {
   const dispatch = useAppDispatch()
@@ -69,7 +71,7 @@ const App: FC = () => {
           <ProfileOrders />
         </ProtectedRoute>
         <ProtectedRoute path='/profile/orders/:id' exact = {true}>
-          <Profile />
+          <OrderInfo />
         </ProtectedRoute>
         <ProtectedAuthorizedRoute path='/forgot-password' exact = {true}>
           <ForgotPassword />
@@ -87,6 +89,15 @@ const App: FC = () => {
           <NotFound404 />
         </Route>
       </Switch> 
+
+      {pushLocation && (
+        <Route path='/ingredients/:id'>
+            <Modal title = 'Ингредиенты' onClose = {closeModal}>
+             <IngredientDetails />
+            </Modal>
+        </Route>
+      )}
+
       {pushLocation && (
         <Route path='/feed/:id'>
           <OrderItemDetails onClose={closeModal} />

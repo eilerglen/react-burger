@@ -33,13 +33,13 @@ const BurgerIngredients: FC = () => {
     <section className={ingredientsStyles.ingredients}>
       <h1 className={ingredientsStyles.title}>Соберите бургер</h1>
       <Tabs current={current} />
-      <Menu setCurrent = {setCurrent}onClick={handleOpenModal}/>
-      {isOpen && (
+      <Menu setCurrent = {setCurrent} onClick={handleOpenModal}/>
+      {/* {isOpen && (
         <Modal title = 'Ингредиенты' onClose = {handleClose}>
           <IngredientDetails />
         </Modal>
         )
-      }
+      } */}
     </section>
   );
 }

@@ -15,9 +15,9 @@ const OrderDetails: FC<TOrderNumber> = ({ number }) => {
             <span className={orderDetailsStyles.order_number}>
                {number}
             </span>
-            <span className={orderDetailsStyles.subtitle}>{isLoading ? 'загружаем...' : 'идентификатор заказа'}</span>
+            <span className={orderDetailsStyles.subtitle}>Идентификатор заказа</span>
             <span className={orderDetailsStyles.icon}>
-                {isLoading ? <LoaderSpinner /> : <OrderDone />}
+                {isLoading ? <LoaderSpinner type="light"/> : <OrderDone />}
             </span>
             <p className={orderDetailsStyles.text}>Ваш заказ начали готовить</p>
             <p className={`${orderDetailsStyles.text} ${orderDetailsStyles.text_secondary}`}>Дождитесь готовности на орбитальной станции</p>
