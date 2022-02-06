@@ -1,9 +1,8 @@
-import { createAction, PayloadActionCreator } from '@reduxjs/toolkit'
+import { createAction, PayloadActionCreator  } from '@reduxjs/toolkit'
 
 interface IWsConnectActions {
   wsConnectionInit: PayloadActionCreator<string>;
   wsConnectionClose: PayloadActionCreator
-
 }
 
 const wsConnectActions: IWsConnectActions = {
@@ -12,4 +11,3 @@ const wsConnectActions: IWsConnectActions = {
 }
 
 export default wsConnectActions
-

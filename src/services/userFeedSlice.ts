@@ -18,6 +18,10 @@ export const initialState: IinitialState = {
    name: 'userFeed',
    initialState,
    reducers: {
+    wsConnectionSuccess: (state) => {
+      state.wsConnected = true
+      state.hasError = false
+    },
      wsConnectionError:(state, action) => {
        state.wsConnected = false
        state.hasError = action.payload
@@ -39,3 +43,4 @@ export const initialState: IinitialState = {
  })
 
  export default userFeedSlice.reducer
+ export const {wsConnectionSuccess, wsConnectionError, wsConnectionClosed, wsGetMessage } = userFeedSlice.actions

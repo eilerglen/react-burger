@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import styles from './order-info.module.css'
 import { useAppParams, useAppDispatch, useAppSelector } from '../../services/hooks'
-import { ORDER_STATUS } from '../../utils/utils'
+import { ORDER_STATUS } from '../../utils/config'
 import OrderTitle  from '../../components/order-title/order-title'
 import OrderContent  from '../../components/order-content/order-content'
 import OrderFooter from '../../components/order-footer/order-footer'

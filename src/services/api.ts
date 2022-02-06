@@ -1,4 +1,4 @@
-import {BASEURL} from '../utils/utils'
+import {BASEURL} from '../utils/config'
 import {
   getCookie,
   setCookie} from '../utils/cookie'

@@ -86,3 +86,18 @@ export type TOrderStatuses = {
 export type TAllOrderList = 
 | []
 | Array<TOrder>
+
+export type TWSAction = {
+	wsInit: string,
+	wsClose: string,
+	wsSendMessage: string,
+	onOpen: string,
+	onClose: string,
+	onError: string,
+	onMessage: string
+}
+export type TOrderList = {
+  orders: Array<TOrder>;
+  total: number;
+  totalToday: number
+}

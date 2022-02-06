@@ -7,37 +7,43 @@ import FeedCard from '../../components/feed-card/feed-card'
 import ScrollContainer from '../../components/scroll-container/scroll-container'
 import { OrderDashboard } from '../../components/order-dashboard/order-dashboard'
 import { getOrders }  from '../../services/orderSlice'
+import wsActions from '../../services/web-socket/wsActions/index';
+
 
 const FeedPage: FC = () => {
   const dispatch = useAppDispatch()
-  const { orders, wsConnected, hasError } = useAppSelector((state) => state.feed)
-  const  {allOrders} = useAppSelector((state) => state.order)
-  useEffect(() => { 
-   dispatch(getOrders())
-   }, [dispatch])
- 
+  const { orders, wsConnected, hasError } = useAppSelector((state) => state.feed);
 
+  useEffect(() => {
+      dispatch(wsActions.connect.wsConnectionInit('feed'));
+
+      return () => {
+          dispatch(wsActions.connect.wsConnectionClose());
+      };
+  }, [dispatch]);
+  
+  console.log(orders)
   return (
     <>
-      {/* {!hasError && <LoaderSpinner />} */}
-      (
+      {!wsConnected && !hasError && <LoaderSpinner />}
+      { (
         <>
           <section className={styles.wrapper}>
             <section className={styles.order_list}>
               <h1 className={styles.heading}>Лента заказов</h1>
               <ScrollContainer type='list' height='680px'>
-                {allOrders.map((item, index) => (
+                {orders.map((item, index) => (
                   <li className={styles.list_item} key={index}>
                     <FeedCard item={item} />
                   </li>
                 ))}
               </ScrollContainer>
             </section>
+
             <OrderDashboard />
-           
           </section>
         </>
-      )
+      )}
     </>
   )
 }

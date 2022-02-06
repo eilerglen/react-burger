@@ -1,7 +1,7 @@
 import styles from './order-title.module.css'
 import { TOrderStatusCode } from '../../types/types'
 import { FC } from 'react'
-import { ORDER_STATUS } from '../../utils/utils'
+import { ORDER_STATUS } from '../../utils/config'
 
 interface IOrderTitle {
   name: string

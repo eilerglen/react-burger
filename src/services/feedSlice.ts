@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {TOrder} from '../types/types'
+import { TOrder } from '../types/types'
 import { getOrders } from '../services/orderSlice'
 
 interface IinitialState {
@@ -65,5 +65,10 @@ const feedSlice = createSlice({
 })
 
 export default feedSlice.reducer
-export const { wsConnectionSuccess, wsConnectionError, wsConnectionClosed, wsGetMessage } = feedSlice.actions
+export const { 
+  wsConnectionSuccess, 
+  wsConnectionError, 
+  wsConnectionClosed, 
+  wsGetMessage 
+  } = feedSlice.actions
 
