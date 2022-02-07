@@ -7,7 +7,7 @@ import FeedCard from '../../components/feed-card/feed-card'
 import ScrollContainer from '../../components/scroll-container/scroll-container'
 import { OrderDashboard } from '../../components/order-dashboard/order-dashboard'
 import { getOrders }  from '../../services/orderSlice'
-import wsActions from '../../services/web-socket/wsActions/index';
+import {wsActions, wsInit} from '../../services/feedSlice';
 
 
 const FeedPage: FC = () => {
@@ -15,10 +15,9 @@ const FeedPage: FC = () => {
   const { orders, wsConnected, hasError } = useAppSelector((state) => state.feed);
 
   useEffect(() => {
-      dispatch(wsActions.connect.wsConnectionInit('feed'));
-
+    dispatch(wsInit())
       return () => {
-          dispatch(wsActions.connect.wsConnectionClose());
+          dispatch(wsActions.onClose);
       };
   }, [dispatch]);
   

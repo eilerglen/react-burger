@@ -1,46 +1,69 @@
-import { createSlice } from "@reduxjs/toolkit";
-type TinitialOrders = [];
+import { createSlice, createAction } from "@reduxjs/toolkit";
+import { WS_AUTH_INIT,  WS_SEND_AUTH_MESSAGE} from './web-socket/constants/constants'
+import { ISocketActions } from '../services/feedSlice'
+import type {  PayloadAction } from '@reduxjs/toolkit'
+import { TOrder } from '../types/types'
+
 
 interface IinitialState {
-  orders: TinitialOrders,
-  wsConnected: boolean,
+  ordersAuth: Array<TOrder>,
+  wsConnectedAuth: boolean,
   hasError: boolean,
 }
 
+
 export const initialState: IinitialState = {
-  orders: [],
-  wsConnected: false,
+  ordersAuth: [],
+  wsConnectedAuth: false,
   hasError: false,
 
 }
+
+export const wsAuthInit = createAction<void>(WS_AUTH_INIT)
+export const wsSendAuthMessage = createAction<string>( WS_SEND_AUTH_MESSAGE)
 
  const userFeedSlice = createSlice({
    name: 'userFeed',
    initialState,
    reducers: {
-    wsConnectionSuccess: (state) => {
-      state.wsConnected = true
+    wsConnectionSuccessAuth: (state) => {
+      state.wsConnectedAuth = true
       state.hasError = false
     },
-     wsConnectionError:(state, action) => {
-       state.wsConnected = false
-       state.hasError = action.payload
+     wsConnectionErrorAuth:(state) => {
+       state.wsConnectedAuth = false
+       state.hasError = false
      },
 
-     wsConnectionClosed: (state) => {
-      state.wsConnected = false
+     wsConnectionClosedAuth: (state) => {
+      state.wsConnectedAuth = false
     },
-    wsGetMessage: (state, action) => {
-      const { orders, success } = action.payload
-      if (!success) {
+    wsGetMessageAuth: (state, action) => {
+      const { success, orders } = action.payload
+      if(!success) {
         state.hasError = true
         return
       }
       state.hasError = false
-      state.orders = orders
+      state.ordersAuth = orders
     },
   },
  })
 
+
+ 
  export default userFeedSlice.reducer
- export const {wsConnectionSuccess, wsConnectionError, wsConnectionClosed, wsGetMessage } = userFeedSlice.actions
+ export const {
+  wsConnectionSuccessAuth, 
+  wsConnectionErrorAuth, 
+  wsConnectionClosedAuth, 
+  wsGetMessageAuth } = userFeedSlice.actions
+
+ export const wsActionsAuth: ISocketActions = {
+  wsInit: wsAuthInit,
+  wsSendMessage: wsSendAuthMessage,
+  onOpen: wsConnectionSuccessAuth,
+  onClose: wsConnectionErrorAuth,
+  onError: wsConnectionClosedAuth,
+  onMessage: wsGetMessageAuth,
+}
