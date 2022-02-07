@@ -12,7 +12,7 @@ import {wsActions, wsInit} from '../../services/feedSlice';
 
 const FeedPage: FC = () => {
   const dispatch = useAppDispatch()
-  const { orders, wsConnected, hasError } = useAppSelector((state) => state.feed);
+  const { orders, total, totalToday, wsConnected, hasError } = useAppSelector((state) => state.feed);
 
   useEffect(() => {
     dispatch(wsInit())
@@ -22,6 +22,8 @@ const FeedPage: FC = () => {
   }, [dispatch]);
   
   console.log(orders)
+  console.log(total, totalToday)
+  console.log(wsConnected)
   return (
     <>
       {!wsConnected && !hasError && <LoaderSpinner />}

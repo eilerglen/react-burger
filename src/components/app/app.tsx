@@ -37,7 +37,16 @@ const App: FC = () => {
   let pushLocation = isPush && location.state && location.state.pushLocation
 
   const ws = new WebSocket('wss://norma.nomoreparties.space/orders/all')
-  console.log(ws.readyState)
+
+  ws.binaryType = "arraybuffer";
+
+ws.onmessage = (event: MessageEvent) => {
+    if(event.data instanceof ArrayBuffer) {
+        const view = new DataView(event.data);
+        console.log(view.getInt32(0));
+    }
+}
+  
   useEffect(() => { 
    dispatch(getIngredients())
   dispatch(getUser()) 
