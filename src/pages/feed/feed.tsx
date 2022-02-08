@@ -18,7 +18,7 @@ const FeedPage: FC = () => {
 
   useEffect(() => {
     dispatch(wsInit())
-    dispatch(getOrders())
+    // dispatch(getOrders())
       return () => {
           dispatch(wsActions.onClose);
       };

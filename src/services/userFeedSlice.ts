@@ -40,10 +40,10 @@ export const wsSendAuthMessage = createAction<string>( WS_SEND_AUTH_MESSAGE)
     },
     wsGetMessageAuth: (state, action) => {
       const { success, orders } = action.payload
-      if(!success) {
-        state.hasError = true
-        return
-      }
+      // if(!success) {
+      //   state.hasError = true
+      //   return
+      // }
       state.hasError = false
       state.ordersAuth = orders
     },
