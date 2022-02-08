@@ -10,6 +10,7 @@ import { ORDER_STATUS } from '../../utils/config'
 import { formatOrderDate} from '../../utils/formatDate'
 import { useModal } from '../../utils/useModal'
 import { setOrderToShow } from '../../services/orderSlice'
+import Price from '../price/price'
 
 interface IFeedCard {
   item: TOrder;
@@ -62,7 +63,11 @@ const FeedCard: FC<IFeedCard> = ({ item }) => {
       : status === 'cancel'
       ? 'var(--colors-interface-error)'
       : 'inherit'
- 
+    const date = formatOrderDate(createdAt)
+    const price = 
+    formattedIngredients && 
+    ingredients &&
+    calculatePrice(formattedIngredients)
  
   
   return (
@@ -74,7 +79,7 @@ const FeedCard: FC<IFeedCard> = ({ item }) => {
       <article className={styles.card}>
         <header className={styles.header}>
           <span className={styles.id}>#{number}</span>
-          <time className={styles.time}>{}</time>
+          <time className={styles.time}>{date}</time>
         </header>
         <h3 className={styles.title}>{name}</h3>
         <p className={styles.status} style={{ color }}>
@@ -82,7 +87,7 @@ const FeedCard: FC<IFeedCard> = ({ item }) => {
         </p>
         <div className={styles.content}>
           <ul className={styles.ingredients}>{renderIngredientsPreviews(formattedIngredients)}</ul>
-         
+          <Price>{ price }</Price>
         </div>
       </article>
     </Link>

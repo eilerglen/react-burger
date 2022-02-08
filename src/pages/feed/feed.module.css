@@ -17,6 +17,7 @@
 }
 
 .heading {
+  composes: text_type_main-large from global;
   margin: 40px 0 20px 0;
 }
 

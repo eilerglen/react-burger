@@ -15,12 +15,10 @@ const ProfileOrders: FC = () => {
   const {isAuthorized} = useAppSelector(store => store.auth)
   const location = useLocation<TLocationState>();
   const dispatch = useAppDispatch();
-  // const  {userOrders} = useAppSelector((state) => state.order)
   const  { ordersAuth } = useAppSelector((state) => state.userFeed)
 
 
   useEffect(() => { 
-    // dispatch(getUserOrders())
     dispatch(wsAuthInit())
     return () => {
       dispatch(wsActionsAuth.onClose);

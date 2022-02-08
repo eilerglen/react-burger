@@ -23,6 +23,7 @@ const BurgerIngredients: FC = () => {
   const bunRef = useRef<HTMLDivElement>(null)
   const sauceRef = useRef<HTMLDivElement>(null)
   const mainRef = useRef<HTMLDivElement>(null)
+  
 // Крупный показ карточки ингредиента
 
   const handleOpenModal = (item: TIngredient): void => {
