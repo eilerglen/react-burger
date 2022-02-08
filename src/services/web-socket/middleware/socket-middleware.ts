@@ -11,10 +11,10 @@ export const socketMiddleware = (wsUrl: string, wsActions: ISocketActions, auth:
       const { dispatch } = store
       const { type, payload } = action
       const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions
-      const token = auth ? getCookie('token') : null
+      const token= auth ? getCookie('token')?.split(' ')[1] : null
       if (type === wsInit.toString()) {
         socket = token 
-        ? new WebSocket(`${wsUrl}?token=${token.split(' ')[1]}`) 
+        ? new WebSocket(`${wsUrl}?token=${token}`) 
         : new WebSocket(`${wsUrl}`)
       }
       if (socket) {

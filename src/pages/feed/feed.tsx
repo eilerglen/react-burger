@@ -29,11 +29,6 @@ const FeedPage: FC = () => {
   const token = getCookie('token') 
   console.log(token)
 
-  // Вырезал bearer из токена
-  const ws = new WebSocket(`${WS_URL_AUTH}?token=${getCookie('token').split(' ')[1]}`)
-
-  console.log(ws)
-
   console.log(orders)
   console.log(total, totalToday)
   console.log(wsConnected)
