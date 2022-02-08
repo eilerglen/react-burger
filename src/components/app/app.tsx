@@ -36,8 +36,9 @@ const App: FC = () => {
   
   let pushLocation = isPush && location.state && location.state.pushLocation
 
-  const ws = new WebSocket('wss://norma.nomoreparties.space/orders/all')
+  const ws = new WebSocket('wss://norma.nomoreparties.space/api/orders/all')
   console.log(ws.readyState)
+
   useEffect(() => { 
    dispatch(getIngredients())
   dispatch(getUser()) 

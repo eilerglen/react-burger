@@ -8,6 +8,8 @@ import ScrollContainer from '../../components/scroll-container/scroll-container'
 import { OrderDashboard } from '../../components/order-dashboard/order-dashboard'
 import { getOrders }  from '../../services/orderSlice'
 import {wsActions, wsInit} from '../../services/feedSlice';
+import { getCookie } from '../../utils/cookie';
+import { WS_URL_AUTH } from '../../utils/config'
 
 
 const FeedPage: FC = () => {
@@ -21,6 +23,16 @@ const FeedPage: FC = () => {
       };
   }, [dispatch]);
   
+
+ 
+  const token = getCookie('token') 
+  console.log(token)
+
+  // Вырезал bearer из токена
+  const ws = new WebSocket(`${WS_URL_AUTH}?token=${getCookie('token').split(' ')[1]}`)
+  
+  console.log(ws)
+
   console.log(orders)
   return (
     <>

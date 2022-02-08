@@ -8,17 +8,24 @@ import { useEffect } from 'react';
 import LoaderSpinner from '../../components/loader/loader';
 import { TLocationState } from '../../types/types';
 import { getUserOrders }  from '../../services/orderSlice'
+import {wsActionsAuth, wsAuthInit} from '../../services/userFeedSlice';
 
 
 const ProfileOrders: FC = () => {
   const {isAuthorized} = useAppSelector(store => store.auth)
   const location = useLocation<TLocationState>();
   const dispatch = useAppDispatch();
-  const  {userOrders} = useAppSelector((state) => state.order)
-  console.log(userOrders)
+  // const  {userOrders} = useAppSelector((state) => state.order)
+  const  { ordersAuth } = useAppSelector((state) => state.userFeed)
+
 
   useEffect(() => { 
-    dispatch(getUserOrders())
+    // dispatch(getUserOrders())
+    dispatch(wsAuthInit())
+    return () => {
+      dispatch(wsActionsAuth.onClose);
+  };
+
     }, [dispatch])
 
   if(!isAuthorized ) {
@@ -33,10 +40,10 @@ const ProfileOrders: FC = () => {
     <>
       <section className={styles.wrapper}>
           <ProfileNav text='В этом разделе вы можете просмотреть свою историю заказов' />
-          <OrderPreview orders={userOrders} fullscreen />
+          <OrderPreview orders={ ordersAuth } fullscreen />
       </section>
     
     </>
-  )
+  ) 
 } 
 export default ProfileOrders
