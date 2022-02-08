@@ -15,9 +15,10 @@ import { WS_URL_AUTH } from '../../utils/config'
 const FeedPage: FC = () => {
   const dispatch = useAppDispatch()
   const { orders, wsConnected, hasError } = useAppSelector((state) => state.feed);
-
+  
   useEffect(() => {
     dispatch(wsInit())
+    dispatch(getOrders())
       return () => {
           dispatch(wsActions.onClose);
       };
@@ -30,7 +31,7 @@ const FeedPage: FC = () => {
 
   // Вырезал bearer из токена
   const ws = new WebSocket(`${WS_URL_AUTH}?token=${getCookie('token').split(' ')[1]}`)
-  
+
   console.log(ws)
 
   console.log(orders)
