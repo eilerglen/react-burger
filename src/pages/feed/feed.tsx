@@ -14,8 +14,8 @@ import { WS_URL_AUTH } from '../../utils/config'
 
 const FeedPage: FC = () => {
   const dispatch = useAppDispatch()
-  const { orders, wsConnected, hasError } = useAppSelector((state) => state.feed);
-  
+  const { orders, total, totalToday, wsConnected, hasError } = useAppSelector((state) => state.feed);
+
   useEffect(() => {
     dispatch(wsInit())
     dispatch(getOrders())
@@ -35,6 +35,8 @@ const FeedPage: FC = () => {
   console.log(ws)
 
   console.log(orders)
+  console.log(total, totalToday)
+  console.log(wsConnected)
   return (
     <>
       {!wsConnected && !hasError && <LoaderSpinner />}

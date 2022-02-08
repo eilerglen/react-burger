@@ -5,16 +5,16 @@ import { WS_INIT, WS_SEND_MESSAGE } from './web-socket/constants/constants'
 
 interface IinitialState {
   orders: Array<TOrder>,
-  total: number,
-  totalToday: number,
+  total: number | null,
+  totalToday: number | null,
   wsConnected: boolean,
   hasError: boolean,
 }
 
 export const initialState: IinitialState = {
   orders: [],
-  total: 0,
-  totalToday: 0,
+  total: null,
+  totalToday: null,
   wsConnected: false,
   hasError: false,
 }
@@ -40,34 +40,16 @@ const feedSlice = createSlice({
     },
     wsGetMessage: (state, action) => {
       const { orders, total, totalToday, success } = action.payload
-      if (!success) {
-        state.hasError = true
-        return
-      }
+      // if (!success) {
+      //   state.hasError = true
+      //   return
+      // }
       state.orders = orders
       state.total = total
       state.totalToday = totalToday
     },
   },
-  // extraReducers: (builder) => {
-  //   builder
-    
-  //   .addCase(getOrders.pending, (state) => {
-  //     state.wsConnected = true
-  //     state.hasError = false
-  //     })
-  //   .addCase(getOrders.fulfilled, (state, action) => {
-  //     const { orders, total, totalToday, success } = action.payload
-  //     state.orders = orders
-  //     state.total = total
-  //     state.totalToday = totalToday
 
-  //     })
-  //   .addCase(getOrders.rejected, (state) => {
-  //     state.wsConnected = false
-  //     })
-  
-  // }
 })
 
 export default feedSlice.reducer
