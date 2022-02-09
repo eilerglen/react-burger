@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { BASEURL } from "../utils/utils";
+import { BASEURL } from "../utils/config";
 import {TIngredientList} from '../types/types'
 
 interface IIngredientsState {

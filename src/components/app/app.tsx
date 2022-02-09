@@ -6,6 +6,8 @@ import Profile from '../../pages/profile/profile'
 import ForgotPassword from '../../pages/forgot-password/forgot-password'
 import ResetPassword from '../../pages/reset-password/reset-password'
 import IngredientPage from '../../pages/ingredient-page/ingredient-page'
+import FeedPage from '../../pages/feed/feed'
+import OrderInfo from '../../pages/order-info/order-info'
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import {Route, Switch, useLocation, useHistory} from 'react-router-dom'
 import AppHeader from '../app-header/app-header';
@@ -17,6 +19,12 @@ import { TLocationState } from '../../types/types';
 import { getUser } from '../../services/authSlice'
 import { getIngredients } from '../../services/ingredientsSlice';
 import LoaderSpinner from '../loader/loader';
+import ProfileOrders from '../../pages/profile-orders/profile-orders'
+import OrderItemDetails from '../order-item-details/order-item-details'
+import { resetOrderToShow } from '../../services/orderSlice'
+import { useModal } from '../../utils/useModal'
+import IngredientDetails from '../ingredient-details/ingredient-details'
+import Modal from '../modal/modal'
 
 const App: FC = () => {
   const dispatch = useAppDispatch()
@@ -24,14 +32,23 @@ const App: FC = () => {
   const history = useHistory()
   const { isLoading } = useAppSelector(store => store.auth)
   const isPush = history.action === 'PUSH'
+  const { openingModal, closingModal} = useModal(); 
+  
   let pushLocation = isPush && location.state && location.state.pushLocation
+
+  const ws = new WebSocket('wss://norma.nomoreparties.space/api/orders/all')
+  console.log(ws.readyState)
 
   useEffect(() => { 
    dispatch(getIngredients())
   dispatch(getUser()) 
+  
   }, [dispatch])
 
-
+  const closeModal = () => {
+    history.goBack()
+    closingModal()
+  }
 
   return (
    
@@ -41,6 +58,9 @@ const App: FC = () => {
        <Switch location={pushLocation || location}>
         <Route path='/' exact = {true}>
           <HomePage />
+        </Route>
+        <Route path='/feed' exact = {true}>
+          <FeedPage />
         </Route>
         <ProtectedAuthorizedRoute path='/login' exact = {true} >
           <AuthPage />
@@ -52,10 +72,10 @@ const App: FC = () => {
           <Profile />
         </ProtectedRoute>
         <ProtectedRoute path='/profile/orders' exact = {true}>
-          <Profile />
+          <ProfileOrders />
         </ProtectedRoute>
         <ProtectedRoute path='/profile/orders/:id' exact = {true}>
-          <Profile />
+          <OrderInfo />
         </ProtectedRoute>
         <ProtectedAuthorizedRoute path='/forgot-password' exact = {true}>
           <ForgotPassword />
@@ -66,14 +86,33 @@ const App: FC = () => {
         <Route path='/ingredients/:id' exact>
           <IngredientPage />
         </Route>
-        {/* <Route>
-          <NotFound404 />
-        </Route> */}
-
+        <Route path='/feed/:id' exact>
+          <OrderInfo  />
+        </Route>
         <Route>
           <NotFound404 />
         </Route>
       </Switch> 
+
+      {pushLocation && (
+        <Route path='/ingredients/:id'>
+            <Modal title = 'Ингредиенты' onClose = {closeModal}>
+             <IngredientDetails />
+            </Modal>
+        </Route>
+      )}
+
+      {pushLocation && (
+        <Route path='/feed/:id'>
+          <OrderItemDetails onClose={closeModal} />
+        </Route>
+      )}
+
+      {pushLocation && (
+        <Route path='/profile/orders/:id'>
+          <OrderItemDetails onClose={closeModal} />
+        </Route>
+      )}
      
     </>
   )

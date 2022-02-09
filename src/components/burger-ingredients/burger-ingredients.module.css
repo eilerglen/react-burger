@@ -27,3 +27,8 @@
 .scroller::-webkit-scrollbar-thumb {
   background: #8585AD;
 }
+
+.tab_container {
+  display: flex;
+  composes: mb-10 from global;
+}

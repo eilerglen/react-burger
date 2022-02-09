@@ -9,7 +9,8 @@ import { resetCart } from '../../services/cartSlice';
 import { FC } from 'react';
 import { useAppSelector, useAppDispatch } from '../../services/hooks';
 import { useHistory } from 'react-router-dom'
-
+import { TOrder } from '../../types/types';
+import LoaderSpinner from '../loader/loader';
 
 const Order: FC = () => {
     const { isAuthorized } = useAppSelector((store) => store.auth)
@@ -17,8 +18,9 @@ const Order: FC = () => {
     const { bun ,fillers } = useAppSelector(store => store.cart.sortedCart);
     const history = useHistory()
     const dispatch = useAppDispatch();
-    const { openingModal, closingModal} = useModal();
-    const orderNumber = order && order.order && order.order.number
+    const { isOpen, openingModal, closingModal} = useModal();
+    const orderNumber = order as TOrder && (order as TOrder).number
+
     //Вычисляем массив ингредиентов в заказе и мемоизируем 
 
     const idArray = useMemo(()=> {
@@ -64,13 +66,12 @@ const Order: FC = () => {
                 {countTotal}&nbsp;<CurrencyIcon type="primary" />
             </span>
             {isDisabled && <Button type = "primary" size = 'large' onClick={handleOpenModal}> Оформить заказ</Button>}
-            { orderNumber && 
-                (
+            
+                {isOpen &&
                     <Modal title = "Детали заказа " onClose={handleCloseModal}>
                         <OrderDetails number = {orderNumber}/>
                     </Modal>
-                )
-            }
+                }
         </div>
     )
 }

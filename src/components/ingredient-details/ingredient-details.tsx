@@ -17,7 +17,7 @@ const IngredientDetails = () => {
     return (
         <>
             {!isLoading && !hasError && ingredients.length !== 0 ? (
-                        <div className={detailsModalStyles.detail}>
+                    <div className={detailsModalStyles.detail}>
                         <picture className={detailsModalStyles.picture}>
                             <source media="(max-width: 768px)" srcSet={activeIngredient?.image_mobile} />
                             <source media="(min-width: 1024px)" srcSet={activeIngredient?.image_large} />

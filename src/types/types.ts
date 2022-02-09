@@ -31,14 +31,15 @@ export type TFiller = {
 
 // **тип заказа**
 export type TOrder = {
-  success: boolean;
   ingredients: Array<string>;
-  order: {
-    number: number
-  }
+  number: number;
   _id: string;
+  owner: TUser;
+  status: TOrderStatusCode;
+  name: string;
+  createdAt: Date;
+  price: number;
 }
-
 
 export type TConstructorIngredient = TIngredient & {
   constructorId: string
@@ -74,3 +75,29 @@ export type TProtectedHOC = {
 }
 
 export type TUser = { email?: string; name?: string; password?: string, token?: string };
+
+export type TOrderStatus = 'Выполнен' | 'Готовится'|'Создан' |'Отменен'
+export type TOrderStatusCode = 'done' | 'pending'|'created' |'cancel'
+
+export type TOrderStatuses = {
+  [k in TOrderStatusCode]: TOrderStatus
+}
+
+export type TAllOrderList = 
+| []
+| Array<TOrder>
+
+export type TWSAction = {
+	wsInit: string,
+	wsClose: string,
+	wsSendMessage: string,
+	onOpen: string,
+	onClose: string,
+	onError: string,
+	onMessage: string
+}
+export type TOrderList = {
+  orders: Array<TOrder>;
+  total: number;
+  totalToday: number
+}
